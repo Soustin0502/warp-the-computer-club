@@ -24,9 +24,13 @@ const HeroSection = () => {
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-7xl font-orbitron font-bold mb-4">
-            <span className="text-cyber glitch" data-text="WarP">WarP</span>
-          </h1>
+          <div className="mb-4">
+            <img 
+              src="/lovable-uploads/0dfb5592-8b0c-4160-a24d-36d86593dd3a.png" 
+              alt="WarP Logo" 
+              className="h-24 md:h-32 mx-auto logo-glitch"
+            />
+          </div>
           
           <h2 className="text-xl md:text-3xl font-orbitron font-light mb-6 text-muted-foreground">
             The Computer Club
