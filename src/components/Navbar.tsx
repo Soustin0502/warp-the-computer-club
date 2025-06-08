@@ -19,12 +19,11 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-orbitron font-bold text-cyber glitch" data-text="WarP">
-              WarP
-            </div>
-            <div className="text-sm text-muted-foreground hidden md:block">
-              // The Computer Club
-            </div>
+            <img 
+              src="/lovable-uploads/a863f9a2-30c0-4671-949f-09cc47b76467.png" 
+              alt="The Computer Club" 
+              className="h-8 md:h-10"
+            />
           </Link>
 
           {/* Desktop Navigation */}

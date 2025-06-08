@@ -8,39 +8,40 @@
 @layer base {
   :root {
     --background: 8 15% 5%;
-    --foreground: 120 100% 85%;
+    --foreground: 300 100% 85%;
 
     --card: 8 20% 8%;
-    --card-foreground: 120 100% 85%;
+    --card-foreground: 300 100% 85%;
 
     --popover: 8 20% 8%;
-    --popover-foreground: 120 100% 85%;
+    --popover-foreground: 300 100% 85%;
 
-    --primary: 120 100% 50%;
+    --primary: 315 100% 60%;
     --primary-foreground: 8 15% 5%;
 
-    --secondary: 193 100% 50%;
+    --secondary: 195 100% 60%;
     --secondary-foreground: 8 15% 5%;
 
     --muted: 8 20% 15%;
-    --muted-foreground: 120 50% 60%;
+    --muted-foreground: 300 50% 60%;
 
-    --accent: 32 100% 50%;
+    --accent: 285 100% 70%;
     --accent-foreground: 8 15% 5%;
 
     --destructive: 0 84% 50%;
     --destructive-foreground: 8 15% 5%;
 
-    --border: 120 30% 20%;
-    --input: 120 30% 20%;
-    --ring: 120 100% 50%;
+    --border: 315 30% 20%;
+    --input: 315 30% 20%;
+    --ring: 315 100% 60%;
 
     --radius: 0.5rem;
 
-    --cyber-green: 120 100% 50%;
-    --cyber-blue: 193 100% 50%;
-    --cyber-orange: 32 100% 50%;
-    --cyber-red: 0 84% 50%;
+    --cyber-green: 165 100% 50%;
+    --cyber-blue: 195 100% 60%;
+    --cyber-pink: 315 100% 60%;
+    --cyber-purple: 285 100% 70%;
+    --cyber-red: 0 84% 60%;
   }
 }
 
@@ -52,8 +53,9 @@
   body {
     @apply bg-background text-foreground font-mono;
     background-image: 
-      radial-gradient(circle at 25% 25%, hsl(var(--cyber-green) / 0.1) 0%, transparent 25%),
-      radial-gradient(circle at 75% 75%, hsl(var(--cyber-blue) / 0.1) 0%, transparent 25%);
+      radial-gradient(circle at 25% 25%, hsl(var(--cyber-pink) / 0.1) 0%, transparent 25%),
+      radial-gradient(circle at 75% 75%, hsl(var(--cyber-blue) / 0.1) 0%, transparent 25%),
+      radial-gradient(circle at 50% 50%, hsl(var(--cyber-purple) / 0.05) 0%, transparent 50%);
   }
 }
 
@@ -72,6 +74,10 @@
 
   .glow-blue {
     box-shadow: 0 0 20px hsl(var(--cyber-blue) / 0.5);
+  }
+
+  .glow-pink {
+    box-shadow: 0 0 20px hsl(var(--cyber-pink) / 0.5);
   }
 
   .cyber-border {

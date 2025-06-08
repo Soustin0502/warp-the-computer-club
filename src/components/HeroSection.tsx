@@ -9,8 +9,8 @@ const HeroSection = () => {
       <div className="absolute inset-0 opacity-20">
         <div className="absolute inset-0" style={{
           backgroundImage: `
-            linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px)
+            linear-gradient(rgba(255, 20, 147, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 20, 147, 0.1) 1px, transparent 1px)
           `,
           backgroundSize: '50px 50px'
         }} />
@@ -44,7 +44,7 @@ const HeroSection = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira glow-green">
+            <Button className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira glow-pink">
               Join the Revolution
             </Button>
             <Button variant="outline" className="border-secondary text-secondary hover:bg-secondary/10 font-fira">
