@@ -1,11 +1,66 @@
 
+import { useState } from 'react';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      // Create mailto link with form data
+      const mailtoLink = `mailto:warp.dpsmr@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
+        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+      )}`;
+      
+      window.location.href = mailtoLink;
+      
+      toast({
+        title: "Email client opened",
+        description: "Your default email client should open with the message pre-filled.",
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to open email client. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -17,7 +72,7 @@ const Contact = () => {
             </h1>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
             <p className="text-lg font-fira text-muted-foreground max-w-2xl mx-auto">
-              Ready to join the digital revolution? Get in touch with us.
+              Ready to connect with the digital revolution? Get in touch with us.
             </p>
           </div>
 
@@ -29,38 +84,61 @@ const Contact = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div>
-                  <label className="block text-sm font-fira text-muted-foreground mb-2">Name</label>
-                  <Input 
-                    placeholder="Enter your name" 
-                    className="bg-background/50 border-primary/30 focus:border-primary font-fira"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-fira text-muted-foreground mb-2">Email</label>
-                  <Input 
-                    type="email" 
-                    placeholder="Enter your email" 
-                    className="bg-background/50 border-primary/30 focus:border-primary font-fira"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-fira text-muted-foreground mb-2">Subject</label>
-                  <Input 
-                    placeholder="Message subject" 
-                    className="bg-background/50 border-primary/30 focus:border-primary font-fira"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-fira text-muted-foreground mb-2">Message</label>
-                  <Textarea 
-                    placeholder="Your message..." 
-                    className="bg-background/50 border-primary/30 focus:border-primary font-fira min-h-[120px]"
-                  />
-                </div>
-                <Button className="w-full bg-primary hover:bg-primary/80 text-primary-foreground font-fira glow-green">
-                  Send Message
-                </Button>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-fira text-muted-foreground mb-2">Name</label>
+                    <Input 
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Enter your name" 
+                      className="bg-background/50 border-primary/30 focus:border-primary font-fira"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-fira text-muted-foreground mb-2">Email</label>
+                    <Input 
+                      name="email"
+                      type="email" 
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="Enter your email" 
+                      className="bg-background/50 border-primary/30 focus:border-primary font-fira"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-fira text-muted-foreground mb-2">Subject</label>
+                    <Input 
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      placeholder="Message subject" 
+                      className="bg-background/50 border-primary/30 focus:border-primary font-fira"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-fira text-muted-foreground mb-2">Message</label>
+                    <Textarea 
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      placeholder="Your message..." 
+                      className="bg-background/50 border-primary/30 focus:border-primary font-fira min-h-[120px]"
+                      required
+                    />
+                  </div>
+                  <Button 
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full bg-primary hover:bg-primary/80 text-primary-foreground font-fira"
+                    style={{ boxShadow: '0 0 20px hsl(320 100% 65% / 0.4)' }}
+                  >
+                    {isLoading ? 'Sending...' : 'Send Message'}
+                  </Button>
+                </form>
               </CardContent>
             </Card>
 
@@ -77,7 +155,7 @@ const Contact = () => {
                     <div className="text-muted-foreground text-sm space-y-1">
                       <div>Name: WarP Computer Club</div>
                       <div>Founded: 2020</div>
-                      <div>Members: 50+</div>
+                      <div>Members: 75+</div>
                       <div>Events: 2 Annual</div>
                       <div>Status: ✓ Active</div>
                     </div>
@@ -95,7 +173,7 @@ const Contact = () => {
                   <div className="space-y-3 font-fira text-sm">
                     <div>
                       <div className="text-muted-foreground uppercase tracking-wider mb-1">Email</div>
-                      <div className="text-foreground">warp.computerclub@school.edu</div>
+                      <div className="text-foreground">warp.dpsmr@gmail.com</div>
                     </div>
                     <div>
                       <div className="text-muted-foreground uppercase tracking-wider mb-1">Meeting Times</div>
@@ -108,27 +186,11 @@ const Contact = () => {
                   </div>
                 </CardContent>
               </Card>
-
-              <Card className="bg-card/50 cyber-border">
-                <CardHeader>
-                  <CardTitle className="font-orbitron text-xl text-primary">
-                    Join Us
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="font-fira text-foreground/80 text-sm leading-relaxed mb-4">
-                    Interested in joining WarP? We welcome students passionate about technology, 
-                    programming, and innovation. No prior experience required - just bring your curiosity!
-                  </p>
-                  <Button variant="outline" className="border-primary text-primary hover:bg-primary/10 font-fira">
-                    Membership Form
-                  </Button>
-                </CardContent>
-              </Card>
             </div>
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

@@ -3,6 +3,13 @@ import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
 
 const HeroSection = () => {
+  const scrollToNextSection = () => {
+    const aboutSection = document.getElementById('about-school');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background Grid */}
@@ -44,18 +51,25 @@ const HeroSection = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira glow-pink">
-              Join the Revolution
+            <Button 
+              asChild
+              className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira glow-pink"
+            >
+              <a href="/events">Explore Events</a>
             </Button>
             <Button variant="outline" className="border-secondary text-secondary hover:bg-secondary/10 font-fira">
-              Explore Events
+              Learn More
             </Button>
           </div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <button 
+          onClick={scrollToNextSection}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer bg-transparent border-none"
+          aria-label="Scroll to next section"
+        >
           <ChevronDown className="text-primary" size={24} />
-        </div>
+        </button>
       </div>
     </section>
   );

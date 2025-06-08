@@ -1,0 +1,60 @@
+
+import { Link } from 'react-router-dom';
+
+const Footer = () => {
+  return (
+    <footer className="bg-card/30 border-t border-primary/20 py-12">
+      <div className="container mx-auto px-4">
+        <div className="grid md:grid-cols-3 gap-8">
+          <div>
+            <div className="flex items-center space-x-2 mb-4">
+              <img 
+                src="/lovable-uploads/a863f9a2-30c0-4671-949f-09cc47b76467.png" 
+                alt="The Computer Club" 
+                className="h-8"
+              />
+            </div>
+            <p className="font-fira text-muted-foreground text-sm leading-relaxed">
+              WarP Computer Club - Empowering the next generation of digital innovators at Delhi Public School Mathura Road.
+            </p>
+          </div>
+          
+          <div>
+            <h3 className="font-orbitron font-semibold text-primary mb-4">Quick Links</h3>
+            <div className="space-y-2">
+              <Link to="/" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
+                Home
+              </Link>
+              <Link to="/members" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
+                Members
+              </Link>
+              <Link to="/events" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
+                Events
+              </Link>
+              <Link to="/contact" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
+                Contact
+              </Link>
+            </div>
+          </div>
+          
+          <div>
+            <h3 className="font-orbitron font-semibold text-primary mb-4">Contact Us</h3>
+            <div className="space-y-2 font-fira text-sm text-muted-foreground">
+              <div>Email: warp.dpsmr@gmail.com</div>
+              <div>Meeting: Tue & Thu, 3:30 PM</div>
+              <div>Location: Computer Lab, Block C</div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="border-t border-primary/20 mt-8 pt-8 text-center">
+          <p className="font-fira text-sm text-muted-foreground">
+            © 2024 WarP Computer Club. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

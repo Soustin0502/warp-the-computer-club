@@ -1,6 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const EventsSection = () => {
   const events = [
@@ -82,6 +83,7 @@ const EventsSection = () => {
                 </div>
 
                 <Button 
+                  asChild
                   variant="outline" 
                   className={`w-full font-fira ${
                     event.color === 'primary' 
@@ -89,7 +91,7 @@ const EventsSection = () => {
                       : 'border-secondary text-secondary hover:bg-secondary/10'
                   }`}
                 >
-                  Learn More
+                  <Link to="/events">Learn More</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -100,8 +102,8 @@ const EventsSection = () => {
           <div className="terminal-text bg-background/50 border border-accent/30 rounded-lg p-4 max-w-md mx-auto">
             <div className="text-accent mb-1">$ events --schedule</div>
             <div className="text-muted-foreground text-sm">
-              WarP Intra '25: February 2025<br/>
-              WarP Inter '25: April 2025
+              WarP Intra '25: August 02, 2025<br/>
+              WarP Inter '25: T.B.D.
             </div>
           </div>
         </div>

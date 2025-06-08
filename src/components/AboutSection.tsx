@@ -40,7 +40,7 @@ const AboutSection = () => {
           <div className="space-y-4">
             <Card className="bg-card/50 cyber-border hover:glow-green transition-all duration-300">
               <CardContent className="p-6">
-                <div className="text-3xl font-orbitron font-bold text-primary mb-2">50+</div>
+                <div className="text-3xl font-orbitron font-bold text-primary mb-2">75+</div>
                 <div className="text-sm font-fira text-muted-foreground uppercase tracking-wider">Active Members</div>
               </CardContent>
             </Card>

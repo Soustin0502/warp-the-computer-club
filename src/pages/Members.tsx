@@ -1,15 +1,19 @@
 
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const Members = () => {
   const members = [
-    { name: "Alex Chen", role: "President", expertise: "Full-Stack Development" },
-    { name: "Sarah Kim", role: "Vice President", expertise: "AI/ML Engineering" },
-    { name: "Marcus Johnson", role: "Secretary", expertise: "Cybersecurity" },
-    { name: "Priya Patel", role: "Treasurer", expertise: "Data Science" },
-    { name: "David Rodriguez", role: "Event Coordinator", expertise: "Game Development" },
-    { name: "Emily Zhang", role: "Tech Lead", expertise: "Cloud Computing" },
+    { name: "Alex Chen", role: "President", expertise: "Full-Stack Development", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" },
+    { name: "Sarah Kim", role: "President", expertise: "AI/ML Engineering", image: "https://images.unsplash.com/photo-1494790108755-2616b612b788?w=150&h=150&fit=crop&crop=face" },
+    { name: "Marcus Johnson", role: "Vice President", expertise: "Cybersecurity", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" },
+    { name: "Priya Patel", role: "Vice President", expertise: "Data Science", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" },
+    { name: "David Rodriguez", role: "Executive", expertise: "Game Development", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face" },
+    { name: "Emily Zhang", role: "Executive", expertise: "Cloud Computing", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face" },
+    { name: "Ryan Thompson", role: "Executive", expertise: "Mobile Development", image: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face" },
+    { name: "Lily Chen", role: "Executive", expertise: "UI/UX Design", image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face" },
   ];
 
   return (
@@ -27,15 +31,23 @@ const Members = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {members.map((member, index) => (
               <Card key={index} className="bg-card/50 cyber-border hover:glow-green transition-all duration-300">
-                <CardHeader>
-                  <CardTitle className="font-orbitron text-primary">{member.name}</CardTitle>
+                <CardHeader className="text-center">
+                  <div className="flex justify-center mb-4">
+                    <Avatar className="w-20 h-20">
+                      <AvatarImage src={member.image} alt={member.name} />
+                      <AvatarFallback className="text-lg font-orbitron">
+                        {member.name.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <CardTitle className="font-orbitron text-primary text-lg">{member.name}</CardTitle>
                   <div className="text-secondary font-fira text-sm uppercase tracking-wider">{member.role}</div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-muted-foreground font-fira text-sm">
+                  <div className="text-muted-foreground font-fira text-sm text-center">
                     Specialization: {member.expertise}
                   </div>
                 </CardContent>
@@ -47,14 +59,14 @@ const Members = () => {
             <div className="terminal-text bg-background/50 border border-primary/30 rounded-lg p-6 max-w-md mx-auto">
               <div className="text-primary mb-2">$ members --count</div>
               <div className="text-muted-foreground">
-                Total Active Members: 50+<br/>
-                Core Team: 6<br/>
-                Status: ✓ Recruiting New Talent
+                Total Active Members: 75+<br/>
+                Core Team: 8
               </div>
             </div>
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
@@ -7,7 +8,7 @@ const Events = () => {
   const events = [
     {
       title: "WarP Intra '25",
-      date: "February 15-16, 2025",
+      date: "August 02, 2025",
       type: "Intra School Competition",
       description: "Our premier intra-school technology competition featuring multiple tracks for students to showcase their skills.",
       tracks: [
@@ -18,11 +19,13 @@ const Events = () => {
         "Mobile App Development",
         "Tech Quiz & Debugging Challenge"
       ],
-      status: "Registration Open"
+      status: "Registration Open",
+      registerLink: "https://forms.google.com/dummy-registration-form",
+      brochureLink: "https://drive.google.com/dummy-brochure-link"
     },
     {
       title: "WarP Inter '25",
-      date: "April 8-10, 2025",
+      date: "T.B.D.",
       type: "Inter School Championship",
       description: "The ultimate inter-school technology championship bringing together the brightest minds from across the region.",
       tracks: [
@@ -33,7 +36,9 @@ const Events = () => {
         "Networking & Career Fair",
         "Awards & Recognition Ceremony"
       ],
-      status: "Coming Soon"
+      status: "Coming Soon",
+      registerLink: "https://forms.google.com/dummy-registration-form-2",
+      brochureLink: "https://drive.google.com/dummy-brochure-link-2"
     }
   ];
 
@@ -100,13 +105,22 @@ const Events = () => {
 
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Button 
+                      asChild
                       className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira"
                       disabled={event.status === 'Coming Soon'}
                     >
-                      {event.status === 'Registration Open' ? 'Register Now' : 'Coming Soon'}
+                      <a href={event.registerLink} target="_blank" rel="noopener noreferrer">
+                        {event.status === 'Registration Open' ? 'Register Now' : 'Coming Soon'}
+                      </a>
                     </Button>
-                    <Button variant="outline" className="border-secondary text-secondary hover:bg-secondary/10 font-fira">
-                      Learn More
+                    <Button 
+                      asChild
+                      variant="outline" 
+                      className="border-secondary text-secondary hover:bg-secondary/10 font-fira"
+                    >
+                      <a href={event.brochureLink} target="_blank" rel="noopener noreferrer">
+                        Learn More
+                      </a>
                     </Button>
                   </div>
                 </CardContent>
@@ -119,7 +133,6 @@ const Events = () => {
               <div className="text-accent mb-2">$ events --upcoming</div>
               <div className="text-muted-foreground text-sm">
                 Next Event: WarP Intra '25<br/>
-                Days Remaining: 45<br/>
                 Registration Status: OPEN<br/>
                 Expected Participants: 200+
               </div>
@@ -127,6 +140,7 @@ const Events = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };
