@@ -6,8 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Contact = () => {
+  const [titleRef, titleVisible] = useScrollAnimation();
+  const [formRef, formVisible] = useScrollAnimation();
+  const [infoRef, infoVisible] = useScrollAnimation();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,59 +30,71 @@ const Contact = () => {
     }));
   };
 
+  const createCyberStyledEmail = (data: typeof formData) => {
+    return `
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                          WarP COMPUTER CLUB                                 ║
+║                      DIGITAL COMMUNICATION PROTOCOL                         ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+> SYSTEM INFILTRATION SUCCESSFUL
+> ESTABLISHING SECURE CONNECTION...
+> CONNECTION ESTABLISHED
+
+┌─ SENDER IDENTIFICATION ─────────────────────────────────────────────────────┐
+│ Name: ${data.name}
+│ Email: ${data.email}
+│ Timestamp: ${new Date().toISOString()}
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─ MESSAGE HEADER ────────────────────────────────────────────────────────────┐
+│ Subject: ${data.subject}
+│ Priority: HIGH
+│ Encryption: CYBER-GRADE
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─ MESSAGE PAYLOAD ───────────────────────────────────────────────────────────┐
+${data.message}
+└─────────────────────────────────────────────────────────────────────────────┘
+
+> MESSAGE TRANSMISSION COMPLETE
+> AWAITING RESPONSE FROM WarP COMMAND CENTER...
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║ This message was sent via the WarP Computer Club Contact System             ║
+║ Architecting the digital future through innovation and technology           ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+    `.trim();
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      // Send email directly using Gmail API or similar service
-      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          service_id: 'gmail',
-          template_id: 'template_contact',
-          user_id: 'your_user_id',
-          template_params: {
-            from_name: formData.name,
-            from_email: formData.email,
-            subject: formData.subject,
-            message: formData.message,
-            to_email: 'warp.dpsmr@gmail.com'
-          }
-        })
-      });
-
-      if (response.ok) {
+      const cyberMessage = createCyberStyledEmail(formData);
+      
+      // Create Gmail compose URL with cyber-styled message
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=warp.dpsmr@gmail.com&su=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(cyberMessage)}`;
+      
+      // Try to open Gmail in a new tab
+      const newWindow = window.open(gmailUrl, '_blank');
+      
+      if (newWindow) {
         toast({
-          title: "Message sent successfully!",
-          description: "We'll get back to you soon.",
-        });
-
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
+          title: "Gmail opened successfully!",
+          description: "Your message has been pre-filled in Gmail. Please send it from there.",
         });
       } else {
-        throw new Error('Failed to send message');
+        // Fallback to mailto if popup is blocked
+        const mailtoLink = `mailto:warp.dpsmr@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(cyberMessage)}`;
+        window.location.href = mailtoLink;
+        
+        toast({
+          title: "Email client opened",
+          description: "Your default email client should open with the cyber-styled message.",
+        });
       }
-    } catch (error) {
-      // Fallback to mailto if direct sending fails
-      const mailtoLink = `mailto:warp.dpsmr@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-      )}`;
-      
-      window.location.href = mailtoLink;
-      
-      toast({
-        title: "Email client opened",
-        description: "Your default email client should open with the message pre-filled.",
-      });
 
       // Reset form
       setFormData({
@@ -85,6 +102,12 @@ const Contact = () => {
         email: '',
         subject: '',
         message: ''
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to open email client. Please try again.",
+        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
@@ -96,7 +119,10 @@ const Contact = () => {
       <Navbar />
       <main className="pt-24 pb-12">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div 
+            ref={titleRef}
+            className={`text-center mb-16 scroll-fade-in ${titleVisible ? 'animate' : ''}`}
+          >
             <h1 className="text-3xl md:text-5xl font-orbitron font-bold mb-4">
               <span className="text-cyber">Contact Us</span>
             </h1>
@@ -107,7 +133,10 @@ const Contact = () => {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            <Card className="bg-card/50 cyber-border">
+            <Card 
+              ref={formRef}
+              className={`bg-card/50 cyber-border scroll-slide-left ${formVisible ? 'animate' : ''}`}
+            >
               <CardHeader>
                 <CardTitle className="font-orbitron text-2xl text-primary">
                   Send Message
@@ -166,13 +195,16 @@ const Contact = () => {
                     className="w-full bg-primary hover:bg-primary/80 text-primary-foreground font-fira"
                     style={{ boxShadow: '0 0 20px hsl(320 100% 65% / 0.4)' }}
                   >
-                    {isLoading ? 'Sending...' : 'Send Message'}
+                    {isLoading ? 'Opening Gmail...' : 'Send Message'}
                   </Button>
                 </form>
               </CardContent>
             </Card>
 
-            <div className="space-y-6">
+            <div 
+              ref={infoRef}
+              className={`space-y-6 scroll-slide-right ${infoVisible ? 'animate' : ''}`}
+            >
               <Card className="bg-card/50 cyber-border">
                 <CardHeader>
                   <CardTitle className="font-orbitron text-xl text-secondary">

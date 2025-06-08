@@ -1,9 +1,13 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const EventsSection = () => {
+  const [titleRef, titleVisible] = useScrollAnimation();
+  const [eventsRef, eventsVisible] = useScrollAnimation();
+  const [terminalRef, terminalVisible] = useScrollAnimation();
+
   const events = [
     {
       title: "WarP Intra '25",
@@ -34,7 +38,10 @@ const EventsSection = () => {
   return (
     <section className="py-20 bg-card/20">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div 
+          ref={titleRef}
+          className={`text-center mb-16 scroll-fade-in ${titleVisible ? 'animate' : ''}`}
+        >
           <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4">
             <span className="text-cyber">Our Events</span>
           </h2>
@@ -44,7 +51,10 @@ const EventsSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div 
+          ref={eventsRef}
+          className={`grid md:grid-cols-2 gap-8 max-w-6xl mx-auto stagger-children ${eventsVisible ? 'animate' : ''}`}
+        >
           {events.map((event, index) => (
             <Card key={index} className={`bg-card/50 cyber-border hover:glow-${event.color === 'primary' ? 'green' : 'blue'} transition-all duration-300 group`}>
               <CardHeader>
@@ -98,7 +108,10 @@ const EventsSection = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div 
+          ref={terminalRef}
+          className={`text-center mt-12 scroll-fade-in ${terminalVisible ? 'animate' : ''}`}
+        >
           <div className="terminal-text bg-background/50 border border-accent/30 rounded-lg p-4 max-w-md mx-auto">
             <div className="text-accent mb-1">$ events --schedule</div>
             <div className="text-muted-foreground text-sm">

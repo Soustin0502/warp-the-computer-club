@@ -1,19 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
-import { useEffect, useState } from 'react';
 
 const HeroSection = () => {
-  const [showDecrypt, setShowDecrypt] = useState(false);
-
-  useEffect(() => {
-    // Trigger decrypt animation on component mount
-    const timer = setTimeout(() => {
-      setShowDecrypt(true);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const scrollToNextSection = () => {
     const aboutSection = document.getElementById('about-us');
     if (aboutSection) {
@@ -22,7 +10,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden hero-fade-in">
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute inset-0" style={{
@@ -50,7 +38,7 @@ const HeroSection = () => {
             />
           </div>
           
-          <h2 className={`text-xl md:text-3xl font-light mb-6 text-muted-foreground relative ${showDecrypt ? 'decrypt-text' : ''}`} data-text="The Computer Club">
+          <h2 className="text-xl md:text-3xl font-orbitron font-light mb-6 text-muted-foreground">
             The Computer Club
           </h2>
           

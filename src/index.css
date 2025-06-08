@@ -150,94 +150,85 @@
     opacity: 0.6;
   }
 
-  .decrypt-text {
-    font-family: 'Courier Prime', 'Courier New', monospace;
-    font-weight: 700;
-    position: relative;
-    overflow: hidden;
+  /* Scroll animations */
+  .scroll-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
   }
 
-  .decrypt-text::before {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: hsl(var(--background));
-    color: hsl(var(--cyber-green));
-    animation: decrypt 3s ease-in-out forwards;
-    z-index: 1;
+  .scroll-fade-in.animate {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  .decrypt-text::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent 0%, hsl(var(--cyber-green)) 50%, transparent 100%);
-    animation: scan 3s ease-in-out forwards;
-    z-index: 2;
+  .scroll-slide-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .scroll-slide-left.animate {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .scroll-slide-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .scroll-slide-right.animate {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .scroll-scale-up {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .scroll-scale-up.animate {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Hero fade in animation */
+  .hero-fade-in {
+    opacity: 0;
+    animation: heroFadeIn 1.5s ease-out forwards;
+  }
+
+  /* Staggered animations for children */
+  .stagger-children > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .stagger-children.animate > *:nth-child(1) { transition-delay: 0.1s; }
+  .stagger-children.animate > *:nth-child(2) { transition-delay: 0.2s; }
+  .stagger-children.animate > *:nth-child(3) { transition-delay: 0.3s; }
+  .stagger-children.animate > *:nth-child(4) { transition-delay: 0.4s; }
+  .stagger-children.animate > *:nth-child(5) { transition-delay: 0.5s; }
+  .stagger-children.animate > *:nth-child(6) { transition-delay: 0.6s; }
+
+  .stagger-children.animate > * {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@keyframes decrypt {
-  0% {
-    content: "████ ████████ ████";
-    opacity: 1;
-  }
-  10% {
-    content: "T██ ████████ ████";
-  }
-  20% {
-    content: "Th█ ████████ ████";
-  }
-  30% {
-    content: "The ████████ ████";
-  }
-  40% {
-    content: "The C███████ ████";
-  }
-  50% {
-    content: "The Co██████ ████";
-  }
-  60% {
-    content: "The Com█████ ████";
-  }
-  70% {
-    content: "The Comp████ ████";
-  }
-  80% {
-    content: "The Compu███ ████";
-  }
-  85% {
-    content: "The Comput██ ████";
-  }
-  90% {
-    content: "The Computer ████";
-  }
-  95% {
-    content: "The Computer C███";
-  }
-  98% {
-    content: "The Computer Cl██";
-  }
-  100% {
-    content: "The Computer Club";
+@keyframes heroFadeIn {
+  from {
     opacity: 0;
+    transform: translateY(20px);
   }
-}
-
-@keyframes scan {
-  0%, 20% {
-    transform: translateX(-100%);
+  to {
     opacity: 1;
-  }
-  100% {
-    transform: translateX(100%);
-    opacity: 0;
+    transform: translateY(0);
   }
 }
 

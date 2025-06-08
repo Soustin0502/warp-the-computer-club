@@ -1,10 +1,18 @@
 import { Card, CardContent } from '@/components/ui/card';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const AboutSection = () => {
+  const [titleRef, titleVisible] = useScrollAnimation();
+  const [contentRef, contentVisible] = useScrollAnimation();
+  const [statsRef, statsVisible] = useScrollAnimation();
+
   return (
     <section id="about-us" className="py-20 bg-card/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div 
+          ref={titleRef}
+          className={`text-center mb-16 scroll-fade-in ${titleVisible ? 'animate' : ''}`}
+        >
           <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4">
             <span className="text-cyber">About Us</span>
           </h2>
@@ -12,7 +20,10 @@ const AboutSection = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
+          <div 
+            ref={contentRef}
+            className={`space-y-6 scroll-slide-left ${contentVisible ? 'animate' : ''}`}
+          >
             <div className="bg-card cyber-border rounded-lg p-6">
               <h3 className="text-xl font-orbitron font-semibold text-primary mb-4">
                 Our Mission
@@ -36,7 +47,10 @@ const AboutSection = () => {
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div 
+            ref={statsRef}
+            className={`space-y-4 stagger-children ${statsVisible ? 'animate' : ''}`}
+          >
             <Card className="bg-card/50 cyber-border hover:glow-green transition-all duration-300">
               <CardContent className="p-6">
                 <div className="text-3xl font-orbitron font-bold text-primary mb-2">75+</div>

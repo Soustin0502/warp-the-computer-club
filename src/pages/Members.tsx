@@ -2,8 +2,13 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Members = () => {
+  const [titleRef, titleVisible] = useScrollAnimation();
+  const [membersRef, membersVisible] = useScrollAnimation();
+  const [terminalRef, terminalVisible] = useScrollAnimation();
+
   const members = [
     { name: "Soustin Roy", role: "President", expertise: "Full-Stack Development", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" },
     { name: "Deeptanshu Shekhar", role: "President", expertise: "AI/ML Engineering", image: "https://images.unsplash.com/photo-1494790108755-2616b612b788?w=150&h=150&fit=crop&crop=face" },
@@ -20,7 +25,10 @@ const Members = () => {
       <Navbar />
       <main className="pt-24 pb-12">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div 
+            ref={titleRef}
+            className={`text-center mb-16 scroll-fade-in ${titleVisible ? 'animate' : ''}`}
+          >
             <h1 className="text-3xl md:text-5xl font-orbitron font-bold mb-4">
               <span className="text-cyber">Our Team</span>
             </h1>
@@ -30,7 +38,10 @@ const Members = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div 
+            ref={membersRef}
+            className={`grid md:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children ${membersVisible ? 'animate' : ''}`}
+          >
             {members.map((member, index) => (
               <Card key={index} className="bg-card/50 cyber-border hover:glow-green transition-all duration-300">
                 <CardHeader className="text-center">
@@ -54,7 +65,10 @@ const Members = () => {
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          <div 
+            ref={terminalRef}
+            className={`text-center mt-12 scroll-fade-in ${terminalVisible ? 'animate' : ''}`}
+          >
             <div className="terminal-text bg-background/50 border border-primary/30 rounded-lg p-6 max-w-md mx-auto">
               <div className="text-primary mb-2">$ members --count</div>
               <div className="text-muted-foreground">

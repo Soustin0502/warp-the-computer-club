@@ -2,8 +2,13 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Events = () => {
+  const [titleRef, titleVisible] = useScrollAnimation();
+  const [eventsRef, eventsVisible] = useScrollAnimation();
+  const [terminalRef, terminalVisible] = useScrollAnimation();
+
   const events = [
     {
       title: "WarP Intra '25",
@@ -48,7 +53,10 @@ const Events = () => {
       <Navbar />
       <main className="pt-24 pb-12">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div 
+            ref={titleRef}
+            className={`text-center mb-16 scroll-fade-in ${titleVisible ? 'animate' : ''}`}
+          >
             <h1 className="text-3xl md:text-5xl font-orbitron font-bold mb-4">
               <span className="text-cyber">Events</span>
             </h1>
@@ -58,7 +66,10 @@ const Events = () => {
             </p>
           </div>
 
-          <div className="space-y-8 max-w-4xl mx-auto">
+          <div 
+            ref={eventsRef}
+            className={`space-y-8 max-w-4xl mx-auto stagger-children ${eventsVisible ? 'animate' : ''}`}
+          >
             {events.map((event, index) => (
               <Card key={index} className={`bg-card/50 cyber-border hover:${event.glowColor} transition-all duration-300`}>
                 <CardHeader>
@@ -129,7 +140,10 @@ const Events = () => {
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          <div 
+            ref={terminalRef}
+            className={`text-center mt-12 scroll-fade-in ${terminalVisible ? 'animate' : ''}`}
+          >
             <div className="terminal-text bg-background/50 border border-accent/30 rounded-lg p-6 max-w-md mx-auto">
               <div className="text-accent mb-2">$ events --upcoming</div>
               <div className="text-muted-foreground text-sm">
