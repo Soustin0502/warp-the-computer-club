@@ -57,7 +57,7 @@ const HeroSection = () => {
               <a href="/events">Explore Events</a>
             </Button>
             <Button variant="outline" className="border-secondary text-secondary hover:bg-secondary/10 font-fira">
-              Learn More
+              <a href="/contact">Contact Us</a>
             </Button>
           </div>
         </div>
