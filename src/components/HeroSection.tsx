@@ -26,7 +26,7 @@ const HeroSection = () => {
         <div className="mb-8">
           <div className="inline-block px-4 py-2 bg-primary/10 border border-primary/30 rounded-lg mb-6">
             <span className="text-primary font-fira text-sm">
-              > SYSTEM INFILTRATION SUCCESSFUL
+              &gt; SYSTEM INFILTRATION SUCCESSFUL
             </span>
           </div>
           
