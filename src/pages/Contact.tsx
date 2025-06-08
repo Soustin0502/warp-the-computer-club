@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -31,7 +30,44 @@ const Contact = () => {
     setIsLoading(true);
 
     try {
-      // Create mailto link with form data
+      // Send email directly using Gmail API or similar service
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service_id: 'gmail',
+          template_id: 'template_contact',
+          user_id: 'your_user_id',
+          template_params: {
+            from_name: formData.name,
+            from_email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+            to_email: 'warp.dpsmr@gmail.com'
+          }
+        })
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Message sent successfully!",
+          description: "We'll get back to you soon.",
+        });
+
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      // Fallback to mailto if direct sending fails
       const mailtoLink = `mailto:warp.dpsmr@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
         `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
       )}`;
@@ -49,12 +85,6 @@ const Contact = () => {
         email: '',
         subject: '',
         message: ''
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to open email client. Please try again.",
-        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
@@ -177,11 +207,11 @@ const Contact = () => {
                     </div>
                     <div>
                       <div className="text-muted-foreground uppercase tracking-wider mb-1">Meeting Times</div>
-                      <div className="text-foreground">Every Tuesday & Thursday, 3:30 PM</div>
+                      <div className="text-foreground">Mon to Fri, 08:00 AM to 01:00 PM</div>
                     </div>
                     <div>
                       <div className="text-muted-foreground uppercase tracking-wider mb-1">Location</div>
-                      <div className="text-foreground">Computer Lab - Block C, Room 201</div>
+                      <div className="text-foreground">Computer Lab 1/2/3, Senior School Building, Ground Floor</div>
                     </div>
                   </div>
                 </CardContent>

@@ -1,10 +1,21 @@
-
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const HeroSection = () => {
+  const [showDecrypt, setShowDecrypt] = useState(false);
+
+  useEffect(() => {
+    // Trigger decrypt animation on component mount
+    const timer = setTimeout(() => {
+      setShowDecrypt(true);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const scrollToNextSection = () => {
-    const aboutSection = document.getElementById('about-school');
+    const aboutSection = document.getElementById('about-us');
     if (aboutSection) {
       aboutSection.scrollIntoView({ behavior: 'smooth' });
     }
@@ -27,7 +38,7 @@ const HeroSection = () => {
         <div className="mb-8">
           <div className="inline-block px-4 py-2 bg-primary/10 border border-primary/30 rounded-lg mb-6">
             <span className="text-primary font-fira text-sm">
-              &gt; SYSTEM INFILTRATION SUCCESSFUL
+              > SYSTEM INFILTRATION SUCCESSFUL
             </span>
           </div>
           
@@ -39,7 +50,7 @@ const HeroSection = () => {
             />
           </div>
           
-          <h2 className="text-xl md:text-3xl font-orbitron font-light mb-6 text-muted-foreground">
+          <h2 className={`text-xl md:text-3xl font-light mb-6 text-muted-foreground relative ${showDecrypt ? 'decrypt-text' : ''}`} data-text="The Computer Club">
             The Computer Club
           </h2>
           

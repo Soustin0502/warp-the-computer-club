@@ -1,4 +1,3 @@
-
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -21,7 +20,8 @@ const Events = () => {
       ],
       status: "Registration Open",
       registerLink: "https://forms.google.com/dummy-registration-form",
-      brochureLink: "https://drive.google.com/dummy-brochure-link"
+      brochureLink: "https://drive.google.com/dummy-brochure-link",
+      glowColor: "glow-green"
     },
     {
       title: "WarP Inter '25",
@@ -38,7 +38,8 @@ const Events = () => {
       ],
       status: "Coming Soon",
       registerLink: "https://forms.google.com/dummy-registration-form-2",
-      brochureLink: "https://drive.google.com/dummy-brochure-link-2"
+      brochureLink: "https://drive.google.com/dummy-brochure-link-2",
+      glowColor: "glow-blue"
     }
   ];
 
@@ -59,7 +60,7 @@ const Events = () => {
 
           <div className="space-y-8 max-w-4xl mx-auto">
             {events.map((event, index) => (
-              <Card key={index} className="bg-card/50 cyber-border hover:glow-green transition-all duration-300">
+              <Card key={index} className={`bg-card/50 cyber-border hover:${event.glowColor} transition-all duration-300`}>
                 <CardHeader>
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                     <div>

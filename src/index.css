@@ -1,9 +1,9 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Fira+Code:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
 
 @layer base {
   :root {
@@ -148,6 +148,96 @@
     filter: hue-rotate(0deg) saturate(2) brightness(1.2);
     mix-blend-mode: screen;
     opacity: 0.6;
+  }
+
+  .decrypt-text {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .decrypt-text::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: hsl(var(--background));
+    color: hsl(var(--cyber-green));
+    animation: decrypt 3s ease-in-out forwards;
+    z-index: 1;
+  }
+
+  .decrypt-text::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, hsl(var(--cyber-green)) 50%, transparent 100%);
+    animation: scan 3s ease-in-out forwards;
+    z-index: 2;
+  }
+}
+
+@keyframes decrypt {
+  0% {
+    content: "████ ████████ ████";
+    opacity: 1;
+  }
+  10% {
+    content: "T██ ████████ ████";
+  }
+  20% {
+    content: "Th█ ████████ ████";
+  }
+  30% {
+    content: "The ████████ ████";
+  }
+  40% {
+    content: "The C███████ ████";
+  }
+  50% {
+    content: "The Co██████ ████";
+  }
+  60% {
+    content: "The Com█████ ████";
+  }
+  70% {
+    content: "The Comp████ ████";
+  }
+  80% {
+    content: "The Compu███ ████";
+  }
+  85% {
+    content: "The Comput██ ████";
+  }
+  90% {
+    content: "The Computer ████";
+  }
+  95% {
+    content: "The Computer C███";
+  }
+  98% {
+    content: "The Computer Cl██";
+  }
+  100% {
+    content: "The Computer Club";
+    opacity: 0;
+  }
+}
+
+@keyframes scan {
+  0%, 20% {
+    transform: translateX(-100%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
   }
 }
 

@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -41,8 +40,8 @@ const Footer = () => {
             <h3 className="font-orbitron font-semibold text-primary mb-4">Contact Us</h3>
             <div className="space-y-2 font-fira text-sm text-muted-foreground">
               <div>Email: warp.dpsmr@gmail.com</div>
-              <div>Meeting: Tue & Thu, 3:30 PM</div>
-              <div>Location: Computer Lab, Block C</div>
+              <div>Meeting: Mon to Fri, 08:00 AM to 01:00 PM</div>
+              <div>Location: Computer Lab 1/2/3, Senior School Building, Ground Floor</div>
             </div>
           </div>
         </div>

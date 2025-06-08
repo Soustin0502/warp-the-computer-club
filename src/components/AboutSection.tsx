@@ -1,9 +1,8 @@
-
 import { Card, CardContent } from '@/components/ui/card';
 
 const AboutSection = () => {
   return (
-    <section className="py-20 bg-card/30">
+    <section id="about-us" className="py-20 bg-card/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4">
@@ -47,8 +46,8 @@ const AboutSection = () => {
 
             <Card className="bg-card/50 cyber-border hover:glow-blue transition-all duration-300">
               <CardContent className="p-6">
-                <div className="text-3xl font-orbitron font-bold text-secondary mb-2">15+</div>
-                <div className="text-sm font-fira text-muted-foreground uppercase tracking-wider">Projects Completed</div>
+                <div className="text-3xl font-orbitron font-bold text-secondary mb-2">5</div>
+                <div className="text-sm font-fira text-muted-foreground uppercase tracking-wider">Years of Legacy</div>
               </CardContent>
             </Card>
 
