@@ -70,7 +70,7 @@ const HeroSection = () => {
       </div>
 
       <div className="container mx-auto px-4 text-center z-10">
-        <div className="mb-8">
+        <div className="mb-8 flex flex-col items-center">
           <div className="inline-block px-4 py-2 bg-primary/10 border border-primary/30 rounded-lg mb-6">
             <span className="text-primary font-fira text-sm">
               &gt; SYSTEM INFILTRATION SUCCESSFUL
@@ -78,7 +78,7 @@ const HeroSection = () => {
           </div>
           
           <div 
-            className="mb-4 inline-block"
+            className="mb-6 inline-block"
             onMouseMove={handleLogoMouseMove}
             onMouseLeave={handleLogoMouseLeave}
           >

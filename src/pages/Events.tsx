@@ -3,11 +3,27 @@ import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useState } from 'react';
 
 const Events = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
   const [eventsRef, eventsVisible] = useScrollAnimation();
   const [terminalRef, terminalVisible] = useScrollAnimation();
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+
+  const handleCardMouseMove = (e: React.MouseEvent, index: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+    setHoveredCard(index);
+  };
+
+  const handleCardMouseLeave = () => {
+    setHoveredCard(null);
+  };
 
   const events = [
     {
@@ -71,7 +87,16 @@ const Events = () => {
             className={`space-y-8 max-w-4xl mx-auto stagger-children ${eventsVisible ? 'animate' : ''}`}
           >
             {events.map((event, index) => (
-              <Card key={index} className={`bg-card/50 cyber-border hover:${event.glowColor} transition-all duration-300 card-glossy-glow`}>
+              <Card 
+                key={index} 
+                className={`bg-card/50 cyber-border hover:${event.glowColor} transition-all duration-300 card-glossy-glow`}
+                onMouseMove={(e) => handleCardMouseMove(e, index)}
+                onMouseLeave={handleCardMouseLeave}
+                style={{
+                  '--mouse-x': hoveredCard === index ? `${mousePosition.x}px` : '50%',
+                  '--mouse-y': hoveredCard === index ? `${mousePosition.y}px` : '50%',
+                } as React.CSSProperties}
+              >
                 <CardHeader>
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                     <div>

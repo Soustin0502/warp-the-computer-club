@@ -1,13 +1,29 @@
+
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useState } from 'react';
 
 const Members = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
   const [membersRef, membersVisible] = useScrollAnimation();
   const [terminalRef, terminalVisible] = useScrollAnimation();
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+
+  const handleCardMouseMove = (e: React.MouseEvent, index: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+    setHoveredCard(index);
+  };
+
+  const handleCardMouseLeave = () => {
+    setHoveredCard(null);
+  };
 
   const members = [
     { name: "Soustin Roy", role: "President", expertise: "Full-Stack Development", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop&crop=face" },
@@ -43,24 +59,35 @@ const Members = () => {
             className={`grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto stagger-children ${membersVisible ? 'animate' : ''}`}
           >
             {members.map((member, index) => (
-              <Card key={index} className="bg-card/50 cyber-border hover:glow-green transition-all duration-300 member-card card-glossy-glow">
-                <div className="relative h-64 overflow-hidden">
+              <Card 
+                key={index} 
+                className="bg-card/50 cyber-border hover:glow-green transition-all duration-300 member-card card-glossy-glow group overflow-hidden"
+                onMouseMove={(e) => handleCardMouseMove(e, index)}
+                onMouseLeave={handleCardMouseLeave}
+                style={{
+                  '--mouse-x': hoveredCard === index ? `${mousePosition.x}px` : '50%',
+                  '--mouse-y': hoveredCard === index ? `${mousePosition.y}px` : '50%',
+                } as React.CSSProperties}
+              >
+                <div className="relative h-80 overflow-hidden">
                   <img 
                     src={member.image} 
                     alt={member.name}
-                    className="w-full h-full object-cover member-image transition-all duration-500 group-hover:filter-none"
+                    className="w-full h-full object-cover member-image transition-all duration-500 filter grayscale group-hover:grayscale-0"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/20 to-transparent member-fade"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/70 to-transparent member-fade"></div>
                 </div>
-                <CardHeader className="relative -mt-16 z-10 pb-2">
-                  <CardTitle className="font-orbitron text-primary text-lg">{member.name}</CardTitle>
-                  <div className="text-secondary font-fira text-sm uppercase tracking-wider">{member.role}</div>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="text-muted-foreground font-fira text-sm">
-                    <strong>Specialization:</strong> {member.expertise}
-                  </div>
-                </CardContent>
+                <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                  <CardHeader className="p-0 pb-2">
+                    <CardTitle className="font-orbitron text-primary text-lg">{member.name}</CardTitle>
+                    <div className="text-secondary font-fira text-sm uppercase tracking-wider">{member.role}</div>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <div className="text-muted-foreground font-fira text-sm">
+                      <strong>Specialization:</strong> {member.expertise}
+                    </div>
+                  </CardContent>
+                </div>
               </Card>
             ))}
           </div>
@@ -69,7 +96,13 @@ const Members = () => {
             ref={terminalRef}
             className={`text-center mt-12 scroll-fade-in ${terminalVisible ? 'animate' : ''}`}
           >
-            <div className="terminal-text bg-background/50 border border-primary/30 rounded-lg p-6 max-w-md mx-auto">
+            <div className="terminal-text bg-background/50 border border-primary/30 rounded-lg p-6 max-w-md mx-auto card-glossy-glow"
+                 onMouseMove={(e) => handleCardMouseMove(e, 99)}
+                 onMouseLeave={handleCardMouseLeave}
+                 style={{
+                   '--mouse-x': hoveredCard === 99 ? `${mousePosition.x}px` : '50%',
+                   '--mouse-y': hoveredCard === 99 ? `${mousePosition.y}px` : '50%',
+                 } as React.CSSProperties}>
               <div className="text-primary mb-2">$ members --count</div>
               <div className="text-muted-foreground">
                 Total Active Members: 75+<br/>

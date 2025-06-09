@@ -1,10 +1,27 @@
+
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useState } from 'react';
 
 const SchoolSection = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
   const [contentRef, contentVisible] = useScrollAnimation();
   const [statsRef, statsVisible] = useScrollAnimation();
   const [terminalRef, terminalVisible] = useScrollAnimation();
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredCard, setHoveredCard] = useState<boolean>(false);
+
+  const handleCardMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+    setHoveredCard(true);
+  };
+
+  const handleCardMouseLeave = () => {
+    setHoveredCard(false);
+  };
 
   return (
     <section id="about-school" className="py-20">
@@ -22,7 +39,13 @@ const SchoolSection = () => {
           
           <div 
             ref={contentRef}
-            className={`bg-card/50 cyber-border rounded-lg p-8 mb-8 scroll-scale-up ${contentVisible ? 'animate' : ''}`}
+            className={`bg-card/50 cyber-border rounded-lg p-8 mb-8 scroll-scale-up card-glossy-glow ${contentVisible ? 'animate' : ''}`}
+            onMouseMove={handleCardMouseMove}
+            onMouseLeave={handleCardMouseLeave}
+            style={{
+              '--mouse-x': hoveredCard ? `${mousePosition.x}px` : '50%',
+              '--mouse-y': hoveredCard ? `${mousePosition.y}px` : '50%',
+            } as React.CSSProperties}
           >
             <p className="text-lg font-fira text-foreground/80 leading-relaxed mb-6">
               Delhi Public School Mathura Road stands at the forefront of technological education, 

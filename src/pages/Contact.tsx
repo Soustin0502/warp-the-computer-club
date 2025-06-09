@@ -12,7 +12,7 @@ const Contact = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
   const [formRef, formVisible] = useScrollAnimation();
   const [infoRef, infoVisible] = useScrollAnimation();
-
+  const [detailsRef, detailsVisible] = useScrollAnimation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,7 +20,22 @@ const Contact = () => {
     message: ''
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const { toast } = useToast();
+
+  const handleCardMouseMove = (e: React.MouseEvent, index: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+    setHoveredCard(index);
+  };
+
+  const handleCardMouseLeave = () => {
+    setHoveredCard(null);
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -149,6 +164,12 @@ ${data.message}
             <Card 
               ref={formRef}
               className={`bg-card/50 cyber-border scroll-slide-left card-glossy-glow ${formVisible ? 'animate' : ''}`}
+              onMouseMove={(e) => handleCardMouseMove(e, 0)}
+              onMouseLeave={handleCardMouseLeave}
+              style={{
+                '--mouse-x': hoveredCard === 0 ? `${mousePosition.x}px` : '50%',
+                '--mouse-y': hoveredCard === 0 ? `${mousePosition.y}px` : '50%',
+              } as React.CSSProperties}
             >
               <CardHeader>
                 <CardTitle className="font-orbitron text-2xl text-primary">
@@ -214,11 +235,18 @@ ${data.message}
               </CardContent>
             </Card>
 
-            <div 
-              ref={infoRef}
-              className={`space-y-6 scroll-slide-right ${infoVisible ? 'animate' : ''}`}
-            >
-              <Card className="bg-card/50 cyber-border card-glossy-glow" style={{ animationDelay: '0.2s' }}>
+            <div className="space-y-6">
+              <Card 
+                ref={infoRef}
+                className={`bg-card/50 cyber-border card-glossy-glow scroll-slide-right ${infoVisible ? 'animate' : ''}`}
+                onMouseMove={(e) => handleCardMouseMove(e, 1)}
+                onMouseLeave={handleCardMouseLeave}
+                style={{
+                  '--mouse-x': hoveredCard === 1 ? `${mousePosition.x}px` : '50%',
+                  '--mouse-y': hoveredCard === 1 ? `${mousePosition.y}px` : '50%',
+                  animationDelay: '0.2s'
+                } as React.CSSProperties}
+              >
                 <CardHeader>
                   <CardTitle className="font-orbitron text-xl text-secondary">
                     Club Information
@@ -237,7 +265,17 @@ ${data.message}
                 </CardContent>
               </Card>
 
-              <Card className="bg-card/50 cyber-border card-glossy-glow" style={{ animationDelay: '0.4s' }}>
+              <Card 
+                ref={detailsRef}
+                className={`bg-card/50 cyber-border card-glossy-glow scroll-slide-right ${detailsVisible ? 'animate' : ''}`}
+                onMouseMove={(e) => handleCardMouseMove(e, 2)}
+                onMouseLeave={handleCardMouseLeave}
+                style={{
+                  '--mouse-x': hoveredCard === 2 ? `${mousePosition.x}px` : '50%',
+                  '--mouse-y': hoveredCard === 2 ? `${mousePosition.y}px` : '50%',
+                  animationDelay: '0.4s'
+                } as React.CSSProperties}
+              >
                 <CardHeader>
                   <CardTitle className="font-orbitron text-xl text-accent">
                     Contact Details
