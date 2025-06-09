@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  base: '/warp-the-computer-club/',  // Your repo name with leading and trailing slash
+  base: '/warp-the-computer-club/',  // keep this for correct routing
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
@@ -19,6 +19,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    outDir: 'docs',  // Build output folder changed to docs
+    outDir: '.',  // Build directly into root folder
+    emptyOutDir: false, // don't delete files outside outDir
   },
 }));
