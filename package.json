@@ -3,14 +3,20 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://soustinroy.github.io/warp-the-computer-club",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
+<<<<<<< HEAD
     "deploy": "gh-pages -d dist -b main",
     "predeploy": "npm run build"
+=======
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist -b main"
+>>>>>>> f536b2e46eb6a8f7bd5bd6492d3481d081be8bb4
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
