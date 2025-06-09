@@ -106,7 +106,7 @@ const AboutSection = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-card/50 cyber-border hover:glow-green transition-all duration-300 card-glossy-glow"
+            <Card className="bg-card/50 cyber-border hover:bg-accent/10 transition-all duration-300 card-glossy-glow"
                   onMouseMove={(e) => handleCardMouseMove(e, 4)}
                   onMouseLeave={handleCardMouseLeave}
                   style={{
