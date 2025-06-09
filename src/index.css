@@ -98,7 +98,7 @@
     transition: background-image 0.3s ease;
   }
 
-  /* Events cards overlapping animation - updated with reduced tilting */
+  /* Events cards overlapping animation - reduced tilting and better positioning */
   .events-container {
     display: flex;
     flex-direction: column;
@@ -110,8 +110,9 @@
       flex-direction: row;
       justify-content: center;
       align-items: stretch;
-      gap: -4rem;
+      gap: -2rem;
       perspective: 1000px;
+      padding: 0 2rem;
     }
 
     .event-card {
@@ -128,11 +129,12 @@
       z-index: 3;
       animation-delay: 0.2s;
       transform-origin: center right;
+      margin-right: -3rem;
     }
 
     .event-card-2 {
       z-index: 2;
-      margin-left: -6rem;
+      margin-left: -3rem;
       animation-delay: 0.4s;
       transform-origin: center left;
     }
@@ -143,11 +145,11 @@
     }
 
     .events-container.animate .event-card-1 {
-      transform: translateY(0) rotate(-5deg);
+      transform: translateY(0) rotate(-2deg);
     }
 
     .events-container.animate .event-card-2 {
-      transform: translateY(0) rotate(5deg);
+      transform: translateY(0) rotate(2deg);
     }
   }
 
