@@ -9,7 +9,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <img 
-                src="/lovable-uploads/a863f9a2-30c0-4671-949f-09cc47b76467.png" 
+                src="./WarP Computer Club Logo.png" 
                 alt="The Computer Club" 
                 className="h-8"
               />
