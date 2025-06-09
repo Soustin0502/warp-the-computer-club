@@ -81,19 +81,14 @@ const HeroSection = () => {
             onMouseMove={handleLogoMouseMove}
             onMouseLeave={handleLogoMouseLeave}
           >
-            {/*
-              MODIFIED GLOW EFFECT:
-              Removed the separate glow div.
-              Applied a drop-shadow filter directly to the image.
-              This ensures the glow respects the transparent areas of the PNG logo.
-            */}
             <img 
               src="/lovable-uploads/0dfb5592-8b0c-4160-a24d-36d86593dd3a.png" 
               alt="WarP Logo" 
               className="h-24 md:h-32 mx-auto transition-transform duration-300 ease-out relative z-0"
               style={{
                 transform: `translate(${logoPosition.x}px, ${logoPosition.y}px)`,
-                filter: `drop-shadow(0px 0px 25px rgba(255, 51, 204, 0.8))`, // #FF33CC with 80% opacity
+                // MODIFIED: Decreased the spread of the drop-shadow filter
+                filter: `drop-shadow(0px 0px 15px rgba(255, 51, 204, 0.8))`, // Reduced spread from 25px to 15px
               }}
             />
           </div>
