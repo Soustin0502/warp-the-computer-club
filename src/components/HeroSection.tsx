@@ -1,7 +1,60 @@
+
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const HeroSection = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [logoPosition, setLogoPosition] = useState({ x: 0, y: 0 });
+  const [showGlitch, setShowGlitch] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowGlitch(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    setMousePosition({
+      x: e.clientX - centerX,
+      y: e.clientY - centerY
+    });
+  };
+
+  const handleLogoMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const deltaX = e.clientX - centerX;
+    const deltaY = e.clientY - centerY;
+    
+    const maxDistance = 20;
+    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    
+    if (distance > 0) {
+      const normalizedX = deltaX / distance;
+      const normalizedY = deltaY / distance;
+      
+      const moveDistance = Math.min(distance * 0.3, maxDistance);
+      
+      setLogoPosition({
+        x: -normalizedX * moveDistance,
+        y: -normalizedY * moveDistance
+      });
+    }
+  };
+
+  const handleLogoMouseLeave = () => {
+    setLogoPosition({ x: 0, y: 0 });
+  };
+
   const scrollToNextSection = () => {
     const aboutSection = document.getElementById('about-us');
     if (aboutSection) {
@@ -10,7 +63,10 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden hero-fade-in">
+    <section 
+      className="min-h-screen flex items-center justify-center relative overflow-hidden hero-fade-in page-hover-effect"
+      onMouseMove={handleMouseMove}
+    >
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute inset-0" style={{
@@ -30,15 +86,22 @@ const HeroSection = () => {
             </span>
           </div>
           
-          <div className="mb-4">
+          <div 
+            className="mb-4 inline-block"
+            onMouseMove={handleLogoMouseMove}
+            onMouseLeave={handleLogoMouseLeave}
+          >
             <img 
               src="/lovable-uploads/0dfb5592-8b0c-4160-a24d-36d86593dd3a.png" 
               alt="WarP Logo" 
-              className="h-24 md:h-32 mx-auto logo-glitch"
+              className="h-24 md:h-32 mx-auto logo-glitch transition-transform duration-300 ease-out"
+              style={{
+                transform: `translate(${logoPosition.x}px, ${logoPosition.y}px)`
+              }}
             />
           </div>
           
-          <h2 className="text-xl md:text-3xl font-orbitron font-light mb-6 text-muted-foreground">
+          <h2 className={`text-xl md:text-3xl font-ocr font-bold mb-6 text-muted-foreground ${showGlitch ? 'hero-glitch' : ''}`}>
             The Computer Club
           </h2>
           

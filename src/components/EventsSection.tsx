@@ -1,12 +1,29 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useState } from 'react';
 
 const EventsSection = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
   const [eventsRef, eventsVisible] = useScrollAnimation();
   const [terminalRef, terminalVisible] = useScrollAnimation();
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const handleCardMouseMove = (e: React.MouseEvent, index: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+    setHoveredCard(index);
+  };
+
+  const handleCardMouseLeave = () => {
+    setHoveredCard(null);
+  };
 
   const events = [
     {
@@ -53,10 +70,24 @@ const EventsSection = () => {
 
         <div 
           ref={eventsRef}
-          className={`grid md:grid-cols-2 gap-8 max-w-6xl mx-auto stagger-children ${eventsVisible ? 'animate' : ''}`}
+          className={`relative max-w-6xl mx-auto events-container ${eventsVisible ? 'animate' : ''}`}
         >
           {events.map((event, index) => (
-            <Card key={index} className={`bg-card/50 cyber-border hover:glow-${event.color === 'primary' ? 'green' : 'blue'} transition-all duration-300 group`}>
+            <Card 
+              key={index} 
+              className={`
+                bg-card/50 cyber-border transition-all duration-300 group event-card 
+                ${index === 0 ? 'event-card-1' : 'event-card-2'}
+                ${hoveredCard === index ? 'card-glow-effect z-20' : ''}
+                ${hoveredCard !== null && hoveredCard !== index ? 'adjacent-glow' : ''}
+              `}
+              onMouseMove={(e) => handleCardMouseMove(e, index)}
+              onMouseLeave={handleCardMouseLeave}
+              style={{
+                '--mouse-x': `${mousePosition.x}px`,
+                '--mouse-y': `${mousePosition.y}px`,
+              } as React.CSSProperties}
+            >
               <CardHeader>
                 <div className={`inline-block px-3 py-1 rounded-full text-xs font-fira uppercase tracking-wider mb-2 ${
                   event.color === 'primary' 

@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -21,7 +22,7 @@ export default {
 			fontFamily: {
 				'orbitron': ['Orbitron', 'sans-serif'],
 				'fira': ['Fira Code', 'monospace'],
-				'ocr': ['Courier Prime', 'Courier New', 'monospace'],
+				'ocr': ['OCR A Std', 'Courier Prime', 'Courier New', 'monospace'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

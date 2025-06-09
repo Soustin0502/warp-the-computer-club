@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -48,7 +49,7 @@ const Footer = () => {
         
         <div className="border-t border-primary/20 mt-8 pt-8 text-center">
           <p className="font-fira text-sm text-muted-foreground">
-            © 2024 WarP Computer Club. All rights reserved.
+            © 2025 WarP Computer Club. All rights reserved.
           </p>
         </div>
       </div>

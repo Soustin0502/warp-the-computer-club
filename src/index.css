@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -86,6 +87,125 @@
 
   .terminal-text {
     @apply font-mono text-sm;
+  }
+
+  /* Page hover effect */
+  .page-hover-effect {
+    background-image: 
+      radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), hsl(var(--cyber-pink) / 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 25% 25%, hsl(var(--cyber-pink) / 0.1) 0%, transparent 25%),
+      radial-gradient(circle at 75% 75%, hsl(var(--cyber-blue) / 0.1) 0%, transparent 25%);
+    transition: background-image 0.3s ease;
+  }
+
+  /* Hero glitch effect */
+  .hero-glitch {
+    position: relative;
+    animation: hero-glitch-text 2s ease-out;
+  }
+
+  .hero-glitch::before,
+  .hero-glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+  }
+
+  .hero-glitch::before {
+    animation: hero-glitch-blue 2s ease-out;
+    color: hsl(var(--cyber-blue));
+    z-index: -1;
+  }
+
+  .hero-glitch::after {
+    animation: hero-glitch-red 2s ease-out;
+    color: hsl(var(--cyber-red));
+    z-index: -2;
+  }
+
+  /* Events cards overlapping animation */
+  .events-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .events-container {
+      flex-direction: row;
+      justify-content: center;
+      align-items: stretch;
+      gap: -2rem;
+    }
+
+    .event-card {
+      width: 400px;
+      transform: translateY(50px);
+      opacity: 0;
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .event-card-1 {
+      z-index: 2;
+      animation-delay: 0.2s;
+    }
+
+    .event-card-2 {
+      z-index: 1;
+      margin-left: -3rem;
+      animation-delay: 0.4s;
+    }
+
+    .events-container.animate .event-card {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Card glow effects */
+  .card-glow-effect {
+    position: relative;
+    overflow: visible;
+  }
+
+  .card-glow-effect::before {
+    content: '';
+    position: absolute;
+    top: var(--mouse-y, 50%);
+    left: var(--mouse-x, 50%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, hsl(var(--primary) / 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
+  .adjacent-glow {
+    filter: brightness(1.1);
+  }
+
+  /* Member card styles */
+  .member-card {
+    height: 400px;
+  }
+
+  .member-image {
+    filter: grayscale(100%);
+  }
+
+  .member-card:hover .member-image {
+    filter: grayscale(0%);
+  }
+
+  .member-fade {
+    background: linear-gradient(to top, hsl(var(--card)) 20%, transparent 80%);
   }
 
   .glitch {
@@ -229,6 +349,63 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes hero-glitch-text {
+  0%, 20%, 40%, 60%, 80%, 100% { 
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  10% { 
+    transform: translate(-2px, 1px);
+    filter: hue-rotate(90deg);
+  }
+  30% { 
+    transform: translate(2px, -1px);
+    filter: hue-rotate(180deg);
+  }
+  50% { 
+    transform: translate(-1px, 2px);
+    filter: hue-rotate(270deg);
+  }
+  70% { 
+    transform: translate(1px, -2px);
+    filter: hue-rotate(360deg);
+  }
+  90% { 
+    transform: translate(-2px, -1px);
+    filter: hue-rotate(45deg);
+  }
+}
+
+@keyframes hero-glitch-blue {
+  0%, 90%, 100% { 
+    transform: translate(0);
+    opacity: 0;
+  }
+  10%, 30%, 50%, 70% { 
+    transform: translate(-3px, 0);
+    opacity: 0.8;
+  }
+  20%, 40%, 60%, 80% { 
+    transform: translate(3px, 0);
+    opacity: 0.6;
+  }
+}
+
+@keyframes hero-glitch-red {
+  0%, 90%, 100% { 
+    transform: translate(0);
+    opacity: 0;
+  }
+  15%, 35%, 55%, 75% { 
+    transform: translate(2px, 0);
+    opacity: 0.6;
+  }
+  25%, 45%, 65%, 85% { 
+    transform: translate(-2px, 0);
+    opacity: 0.4;
   }
 }
 
