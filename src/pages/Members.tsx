@@ -90,10 +90,10 @@ const Members = () => {
                   {/*
                     MODIFIED GRADIENT CLASS:
                     - Height remains h-48.
-                    - Gradient colors changed to 'from-black via-black/70 to-transparent'
-                      to provide a stronger and bolder fade.
+                    - Gradient colors changed to 'from-[#130E0D] via-[#130E0D]/70 to-transparent'
+                      to use the specified hex color for a stronger and bolder fade.
                   */}
-                  <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black via-black/70 to-transparent z-10" />
+                  <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#130E0D] via-[#130E0D]/70 to-transparent z-10" />
                 </div>
                 <div className="relative z-20 p-4">
                   <CardHeader className="p-0 pb-2">
