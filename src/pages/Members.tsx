@@ -89,12 +89,10 @@ const Members = () => {
                   )}
                   {/*
                     MODIFIED GRADIENT CLASS:
-                    - Height remains h-64.
-                    - Gradient colors changed to fade from 'card/50' (the card's background color)
-                      through a slightly less opaque 'card/30' to 'transparent' at the top of the gradient.
-                      This ensures the fade matches the card's background.
+                    - Height changed from h-32 to h-48.
+                    - Gradient colors remain 'from-background to-transparent' as specified.
                   */}
-                  <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-card/50 via-card/30 to-transparent z-10" />
+                  <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background to-transparent z-10" />
                 </div>
                 <div className="relative z-20 p-4">
                   <CardHeader className="p-0 pb-2">
