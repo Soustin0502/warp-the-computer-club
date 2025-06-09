@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    outDir: '.',  // Build directly into root folder
+    outDir: 'dist',  // default is 'dist' folder, keep it outside root
     // emptyOutDir: false, // don't delete files outside outDir
   },
 }));
