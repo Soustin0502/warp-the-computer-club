@@ -206,10 +206,12 @@
   .member-fade {
     background: linear-gradient(to top, 
       hsl(var(--card)) 0%, 
-      hsl(var(--card) / 0.95) 15%, 
-      hsl(var(--card) / 0.85) 30%, 
-      hsl(var(--card) / 0.6) 50%, 
-      hsl(var(--card) / 0.3) 70%, 
+      hsl(var(--card) / 0.98) 10%, 
+      hsl(var(--card) / 0.95) 20%, 
+      hsl(var(--card) / 0.85) 35%, 
+      hsl(var(--card) / 0.7) 50%, 
+      hsl(var(--card) / 0.4) 70%, 
+      hsl(var(--card) / 0.1) 85%, 
       transparent 100%);
   }
 

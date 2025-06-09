@@ -65,7 +65,7 @@ const Events = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background" style={{ scrollBehavior: 'smooth' }}>
+    <div className="min-h-screen bg-background overflow-x-hidden" style={{ scrollBehavior: 'smooth' }}>
       <Navbar />
       <main className="pt-24 pb-12">
         <div className="container mx-auto px-4">
@@ -73,8 +73,9 @@ const Events = () => {
             ref={titleRef}
             className={`text-center mb-16 scroll-fade-in ${titleVisible ? 'animate' : ''}`}
           >
-            <h1 className="text-3xl md:text-5xl font-orbitron font-bold mb-4">
-              <span className="text-cyber">Events</span>
+            <h1 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative">
+              <span className="text-cyber relative z-10">Events</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110"></div>
             </h1>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
             <p className="text-lg font-fira text-muted-foreground max-w-2xl mx-auto">
