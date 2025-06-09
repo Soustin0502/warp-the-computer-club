@@ -68,6 +68,7 @@ const Members = () => {
                 className="bg-card/50 cyber-border hover:glow-green transition-all duration-300 member-card group overflow-hidden"
                 onMouseMove={(e) => handleCardMouseMove(e, index)}
                 onMouseLeave={handleCardMouseLeave}
+                data-color="primary"
                 style={{
                   '--mouse-x': hoveredCard === index ? `${mousePosition.x}px` : '50%',
                   '--mouse-y': hoveredCard === index ? `${mousePosition.y}px` : '50%',
@@ -87,7 +88,7 @@ const Members = () => {
                       </div>
                     </div>
                   )}
-                  <div className="absolute inset-0 member-fade"></div>
+                  <div className="member-fade absolute bottom-0 left-0 right-0 h-1/2" />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-1 group-hover:-translate-y-3 transition-transform duration-300">
                   <CardHeader className="p-0 pb-2">
