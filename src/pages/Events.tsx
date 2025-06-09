@@ -11,6 +11,8 @@ const Events = () => {
   const [terminalRef, terminalVisible] = useScrollAnimation();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [terminalMousePosition, setTerminalMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredTerminal, setHoveredTerminal] = useState<boolean>(false);
 
   const handleCardMouseMove = (e: React.MouseEvent, index: number) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -23,6 +25,19 @@ const Events = () => {
 
   const handleCardMouseLeave = () => {
     setHoveredCard(null);
+  };
+
+  const handleTerminalMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setTerminalMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+    setHoveredTerminal(true);
+  };
+
+  const handleTerminalMouseLeave = () => {
+    setHoveredTerminal(false);
   };
 
   const events = [
@@ -169,7 +184,15 @@ const Events = () => {
             ref={terminalRef}
             className={`text-center mt-12 scroll-fade-in ${terminalVisible ? 'animate' : ''}`}
           >
-            <div className="terminal-text bg-background/50 border border-accent/30 rounded-lg p-6 max-w-md mx-auto">
+            <div 
+              className="terminal-text bg-background/50 border border-accent/30 rounded-lg p-6 max-w-md mx-auto card-glossy-glow"
+              onMouseMove={handleTerminalMouseMove}
+              onMouseLeave={handleTerminalMouseLeave}
+              style={{
+                '--mouse-x': hoveredTerminal ? `${terminalMousePosition.x}px` : '50%',
+                '--mouse-y': hoveredTerminal ? `${terminalMousePosition.y}px` : '50%',
+              } as React.CSSProperties}
+            >
               <div className="text-accent mb-2">$ events --upcoming</div>
               <div className="text-muted-foreground text-sm">
                 Next Event: WarP Intra '25<br/>
