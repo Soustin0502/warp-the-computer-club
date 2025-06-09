@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -97,7 +98,7 @@
     transition: background-image 0.3s ease;
   }
 
-  /* Events cards overlapping animation - updated with reduced tilting and increased spacing */
+  /* Events cards overlapping animation - updated with reduced tilting */
   .events-container {
     display: flex;
     flex-direction: column;
@@ -109,7 +110,7 @@
       flex-direction: row;
       justify-content: center;
       align-items: stretch;
-      gap: -6rem;
+      gap: -4rem;
       perspective: 1000px;
     }
 
@@ -127,12 +128,11 @@
       z-index: 3;
       animation-delay: 0.2s;
       transform-origin: center right;
-      margin-right: 2rem;
     }
 
     .event-card-2 {
       z-index: 2;
-      margin-left: -8rem;
+      margin-left: -6rem;
       animation-delay: 0.4s;
       transform-origin: center left;
     }
@@ -143,11 +143,11 @@
     }
 
     .events-container.animate .event-card-1 {
-      transform: translateY(0) rotate(-2deg);
+      transform: translateY(0) rotate(-5deg);
     }
 
     .events-container.animate .event-card-2 {
-      transform: translateY(0) rotate(2deg);
+      transform: translateY(0) rotate(5deg);
     }
   }
 
