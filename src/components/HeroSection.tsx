@@ -1,4 +1,3 @@
-
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
@@ -78,14 +77,23 @@ const HeroSection = () => {
           </div>
           
           <div 
-            className="mb-6 inline-block"
+            className="mb-6 inline-block relative" // Added 'relative' to contain the absolute glow div
             onMouseMove={handleLogoMouseMove}
             onMouseLeave={handleLogoMouseLeave}
           >
+            {/* GLOW EFFECT: Added a div for the glow behind the logo */}
+            <div
+              className="absolute inset-0 -z-10 rounded-full blur-xl scale-150 transition-transform duration-300 ease-out"
+              style={{
+                backgroundColor: '#FF33CC', // The specified glow color
+                opacity: 0.6, // Adjust opacity for desired intensity
+                transform: `translate(${logoPosition.x * 0.5}px, ${logoPosition.y * 0.5}px)`, // Glow follows logo subtly
+              }}
+            ></div>
             <img 
               src="/lovable-uploads/0dfb5592-8b0c-4160-a24d-36d86593dd3a.png" 
               alt="WarP Logo" 
-              className="h-24 md:h-32 mx-auto transition-transform duration-300 ease-out"
+              className="h-24 md:h-32 mx-auto transition-transform duration-300 ease-out relative z-0" // Ensure image is above glow
               style={{
                 transform: `translate(${logoPosition.x}px, ${logoPosition.y}px)`
               }}
