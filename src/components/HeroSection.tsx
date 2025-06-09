@@ -109,10 +109,10 @@ const HeroSection = () => {
               asChild
               className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira glow-pink"
             >
-              <a href="/events">Explore Events</a>
+              <a href="/events/">Explore Events</a>
             </Button>
             <Button variant="outline" className="border-secondary text-secondary hover:bg-secondary/10 font-fira">
-              <a href="/contact">Learn More</a>
+              <a href="/contact/">Learn More</a>
             </Button>
           </div>
         </div>
