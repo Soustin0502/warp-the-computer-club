@@ -20,7 +20,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
             <img 
-              src="..../WarP Computer Club.png" 
+              src="..../WarP Computer Club Logo.png" 
               alt="The Computer Club" 
               className="h-8 md:h-10"
             />
