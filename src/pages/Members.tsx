@@ -69,8 +69,11 @@ const Members = () => {
                 onMouseMove={(e) => handleCardMouseMove(e, index)}
                 onMouseLeave={handleCardMouseLeave}
                 style={{
-                  '--mouse-x': hoveredCard === index ? `${mousePosition.x}px` : '50%',
-                  '--mouse-y': hoveredCard === index ? `${mousePosition.y}px` : '50%',
+                  // MODIFIED: Only set --mouse-x and --mouse-y when the card is actively hovered.
+                  // Setting them to undefined will remove the inline style property when not hovered,
+                  // preventing the glow from snapping to the center during fade-out.
+                  '--mouse-x': hoveredCard === index ? `${mousePosition.x}px` : undefined,
+                  '--mouse-y': hoveredCard === index ? `${mousePosition.y}px` : undefined,
                 } as React.CSSProperties}
               >
                 <div className="relative h-80 overflow-hidden">
@@ -88,10 +91,9 @@ const Members = () => {
                     </div>
                   )}
                   {/*
-                    MODIFIED GRADIENT CLASS:
+                    GRADIENT CLASS (unchanged from previous valid state):
                     - Height remains h-48.
-                    - Gradient colors changed to 'from-[#130E0D] via-[#130E0D]/70 to-transparent'
-                      to use the specified hex color for a stronger and bolder fade.
+                    - Gradient colors are 'from-[#130E0D] via-[#130E0D]/70 to-transparent'.
                   */}
                   <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#130E0D] via-[#130E0D]/70 to-transparent z-10" />
                 </div>
