@@ -29,12 +29,12 @@ const Members = () => {
   };
 
   const members = [
-    { name: "Soustin Roy", role: "President", expertise: "Full-Stack Development", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop&crop=face" },
-    { name: "Deeptanshu Shekhar", role: "President", expertise: "AI/ML Engineering", image: "https://images.unsplash.com/photo-1494790108755-2616b612b788?w=300&h=400&fit=crop&crop=face" },
-    { name: "Girisha Mehra", role: "Vice President", expertise: "Cybersecurity", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop&crop=face" },
+    { name: "Soustin Roy", role: "President", expertise: "Full-Stack Development, UI/UX Design", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop&crop=face" },
+    { name: "Deeptanshu Shekhar", role: "President", expertise: "Pitching specialist", image: "" },
+    { name: "Girisha Mehra", role: "Vice President", expertise: "Photographer", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop&crop=face" },
     { name: "Aayan Ahmed War", role: "Vice President", expertise: "Data Science", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=400&fit=crop&crop=face" },
-    { name: "Ayaan Ali", role: "Executive", expertise: "Game Development", image: "" }, // No image to test initials
-    { name: "Rishit Uppal", role: "Executive", expertise: "Cloud Computing", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=400&fit=crop&crop=face" },
+    { name: "Ayaan Ali", role: "Senior Executive", expertise: "Videographer", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?w=300&h=400@fit=crop&crop=face" },
+    { name: "Rishit Uppal", role: "Senior Executive", expertise: "Cloud Computing", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=400&fit=crop&crop=face" },
     { name: "Ansh Mittal", role: "Executive", expertise: "Mobile Development", image: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop&crop=face" },
     { name: "Kunal Kachhawa", role: "Executive", expertise: "UI/UX Design", image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=300&h=400&fit=crop&crop=face" },
   ];
@@ -68,7 +68,6 @@ const Members = () => {
                 className="bg-card/50 cyber-border hover:glow-green transition-all duration-300 member-card group overflow-hidden"
                 onMouseMove={(e) => handleCardMouseMove(e, index)}
                 onMouseLeave={handleCardMouseLeave}
-                data-color="primary"
                 style={{
                   '--mouse-x': hoveredCard === index ? `${mousePosition.x}px` : '50%',
                   '--mouse-y': hoveredCard === index ? `${mousePosition.y}px` : '50%',
@@ -88,9 +87,9 @@ const Members = () => {
                       </div>
                     </div>
                   )}
-                  <div className="member-fade absolute bottom-0 left-0 right-0 h-1/2" />
+                  <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-10" />
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-1 group-hover:-translate-y-3 transition-transform duration-300">
+                <div className="relative z-20 p-4">
                   <CardHeader className="p-0 pb-2">
                     <CardTitle className="font-orbitron text-primary text-lg">{member.name}</CardTitle>
                     <div className="text-secondary font-fira text-sm uppercase tracking-wider">{member.role}</div>
