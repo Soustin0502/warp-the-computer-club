@@ -23,7 +23,7 @@ const AboutSection = () => {
   };
 
   return (
-    <section id="about-us" className="py-20 bg-card/30">
+    <section id="about-us" className="py-20 bg-transparent">
       <div className="container mx-auto px-4">
         <div 
           ref={titleRef}
