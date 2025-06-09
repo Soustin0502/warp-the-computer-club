@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -84,8 +83,8 @@ const EventsSection = () => {
               onMouseMove={(e) => handleCardMouseMove(e, index)}
               onMouseLeave={handleCardMouseLeave}
               style={{
-                '--mouse-x': `${mousePosition.x}px`,
-                '--mouse-y': `${mousePosition.y}px`,
+                '--mouse-x': hoveredCard === index ? `${mousePosition.x}px` : '50%',
+                '--mouse-y': hoveredCard === index ? `${mousePosition.y}px` : '50%',
               } as React.CSSProperties}
             >
               <CardHeader>

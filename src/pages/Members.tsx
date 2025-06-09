@@ -1,4 +1,3 @@
-
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -61,7 +60,7 @@ const Members = () => {
             {members.map((member, index) => (
               <Card 
                 key={index} 
-                className="bg-card/50 cyber-border hover:glow-green transition-all duration-300 member-card card-glossy-glow group overflow-hidden"
+                className="bg-card/50 cyber-border hover:glow-green transition-all duration-300 member-card group overflow-hidden"
                 onMouseMove={(e) => handleCardMouseMove(e, index)}
                 onMouseLeave={handleCardMouseLeave}
                 style={{
@@ -75,9 +74,9 @@ const Members = () => {
                     alt={member.name}
                     className="w-full h-full object-cover member-image transition-all duration-500 filter grayscale group-hover:grayscale-0"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/70 to-transparent member-fade"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/80 to-transparent member-fade"></div>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-2 group-hover:-translate-y-2 transition-transform duration-300">
                   <CardHeader className="p-0 pb-2">
                     <CardTitle className="font-orbitron text-primary text-lg">{member.name}</CardTitle>
                     <div className="text-secondary font-fira text-sm uppercase tracking-wider">{member.role}</div>
@@ -96,13 +95,7 @@ const Members = () => {
             ref={terminalRef}
             className={`text-center mt-12 scroll-fade-in ${terminalVisible ? 'animate' : ''}`}
           >
-            <div className="terminal-text bg-background/50 border border-primary/30 rounded-lg p-6 max-w-md mx-auto card-glossy-glow"
-                 onMouseMove={(e) => handleCardMouseMove(e, 99)}
-                 onMouseLeave={handleCardMouseLeave}
-                 style={{
-                   '--mouse-x': hoveredCard === 99 ? `${mousePosition.x}px` : '50%',
-                   '--mouse-y': hoveredCard === 99 ? `${mousePosition.y}px` : '50%',
-                 } as React.CSSProperties}>
+            <div className="terminal-text bg-background/50 border border-primary/30 rounded-lg p-6 max-w-md mx-auto">
               <div className="text-primary mb-2">$ members --count</div>
               <div className="text-muted-foreground">
                 Total Active Members: 75+<br/>

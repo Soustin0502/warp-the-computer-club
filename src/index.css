@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -98,7 +97,7 @@
     transition: background-image 0.3s ease;
   }
 
-  /* Events cards overlapping animation - updated with reduced tilting */
+  /* Events cards overlapping animation - updated with less tilting and better positioning */
   .events-container {
     display: flex;
     flex-direction: column;
@@ -110,7 +109,7 @@
       flex-direction: row;
       justify-content: center;
       align-items: stretch;
-      gap: -4rem;
+      gap: -2rem;
       perspective: 1000px;
     }
 
@@ -132,7 +131,7 @@
 
     .event-card-2 {
       z-index: 2;
-      margin-left: -6rem;
+      margin-left: -4rem;
       animation-delay: 0.4s;
       transform-origin: center left;
     }
@@ -143,15 +142,15 @@
     }
 
     .events-container.animate .event-card-1 {
-      transform: translateY(0) rotate(-5deg);
+      transform: translateY(0) translateX(-1rem) rotate(-2deg);
     }
 
     .events-container.animate .event-card-2 {
-      transform: translateY(0) rotate(5deg);
+      transform: translateY(0) translateX(1rem) rotate(2deg);
     }
   }
 
-  /* Card glossy glow effects */
+  /* Card glossy glow effects - fixed to prevent center glow on mouse leave */
   .card-glossy-glow {
     position: relative;
     overflow: hidden;
@@ -190,7 +189,7 @@
     scroll-behavior: smooth;
   }
 
-  /* Member card styles */
+  /* Member card styles - updated with better fade and positioning */
   .member-card {
     height: 450px;
     position: relative;
@@ -207,9 +206,10 @@
   .member-fade {
     background: linear-gradient(to top, 
       hsl(var(--card)) 0%, 
-      hsl(var(--card) / 0.9) 20%, 
-      hsl(var(--card) / 0.7) 40%, 
-      hsl(var(--card) / 0.4) 60%, 
+      hsl(var(--card) / 0.95) 15%, 
+      hsl(var(--card) / 0.85) 30%, 
+      hsl(var(--card) / 0.6) 50%, 
+      hsl(var(--card) / 0.3) 70%, 
       transparent 100%);
   }
 
