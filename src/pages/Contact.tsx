@@ -74,26 +74,39 @@ ${data.message}
     try {
       const cyberMessage = createCyberStyledEmail(formData);
       
-      // Create Gmail compose URL with cyber-styled message
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=warp.dpsmr@gmail.com&su=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(cyberMessage)}`;
+      // Check if device is mobile
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       
-      // Try to open Gmail in a new tab
-      const newWindow = window.open(gmailUrl, '_blank');
-      
-      if (newWindow) {
-        toast({
-          title: "Gmail opened successfully!",
-          description: "Your message has been pre-filled in Gmail. Please send it from there.",
-        });
-      } else {
-        // Fallback to mailto if popup is blocked
+      if (isMobile) {
+        // For mobile devices, use a more compatible approach
         const mailtoLink = `mailto:warp.dpsmr@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(cyberMessage)}`;
         window.location.href = mailtoLink;
         
         toast({
           title: "Email client opened",
-          description: "Your default email client should open with the cyber-styled message.",
+          description: "Your email app should open with the pre-filled message.",
         });
+      } else {
+        // For desktop, try Gmail first
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=warp.dpsmr@gmail.com&su=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(cyberMessage)}`;
+        
+        const newWindow = window.open(gmailUrl, '_blank');
+        
+        if (newWindow) {
+          toast({
+            title: "Gmail opened successfully!",
+            description: "Your message has been pre-filled in Gmail. Please send it from there.",
+          });
+        } else {
+          // Fallback to mailto if popup is blocked
+          const mailtoLink = `mailto:warp.dpsmr@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(cyberMessage)}`;
+          window.location.href = mailtoLink;
+          
+          toast({
+            title: "Email client opened",
+            description: "Your default email client should open with the cyber-styled message.",
+          });
+        }
       }
 
       // Reset form
@@ -115,7 +128,7 @@ ${data.message}
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" style={{ scrollBehavior: 'smooth' }}>
       <Navbar />
       <main className="pt-24 pb-12">
         <div className="container mx-auto px-4">
@@ -135,7 +148,7 @@ ${data.message}
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             <Card 
               ref={formRef}
-              className={`bg-card/50 cyber-border scroll-slide-left ${formVisible ? 'animate' : ''}`}
+              className={`bg-card/50 cyber-border scroll-slide-left card-glossy-glow ${formVisible ? 'animate' : ''}`}
             >
               <CardHeader>
                 <CardTitle className="font-orbitron text-2xl text-primary">
@@ -205,7 +218,7 @@ ${data.message}
               ref={infoRef}
               className={`space-y-6 scroll-slide-right ${infoVisible ? 'animate' : ''}`}
             >
-              <Card className="bg-card/50 cyber-border">
+              <Card className="bg-card/50 cyber-border card-glossy-glow" style={{ animationDelay: '0.2s' }}>
                 <CardHeader>
                   <CardTitle className="font-orbitron text-xl text-secondary">
                     Club Information
@@ -219,13 +232,12 @@ ${data.message}
                       <div>Founded: 2020</div>
                       <div>Members: 75+</div>
                       <div>Events: 2 Annual</div>
-                      <div>Status: ✓ Active</div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-card/50 cyber-border">
+              <Card className="bg-card/50 cyber-border card-glossy-glow" style={{ animationDelay: '0.4s' }}>
                 <CardHeader>
                   <CardTitle className="font-orbitron text-xl text-accent">
                     Contact Details

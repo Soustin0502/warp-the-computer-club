@@ -1,4 +1,3 @@
-
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -22,7 +21,7 @@ const Members = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" style={{ scrollBehavior: 'smooth' }}>
       <Navbar />
       <main className="pt-24 pb-12">
         <div className="container mx-auto px-4">
@@ -41,10 +40,10 @@ const Members = () => {
 
           <div 
             ref={membersRef}
-            className={`grid md:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children ${membersVisible ? 'animate' : ''}`}
+            className={`grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto stagger-children ${membersVisible ? 'animate' : ''}`}
           >
             {members.map((member, index) => (
-              <Card key={index} className="bg-card/50 cyber-border hover:glow-green transition-all duration-300 member-card group overflow-hidden">
+              <Card key={index} className="bg-card/50 cyber-border hover:glow-green transition-all duration-300 member-card card-glossy-glow">
                 <div className="relative h-64 overflow-hidden">
                   <img 
                     src={member.image} 

@@ -76,9 +76,9 @@ const EventsSection = () => {
             <Card 
               key={index} 
               className={`
-                bg-card/50 cyber-border transition-all duration-300 group event-card 
-                ${index === 0 ? 'event-card-1' : 'event-card-2'}
-                ${hoveredCard === index ? 'card-glow-effect z-20' : ''}
+                bg-card/50 cyber-border transition-all duration-300 group event-card card-glossy-glow
+                ${index === 0 ? 'event-card-1 rotate-[-30deg]' : 'event-card-2 rotate-[30deg]'}
+                ${hoveredCard === index ? 'z-20' : ''}
                 ${hoveredCard !== null && hoveredCard !== index ? 'adjacent-glow' : ''}
               `}
               onMouseMove={(e) => handleCardMouseMove(e, index)}

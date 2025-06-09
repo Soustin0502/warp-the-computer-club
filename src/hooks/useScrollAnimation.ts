@@ -1,9 +1,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export const useScrollAnimation = (threshold = 0.1, rootMargin = '0px') => {
+export const useScrollAnimation = <T extends HTMLElement = HTMLDivElement>(threshold = 0.1, rootMargin = '0px') => {
   const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<T>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

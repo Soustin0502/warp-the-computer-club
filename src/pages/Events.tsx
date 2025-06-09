@@ -49,7 +49,7 @@ const Events = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" style={{ scrollBehavior: 'smooth' }}>
       <Navbar />
       <main className="pt-24 pb-12">
         <div className="container mx-auto px-4">
@@ -71,7 +71,7 @@ const Events = () => {
             className={`space-y-8 max-w-4xl mx-auto stagger-children ${eventsVisible ? 'animate' : ''}`}
           >
             {events.map((event, index) => (
-              <Card key={index} className={`bg-card/50 cyber-border hover:${event.glowColor} transition-all duration-300`}>
+              <Card key={index} className={`bg-card/50 cyber-border hover:${event.glowColor} transition-all duration-300 card-glossy-glow`}>
                 <CardHeader>
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                     <div>

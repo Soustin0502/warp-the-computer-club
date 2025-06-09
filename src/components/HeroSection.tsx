@@ -1,20 +1,11 @@
 
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const HeroSection = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [logoPosition, setLogoPosition] = useState({ x: 0, y: 0 });
-  const [showGlitch, setShowGlitch] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowGlitch(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -94,14 +85,14 @@ const HeroSection = () => {
             <img 
               src="/lovable-uploads/0dfb5592-8b0c-4160-a24d-36d86593dd3a.png" 
               alt="WarP Logo" 
-              className="h-24 md:h-32 mx-auto logo-glitch transition-transform duration-300 ease-out"
+              className="h-24 md:h-32 mx-auto transition-transform duration-300 ease-out"
               style={{
                 transform: `translate(${logoPosition.x}px, ${logoPosition.y}px)`
               }}
             />
           </div>
           
-          <h2 className={`text-xl md:text-3xl font-ocr font-bold mb-6 text-muted-foreground ${showGlitch ? 'hero-glitch' : ''}`}>
+          <h2 className="text-xl md:text-3xl font-ocr font-bold mb-6 text-muted-foreground">
             The Computer Club
           </h2>
           
@@ -120,7 +111,7 @@ const HeroSection = () => {
               <a href="/events">Explore Events</a>
             </Button>
             <Button variant="outline" className="border-secondary text-secondary hover:bg-secondary/10 font-fira">
-              <a href="/contact">Contact Us</a>
+              <a href="/contact">Learn More</a>
             </Button>
           </div>
         </div>
