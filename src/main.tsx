@@ -1,4 +1,3 @@
-
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
@@ -9,8 +8,8 @@ console.log("Main.tsx is executing");
 const rootElement = document.getElementById('root');
 console.log("Root element found:", rootElement);
 
-// Only use basename in production (GitHub Pages)
-const basename = import.meta.env.PROD ? '/warp-the-computer-club/' : '/';
+// Use consistent basename for both development and production
+const basename = '/warp-the-computer-club/';
 
 if (rootElement) {
   createRoot(rootElement).render(
