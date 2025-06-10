@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://soustin0502.github.io/warp-the-computer-club"
+  "homepage": "https://soustin0502.github.io/warp-the-computer-club",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
