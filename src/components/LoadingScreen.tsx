@@ -17,7 +17,7 @@ const LoadingScreen = ({ onLoadComplete }: { onLoadComplete: () => void }) => {
   const commonContent = (
     <div className="text-center">
       <img 
-        src="/WarP Icon.png"  // Use consistent path with leading slash
+        src="./WarP Icon.png"  // Use consistent path with leading slash
         alt="WarP Computer Club" 
         className={`h-24 md:h-32 mx-auto mb-8 animate-pulse ${
           theme === 'light' ? 'logo-glow-light' : ''
