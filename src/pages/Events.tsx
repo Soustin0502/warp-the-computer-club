@@ -22,25 +22,25 @@ const Events = () => {
   const upcomingEvents = [
     {
       id: 1,
-      title: "CodeStorm 2024",
-      description: "Annual inter-school programming competition featuring algorithmic challenges, web development, and AI/ML problems.",
-      date: "2024-03-15",
-      time: "09:00 AM - 06:00 PM",
-      location: "School Auditorium",
-      participants: "150+",
+      title: "WarP Intra '25",
+      description: "Our flagship intra-school competition where students showcase their programming prowess, innovative thinking, and technical skills across multiple domains.",
+      date: "2025-08-02",
+      time: "07:30 AM - 01:45 PM",
+      location: "KG Hall",
+      participants: "170+",
       tags: ["Competition", "Programming", "Prizes"],
       image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&h=300&fit=crop",
       registration: "Open"
     },
     {
       id: 2,
-      title: "AI Workshop Series",
-      description: "Comprehensive workshop covering machine learning fundamentals, neural networks, and practical AI applications.",
-      date: "2024-03-22",
-      time: "02:00 PM - 05:00 PM",
-      location: "Computer Lab A",
-      participants: "50",
-      tags: ["Workshop", "AI/ML", "Hands-on"],
+      title: "WarP Inter '25",
+      description: "The ultimate battleground where schools compete in the digital arena. A prestigious event that brings together the brightest minds from across the region.",
+      date: "2025-12-31",
+      time: "07:30 AM - 01:45 PM",
+      location: "KG Hall",
+      participants: "170+",
+      tags: ["Inter School", "Competition", "Tech Expo"],
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop",
       registration: "Open"
     }

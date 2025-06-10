@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -76,7 +77,7 @@ const EventsSection = () => {
             <Card 
               key={index} 
               className={`
-                bg-card cyber-border transition-all duration-300 group event-card card-glossy-glow
+                bg-card cyber-border transition-all duration-300 group event-card
                 ${index === 0 ? 'event-card-1' : 'event-card-2'}
                 ${hoveredCard === index ? 'z-20' : ''}
                 ${hoveredCard !== null && hoveredCard !== index ? 'adjacent-glow' : ''}

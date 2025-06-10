@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -20,99 +21,99 @@ const Members = () => {
   const members = [
     {
       id: 1,
-      name: "Alex Chen",
+      name: "Harsh Dutta",
       role: "President",
       year: "12th Grade",
       skills: ["Full-Stack Development", "AI/ML", "Cybersecurity"],
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-      github: "alexchen",
-      linkedin: "alex-chen-dev",
-      email: "alex@school.edu",
+      github: "harshdutta",
+      linkedin: "harsh-dutta-dev",
+      email: "harsh@school.edu",
       bio: "Passionate about creating innovative solutions that bridge the gap between technology and real-world problems."
     },
     {
       id: 2,
-      name: "Sarah Johnson",
+      name: "Aditya Shukla",
       role: "Vice President",
-      year: "11th Grade",
-      skills: ["Frontend Development", "UI/UX Design", "Mobile Apps"],
-      image: "https://images.unsplash.com/photo-1494790108755-2616b332c77?w=400&h=400&fit=crop&crop=face",
-      github: "sarahj",
-      linkedin: "sarah-johnson-design",
-      email: "sarah@school.edu",
-      bio: "Dedicated to crafting beautiful, user-centered digital experiences that make technology accessible to everyone."
-    },
-    {
-      id: 3,
-      name: "Marcus Williams",
-      role: "Technical Lead",
       year: "12th Grade",
       skills: ["Backend Development", "DevOps", "Cloud Computing"],
       image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-      github: "marcusw",
-      linkedin: "marcus-williams-tech",
-      email: "marcus@school.edu",
+      github: "adityashukla",
+      linkedin: "aditya-shukla-tech",
+      email: "aditya@school.edu",
       bio: "Focused on building robust, scalable systems that power the next generation of digital applications."
     },
     {
+      id: 3,
+      name: "Swarnim Shukla",
+      role: "Technical Lead",
+      year: "12th Grade",
+      skills: ["Machine Learning", "Data Science", "Research"],
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
+      github: "swarnimshukla",
+      linkedin: "swarnim-shukla-research",
+      email: "swarnim@school.edu",
+      bio: "Exploring the frontiers of artificial intelligence and its applications in solving complex real-world challenges."
+    },
+    {
       id: 4,
-      name: "Emily Rodriguez",
+      name: "Divyansh Pandey",
       role: "Event Coordinator",
-      year: "11th Grade",
+      year: "12th Grade",
       skills: ["Project Management", "Community Building", "Content Creation"],
       image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
-      github: "emilyrod",
-      linkedin: "emily-rodriguez-pm",
-      email: "emily@school.edu",
+      github: "divyanshpandey",
+      linkedin: "divyansh-pandey-pm",
+      email: "divyansh@school.edu",
       bio: "Passionate about bringing people together through technology and creating inclusive learning environments."
     },
     {
       id: 5,
-      name: "David Kim",
-      role: "Research Head",
-      year: "12th Grade",
-      skills: ["Machine Learning", "Data Science", "Research"],
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
-      github: "davidkim",
-      linkedin: "david-kim-research",
-      email: "david@school.edu",
-      bio: "Exploring the frontiers of artificial intelligence and its applications in solving complex real-world challenges."
-    },
-    {
-      id: 6,
-      name: "Lisa Park",
+      name: "Vaishnavi Gupta",
       role: "Workshop Lead",
       year: "11th Grade",
       skills: ["Teaching", "Web Development", "Game Development"],
       image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face",
-      github: "lisapark",
-      linkedin: "lisa-park-educator",
-      email: "lisa@school.edu",
+      github: "vaishnavigupta",
+      linkedin: "vaishnavi-gupta-educator",
+      email: "vaishnavi@school.edu",
       bio: "Dedicated to making programming accessible and fun through interactive workshops and collaborative learning."
     },
     {
-      id: 7,
-      name: "James Thompson",
+      id: 6,
+      name: "Aadit Chandra",
       role: "Security Specialist",
-      year: "12th Grade",
+      year: "11th Grade",
       skills: ["Cybersecurity", "Ethical Hacking", "Network Security"],
       image: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=400&h=400&fit=crop&crop=face",
-      github: "jamest",
-      linkedin: "james-thompson-security",
-      email: "james@school.edu",
+      github: "aaditchandra",
+      linkedin: "aadit-chandra-security",
+      email: "aadit@school.edu",
       bio: "Committed to understanding and protecting digital infrastructure through ethical security research and education."
     },
     {
-      id: 8,
-      name: "Maya Patel",
+      id: 7,
+      name: "Ishaan Joshi",
       role: "Community Manager",
       year: "11th Grade",
       skills: ["Social Media", "Content Strategy", "Community Engagement"],
       image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face",
-      github: "mayapatel",
-      linkedin: "maya-patel-community",
-      email: "maya@school.edu",
+      github: "ishaanjoshi",
+      linkedin: "ishaan-joshi-community",
+      email: "ishaan@school.edu",
       bio: "Building bridges between technology enthusiasts and fostering a vibrant, inclusive community of learners."
+    },
+    {
+      id: 8,
+      name: "Sanskriti Singh",
+      role: "Creative Director",
+      year: "11th Grade",
+      skills: ["UI/UX Design", "Graphic Design", "Creative Strategy"],
+      image: "https://images.unsplash.com/photo-1494790108755-2616b332c77?w=400&h=400&fit=crop&crop=face",
+      github: "sanskritising",
+      linkedin: "sanskriti-singh-design",
+      email: "sanskriti@school.edu",
+      bio: "Dedicated to crafting beautiful, user-centered digital experiences that make technology accessible to everyone."
     }
   ];
 
@@ -156,15 +157,15 @@ const Members = () => {
             {members.map((member) => (
               <Card 
                 key={member.id} 
-                className="member-card bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 overflow-hidden"
+                className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 overflow-hidden"
               >
                 <div className="relative">
                   <img 
                     src={member.image} 
                     alt={member.name}
-                    className="w-full h-48 object-cover member-image transition-all duration-300"
+                    className="w-full h-48 object-cover transition-all duration-300"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 h-24 member-fade"></div>
+                  <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-card to-transparent"></div>
                 </div>
                 
                 <CardContent className="p-6 relative">
