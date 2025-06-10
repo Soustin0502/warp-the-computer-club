@@ -23,16 +23,16 @@ const Footer = () => {
           <div>
             <h3 className="font-orbitron font-semibold text-primary mb-4">Quick Links</h3>
             <div className="space-y-2">
-              <Link to="" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
+              <Link to="/" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
                 Home
               </Link>
-              <Link to="members" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
+              <Link to="/members" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
                 Members
               </Link>
-              <Link to="events" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
+              <Link to="/events" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
                 Events
               </Link>
-              <Link to="contact" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
+              <Link to="/contact" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
                 Contact
               </Link>
             </div>

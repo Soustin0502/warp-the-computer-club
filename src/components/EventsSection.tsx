@@ -133,7 +133,7 @@ const EventsSection = () => {
                       : 'border-secondary text-secondary hover:bg-secondary/10'
                   }`}
                 >
-                  <Link to="events">Learn More</Link>
+                  <Link to="/events">Learn More</Link>
                 </Button>
               </CardContent>
             </Card>
