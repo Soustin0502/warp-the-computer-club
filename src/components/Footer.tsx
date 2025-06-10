@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -8,11 +7,13 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <img 
-                src="./WarP Computer Club Logo.png" 
-                alt="The Computer Club" 
-                className="h-8"
-              />
+              <Link to="">
+                <img 
+                  src="./WarP Computer Club Logo.png" 
+                  alt="The Computer Club" 
+                  className="h-8"
+                />
+              </Link>
             </div>
             <p className="font-fira text-muted-foreground text-sm leading-relaxed">
               WarP Computer Club - Empowering the next generation of digital innovators at Delhi Public School Mathura Road.
@@ -22,16 +23,16 @@ const Footer = () => {
           <div>
             <h3 className="font-orbitron font-semibold text-primary mb-4">Quick Links</h3>
             <div className="space-y-2">
-              <Link to="/" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
+              <Link to="" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
                 Home
               </Link>
-              <Link to="/members" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
+              <Link to="members" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
                 Members
               </Link>
-              <Link to="/events" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
+              <Link to="events" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
                 Events
               </Link>
-              <Link to="/contact" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
+              <Link to="contact" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
                 Contact
               </Link>
             </div>

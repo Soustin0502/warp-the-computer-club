@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -10,18 +9,19 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
+  // Updated navLinks to remove leading slashes
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Members', href: '/members' },
-    { name: 'Events', href: '/events' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Home', href: '' },          // Changed from '/'
+    { name: 'Members', href: 'members' }, // Changed from '/members'
+    { name: 'Events', href: 'events' },   // Changed from '/events'
+    { name: 'Contact', href: 'contact' }  // Changed from '/contact'
   ];
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur-md border-b border-primary/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="" className="flex items-center space-x-2">
             <img 
               src="./WarP Computer Club Logo.png" 
               alt="The Computer Club" 

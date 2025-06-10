@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  base: mode === 'production' ? '/warp-the-computer-club/' : '/',
+  base: '/warp-the-computer-club/',
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
@@ -29,7 +29,6 @@ export default defineConfig(({ mode }) => ({
       },
     },
     assetsDir: 'assets',
-    // Add this to ensure assets are copied
     copyPublicDir: true,
   },
   publicDir: 'public',

@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom'
 
 const HeroSection = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -109,10 +110,10 @@ const HeroSection = () => {
               asChild
               className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira glow-pink"
             >
-              <a href="/events/">Explore Events</a>
+              <Link to="/events">Explore Events</Link>
             </Button>
             <Button variant="outline" className="border-secondary text-secondary hover:bg-secondary/10 font-fira">
-              <a href="/contact/">Learn More</a>
+              <Link to="/contact">Learn More</Link>
             </Button>
           </div>
         </div>
