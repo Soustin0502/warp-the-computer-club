@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -150,28 +151,6 @@
     }
   }
 
-  /* 3D Cylinder styles */
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-
-  .transform-style-preserve-3d {
-    transform-style: preserve-3d;
-  }
-
-  .animate-spin-slow {
-    animation: spin-slow 20s linear infinite;
-  }
-
-  .cylinder-face {
-    backface-visibility: hidden;
-  }
-
-  .vertical-text {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-  }
-
   /* Fixed card glossy glow effects - prevent center glow on mouse leave */
   .card-glossy-glow {
     position: relative;
@@ -181,8 +160,8 @@
   .card-glossy-glow::before {
     content: '';
     position: absolute;
-    top: var(--mouse-y, -200px);
-    left: var(--mouse-x, -200px);
+    top: var(--mouse-y, -500px);
+    left: var(--mouse-x, -500px);
     width: 200px;
     height: 200px;
     background: radial-gradient(circle, 
@@ -206,34 +185,11 @@
     z-index: 2;
   }
 
-  /* Member card hover effect - fixed to prevent center glow */
+  /* Member card hover effect - no glow effect for members */
   .member-card {
     height: 450px;
     position: relative;
     overflow: hidden;
-  }
-
-  .member-card::before {
-    content: '';
-    position: absolute;
-    top: var(--mouse-y, -200px);
-    left: var(--mouse-x, -200px);
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, 
-      rgba(0, 255, 159, 0.2) 0%, 
-      rgba(0, 255, 159, 0.1) 30%, 
-      transparent 70%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .member-card:hover::before {
-    opacity: 1;
   }
 
   /* Smooth scroll for all pages */
@@ -242,11 +198,6 @@
   }
 
   /* Member card styles - updated with better fade and positioning */
-  .member-card {
-    height: 450px;
-    position: relative;
-  }
-
   .member-image {
     filter: grayscale(100%);
   }
@@ -378,13 +329,4 @@
 @keyframes blink-caret {
   from, to { border-color: transparent; }
   50% { border-color: hsl(var(--primary)); }
-}
-
-@keyframes spin-slow {
-  from {
-    transform: rotateY(0deg);
-  }
-  to {
-    transform: rotateY(360deg);
-  }
 }

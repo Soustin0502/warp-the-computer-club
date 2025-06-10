@@ -1,213 +1,268 @@
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Calendar, MapPin, Users, Clock, ChevronDown } from 'lucide-react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import Cylinder3D from '@/components/Cylinder3D';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { ChevronDown } from 'lucide-react';
-import { useState } from 'react';
 
 const Events = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
   const [eventsRef, eventsVisible] = useScrollAnimation();
-  const [terminalRef, terminalVisible] = useScrollAnimation();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-
-  const handleCardMouseMove = (e: React.MouseEvent, index: number) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
-    setHoveredCard(index);
-  };
-
-  const handleCardMouseLeave = () => {
-    setHoveredCard(null);
-  };
+  const [upcomingRef, upcomingVisible] = useScrollAnimation();
 
   const scrollToNextSection = () => {
-    const nextSection = document.querySelector('main > div:nth-child(1)');
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
+    const eventsSection = document.querySelector('#upcoming-events');
+    if (eventsSection) {
+      eventsSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  const events = [
+  const upcomingEvents = [
     {
-      title: "WarP Intra '25",
-      date: "August 02, 2025",
-      type: "Intra School Competition",
-      description: "Our premier intra-school technology competition featuring multiple tracks for students to showcase their skills.",
-      tracks: [
-        "Competitive Programming Contest",
-        "Web Development Challenge",
-        "AI/ML Innovation Workshop",
-        "Cybersecurity Capture The Flag",
-        "Mobile App Development",
-        "Tech Quiz & Debugging Challenge"
-      ],
-      status: "Registration Open",
-      registerLink: "https://forms.google.com/dummy-registration-form",
-      brochureLink: "https://drive.google.com/dummy-brochure-link",
-      glowColor: "glow-green"
+      id: 1,
+      title: "CodeStorm 2024",
+      description: "Annual inter-school programming competition featuring algorithmic challenges, web development, and AI/ML problems.",
+      date: "2024-03-15",
+      time: "09:00 AM - 06:00 PM",
+      location: "School Auditorium",
+      participants: "150+",
+      tags: ["Competition", "Programming", "Prizes"],
+      image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&h=300&fit=crop",
+      registration: "Open"
     },
     {
-      title: "WarP Inter '25",
-      date: "T.B.D.",
-      type: "Inter School Championship",
-      description: "The ultimate inter-school technology championship bringing together the brightest minds from across the region.",
-      tracks: [
-        "48-Hour Hackathon Marathon",
-        "Multi-Round Programming Contest",
-        "Innovation Showcase & Expo",
-        "Tech Talk Series",
-        "Networking & Career Fair",
-        "Awards & Recognition Ceremony"
-      ],
-      status: "Coming Soon",
-      registerLink: "https://forms.google.com/dummy-registration-form-2",
-      brochureLink: "https://drive.google.com/dummy-brochure-link-2",
-      glowColor: "glow-blue"
+      id: 2,
+      title: "AI Workshop Series",
+      description: "Comprehensive workshop covering machine learning fundamentals, neural networks, and practical AI applications.",
+      date: "2024-03-22",
+      time: "02:00 PM - 05:00 PM",
+      location: "Computer Lab A",
+      participants: "50",
+      tags: ["Workshop", "AI/ML", "Hands-on"],
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop",
+      registration: "Open"
+    }
+  ];
+
+  const pastEvents = [
+    {
+      id: 3,
+      title: "Cybersecurity Bootcamp",
+      description: "Intensive bootcamp covering ethical hacking, network security, and digital forensics with industry experts.",
+      date: "2024-02-10",
+      time: "10:00 AM - 04:00 PM",
+      location: "Main Conference Hall",
+      participants: "80",
+      tags: ["Bootcamp", "Security", "Expert Session"],
+      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=300&fit=crop",
+      status: "Completed"
+    },
+    {
+      id: 4,
+      title: "Web Development Marathon",
+      description: "24-hour coding marathon where teams built full-stack web applications from scratch using modern frameworks.",
+      date: "2024-01-20",
+      time: "12:00 PM - 12:00 PM",
+      location: "Innovation Lab",
+      participants: "120",
+      tags: ["Marathon", "Web Dev", "Team Event"],
+      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=300&fit=crop",
+      status: "Completed"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden" style={{ scrollBehavior: 'smooth' }}>
+    <div className="min-h-screen bg-background">
       <Navbar />
       
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+      <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
         <div className="container mx-auto px-4 text-center z-10">
           <div 
             ref={titleRef}
             className={`scroll-fade-in ${titleVisible ? 'animate' : ''}`}
           >
-            <h1 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative">
-              <span className="text-cyber relative z-10">Events</span>
+            <h1 className="text-4xl md:text-7xl font-orbitron font-bold mb-6 relative">
+              <span className="text-cyber relative z-10">Our Events</span>
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110"></div>
             </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
-            <p className="text-lg font-fira text-muted-foreground max-w-2xl mx-auto">
-              Competitions that challenge minds and forge the future of technology
+            <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto mb-8">
+              Discover amazing opportunities to learn, compete, and innovate with fellow tech enthusiasts
             </p>
           </div>
         </div>
 
-        {/* 3D Cylinder */}
-        <Cylinder3D text="EVENTS" />
-
-        {/* Scroll Down Button */}
         <button 
           onClick={scrollToNextSection}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer bg-transparent border-none"
-          aria-label="Scroll to next section"
+          aria-label="Scroll to events"
         >
           <ChevronDown className="text-primary" size={24} />
         </button>
       </section>
 
-      <main className="pb-12">
+      {/* Upcoming Events */}
+      <section id="upcoming-events" className="py-20">
         <div className="container mx-auto px-4">
           <div 
-            ref={eventsRef}
-            className={`space-y-8 max-w-4xl mx-auto stagger-children ${eventsVisible ? 'animate' : ''}`}
+            ref={upcomingRef}
+            className={`text-center mb-16 scroll-fade-in ${upcomingVisible ? 'animate' : ''}`}
           >
-            {events.map((event, index) => (
+            <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 text-primary">
+              Upcoming Events
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
+          </div>
+
+          <div 
+            ref={eventsRef}
+            className={`grid md:grid-cols-2 gap-8 mb-20 stagger-children ${eventsVisible ? 'animate' : ''}`}
+          >
+            {upcomingEvents.map((event) => (
               <Card 
-                key={index} 
-                className={`bg-card/50 cyber-border hover:${event.glowColor} transition-all duration-300 card-glossy-glow`}
-                onMouseMove={(e) => handleCardMouseMove(e, index)}
-                onMouseLeave={handleCardMouseLeave}
-                style={{
-                  '--mouse-x': hoveredCard === index ? `${mousePosition.x}px` : '-200px',
-                  '--mouse-y': hoveredCard === index ? `${mousePosition.y}px` : '-200px',
-                } as React.CSSProperties}
+                key={event.id} 
+                className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 overflow-hidden"
               >
-                <CardHeader>
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                    <div>
-                      <CardTitle className="text-2xl font-orbitron font-bold text-primary mb-2">
-                        {event.title}
-                      </CardTitle>
-                      <div className="text-secondary font-fira text-sm uppercase tracking-wider">
-                        {event.type}
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-lg font-orbitron font-semibold text-accent mb-1">
-                        {event.date}
-                      </div>
-                      <div className={`inline-block px-3 py-1 rounded-full text-xs font-fira uppercase tracking-wider ${
-                        event.status === 'Registration Open' 
-                          ? 'bg-primary/20 text-primary border border-primary/30' 
-                          : 'bg-muted/20 text-muted-foreground border border-muted/30'
-                      }`}>
-                        {event.status}
-                      </div>
-                    </div>
+                <div className="relative">
+                  <img 
+                    src={event.image} 
+                    alt={event.title}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="absolute top-4 right-4">
+                    <Badge className="bg-primary text-primary-foreground">
+                      {event.registration}
+                    </Badge>
                   </div>
+                </div>
+
+                <CardHeader>
+                  <CardTitle className="text-xl font-orbitron text-primary">
+                    {event.title}
+                  </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <p className="font-fira text-foreground/80 leading-relaxed">
+
+                <CardContent className="space-y-4">
+                  <p className="text-foreground/80 font-fira text-sm">
                     {event.description}
                   </p>
-                  
-                  <div>
-                    <h4 className="font-orbitron font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">
-                      Event Tracks:
-                    </h4>
-                    <div className="grid md:grid-cols-2 gap-2">
-                      {event.tracks.map((track, idx) => (
-                        <div key={idx} className="font-fira text-sm text-foreground/70 flex items-center">
-                          <span className="w-1 h-1 rounded-full bg-primary mr-3"></span>
-                          {track}
-                        </div>
-                      ))}
+
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <Calendar size={16} />
+                      <span className="font-fira">{new Date(event.date).toLocaleDateString()}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <Clock size={16} />
+                      <span className="font-fira">{event.time}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <MapPin size={16} />
+                      <span className="font-fira">{event.location}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <Users size={16} />
+                      <span className="font-fira">{event.participants}</span>
                     </div>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <Button 
-                      asChild
-                      className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira"
-                      disabled={event.status === 'Coming Soon'}
-                    >
-                      <a href={event.registerLink} target="_blank" rel="noopener noreferrer">
-                        {event.status === 'Registration Open' ? 'Register Now' : 'Coming Soon'}
-                      </a>
-                    </Button>
-                    <Button 
-                      asChild
-                      variant="outline" 
-                      className="border-secondary text-secondary hover:bg-secondary/10 font-fira"
-                    >
-                      <a href={event.brochureLink} target="_blank" rel="noopener noreferrer">
-                        Learn More
-                      </a>
-                    </Button>
+                  <div className="flex flex-wrap gap-2">
+                    {event.tags.map((tag) => (
+                      <Badge 
+                        key={tag} 
+                        variant="outline" 
+                        className="text-xs border-secondary/30 text-secondary"
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
                   </div>
+
+                  <Button className="w-full bg-primary hover:bg-primary/80 text-primary-foreground font-fira">
+                    Register Now
+                  </Button>
                 </CardContent>
               </Card>
             ))}
           </div>
 
-          <div 
-            ref={terminalRef}
-            className={`text-center mt-12 scroll-fade-in ${terminalVisible ? 'animate' : ''}`}
-          >
-            <div className="terminal-text bg-background/50 border border-accent/30 rounded-lg p-6 max-w-md mx-auto">
-              <div className="text-accent mb-2">$ events --upcoming</div>
-              <div className="text-muted-foreground text-sm">
-                Next Event: WarP Intra '25<br/>
-                Registration Status: OPEN<br/>
-                Expected Participants: 200+
-              </div>
-            </div>
+          {/* Past Events */}
+          <div className="text-center mb-12">
+            <h3 className="text-2xl md:text-4xl font-orbitron font-bold mb-4 text-secondary">
+              Past Events
+            </h3>
+            <div className="w-16 h-1 bg-gradient-to-r from-secondary to-accent mx-auto"></div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {pastEvents.map((event) => (
+              <Card 
+                key={event.id} 
+                className="bg-card/30 border-muted/30 hover:border-muted/50 transition-all duration-300 overflow-hidden opacity-80"
+              >
+                <div className="relative">
+                  <img 
+                    src={event.image} 
+                    alt={event.title}
+                    className="w-full h-48 object-cover grayscale"
+                  />
+                  <div className="absolute top-4 right-4">
+                    <Badge variant="outline" className="bg-background/80">
+                      {event.status}
+                    </Badge>
+                  </div>
+                </div>
+
+                <CardHeader>
+                  <CardTitle className="text-xl font-orbitron text-muted-foreground">
+                    {event.title}
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent className="space-y-4">
+                  <p className="text-muted-foreground font-fira text-sm">
+                    {event.description}
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <Calendar size={16} />
+                      <span className="font-fira">{new Date(event.date).toLocaleDateString()}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <Clock size={16} />
+                      <span className="font-fira">{event.time}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <MapPin size={16} />
+                      <span className="font-fira">{event.location}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <Users size={16} />
+                      <span className="font-fira">{event.participants}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    {event.tags.map((tag) => (
+                      <Badge 
+                        key={tag} 
+                        variant="outline" 
+                        className="text-xs border-muted/30 text-muted-foreground"
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
-      </main>
+      </section>
+
       <Footer />
     </div>
   );

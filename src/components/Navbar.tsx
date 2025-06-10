@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 
@@ -22,7 +23,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
             <img 
-              src="./WarP Computer Club Logo.png" 
+              src="/WarP Computer Club Logo.png" 
               alt="The Computer Club" 
               className="h-8 md:h-10"
             />
@@ -40,27 +41,29 @@ const Navbar = () => {
               </Link>
             ))}
             
-            {/* Theme Toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className="text-primary hover:bg-primary/10"
-            >
-              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-            </Button>
+            {/* Theme Toggle - Pill Shape */}
+            <div className="flex items-center space-x-2 bg-muted/50 rounded-full p-1 border border-border">
+              <Sun size={16} className={`transition-colors ${theme === 'light' ? 'text-primary' : 'text-muted-foreground'}`} />
+              <Switch
+                checked={theme === 'dark'}
+                onCheckedChange={toggleTheme}
+                className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-muted"
+              />
+              <Moon size={16} className={`transition-colors ${theme === 'dark' ? 'text-primary' : 'text-muted-foreground'}`} />
+            </div>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className="text-primary"
-            >
-              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-            </Button>
+            <div className="flex items-center space-x-1 bg-muted/50 rounded-full p-1 border border-border">
+              <Sun size={14} className={`transition-colors ${theme === 'light' ? 'text-primary' : 'text-muted-foreground'}`} />
+              <Switch
+                checked={theme === 'dark'}
+                onCheckedChange={toggleTheme}
+                className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-muted scale-75"
+              />
+              <Moon size={14} className={`transition-colors ${theme === 'dark' ? 'text-primary' : 'text-muted-foreground'}`} />
+            </div>
             
             <Button
               variant="ghost"

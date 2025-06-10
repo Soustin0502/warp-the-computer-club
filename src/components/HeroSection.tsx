@@ -1,3 +1,4 @@
+
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
@@ -82,13 +83,12 @@ const HeroSection = () => {
             onMouseLeave={handleLogoMouseLeave}
           >
             <img 
-              src="./WARP TEXT HORIZ.png" 
+              src="/WARP TEXT HORIZ.png" 
               alt="WarP Logo" 
               className="h-24 md:h-32 mx-auto transition-transform duration-300 ease-out relative z-0"
               style={{
                 transform: `translate(${logoPosition.x}px, ${logoPosition.y}px)`,
-                // MODIFIED: Decreased the spread of the drop-shadow filter
-                filter: `drop-shadow(0px 0px 15px rgba(255, 51, 204, 0.8))`, // Reduced spread from 25px to 15px
+                filter: `drop-shadow(0px 0px 15px rgba(255, 51, 204, 0.8))`,
               }}
             />
           </div>
