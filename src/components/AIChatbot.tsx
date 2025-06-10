@@ -75,9 +75,9 @@ const AIChatbot = () => {
     // Events
     if (input.includes('event') || input.includes('competition') || input.includes('intra') || input.includes('inter')) {
       if (input.includes('upcoming') || input.includes('future') || input.includes('2025')) {
-        return `Our upcoming events include:\n• ${clubKnowledge.events.upcoming.join('\n• ')}\n\nWarP Intra '25 will be held on August 2, 2025, featuring competitive programming, AI/ML workshops, and cybersecurity CTF challenges!`;
+        return `Our upcoming events include:\n• ${clubKnowledge.events.upcoming.join('\n• ')}\n\nWarP Intra '25 will be held on August 2, 2025, featuring competitive programming, hackathons, cybersecurity CTF challenges and much more!`;
       }
-      return `We organize amazing events! Our upcoming events: ${clubKnowledge.events.upcoming.join(', ')}. We've also successfully conducted: ${clubKnowledge.events.past.join(', ')}. These events feature competitive programming, hackathons, workshops, and tech exhibitions.`;
+      return `We organize amazing events! Our upcoming events: ${clubKnowledge.events.upcoming.join(', ')}. We've also successfully conducted: ${clubKnowledge.events.past.join(', ')}. These events feature competitive programming, hackathons, workshops, and much more.`;
     }
     
     // Contact information
@@ -92,12 +92,17 @@ const AIChatbot = () => {
     
     // Join the club
     if (input.includes('join') || input.includes('how to') || input.includes('participate')) {
-      return `Great to hear you're interested in joining WarP! You can:\n1. Visit us during our meeting times (Mon-Fri, 8 AM - 1 PM)\n2. Email us at ${clubKnowledge.contact.email}\n3. Participate in our upcoming events\n4. Follow our activities and workshops\n\nWe welcome all students passionate about technology!`;
+      return `Great to hear you're interested in joining WarP! You can:\n1. Visit us during our meeting times (Mon-Fri, 8 AM - 1 PM)\n2. Email us at ${clubKnowledge.contact.email}\n3. Participate in our upcoming events\n4. Follow our activities and workshops\n\nWe welcome all students passionate about technology!(Only applicable for DPS Mathura Road Students)`;
+    }
+
+    // Focus Area
+    if (input.includes('focus areas') || input.includes('key focus areas') || input.includes('focus points')) {
+      return "Our key focus areas span a wide range of technical and creative disciplines. From programming in languages like Python, JavaScript, Java, and C++, to diving into AI/ML through workshops on machine learning, data science, and neural networks, our members are always exploring new frontiers. Cybersecurity is another core pillar, with activities like CTF competitions, ethical hacking, and network security sessions. We also nurture creative talents through photography, videography, graphic design, and content creation—encouraging members to tell powerful visual stories alongside their technical pursuits.";
     }
     
     // Programming languages
     if (input.includes('language') || input.includes('python') || input.includes('javascript') || input.includes('java') || input.includes('c++')) {
-      return "Our members work with various programming languages including Python, JavaScript, Java, C++, and more! We organize workshops and coding sessions to help everyone improve their skills regardless of their current level.";
+      return "Our members work with various programming languages including Python, JavaScript, Java, C++, and more! Beyond coding, they actively develop skills in photography, videography, designing, and much more. We regularly organize workshops and coding sessions to help everyone grow—whether you're just starting out or looking to sharpen your expertise across tech and creative fields.";
     }
     
     // AI/ML
@@ -110,6 +115,11 @@ const AIChatbot = () => {
       return "Cybersecurity is a major part of our activities! We organize CTF (Capture The Flag) competitions, ethical hacking workshops, and network security sessions. Our members learn about protecting digital infrastructure and ethical security research.";
     }
     
+    // Skills
+    if (input.includes('skills') || input.includes('skill') || input.includes('photo') || input.includes('video') || input.includes('3d') || input.includes('model') || input.includes('design')) {
+      return "Creative and visual skills are an essential part of what we do! Our members explore photography, videography, graphic design, and content creation through hands-on projects and collaborative sessions. From capturing events to designing posters, videos, and digital content, we encourage everyone to express their creativity and refine their storytelling abilities using the latest tools and techniques.";
+    }
+
     // School information
     if (input.includes('school') || input.includes('dps') || input.includes('delhi public school')) {
       return "We're based at Delhi Public School Mathura Road, a prestigious institution known for excellence in education and innovation. Our school provides state-of-the-art facilities and supports our technological endeavors.";
