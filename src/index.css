@@ -44,6 +44,36 @@
     --cyber-purple: 285 100% 70%;
     --cyber-red: 0 84% 60%;
   }
+
+  /* Custom scrollbar styles */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #FF33CC transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #FF33CC;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: #e629b8;
+  }
+
+  *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
 }
 
 @layer base {
@@ -87,6 +117,11 @@
 
   .terminal-text {
     @apply font-mono text-sm;
+  }
+
+  /* Logo glow effect for light theme */
+  .logo-glow-light {
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 16px rgba(0, 0, 0, 0.2));
   }
 
   /* Page hover effect */

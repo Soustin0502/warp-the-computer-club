@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -24,7 +25,9 @@ const Navbar = () => {
             <img 
               src="./WarP Computer Club Logo.png" 
               alt="The Computer Club" 
-              className="h-8 md:h-10"
+              className={`h-8 md:h-10 transition-all duration-300 ${
+                theme === 'light' ? 'logo-glow-light' : ''
+              }`}
             />
           </Link>
 

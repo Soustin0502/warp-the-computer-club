@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -214,33 +215,33 @@ What would you like to know more about?`;
       {/* Chat Button */}
       <Button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-primary hover:bg-primary/80 text-primary-foreground shadow-lg glow-pink ${
+        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-primary hover:bg-primary/80 text-primary-foreground shadow-lg glow-pink ${
           isOpen ? 'hidden' : 'flex'
         } items-center justify-center`}
       >
-        <MessageCircle size={24} />
+        <MessageCircle size={20} className="sm:w-6 sm:h-6" />
       </Button>
 
       {/* Chat Window */}
       {isOpen && (
-        <Card className="fixed bottom-6 right-6 z-50 w-96 h-[500px] bg-card/95 backdrop-blur-sm cyber-border">
-          <CardHeader className="flex flex-row items-center justify-between p-4 border-b border-primary/20">
-            <CardTitle className="text-lg font-orbitron text-primary">WarP AI Assistant</CardTitle>
+        <Card className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[calc(100vw-2rem)] max-w-sm sm:w-96 h-[calc(100vh-6rem)] sm:h-[500px] bg-card/95 backdrop-blur-sm cyber-border">
+          <CardHeader className="flex flex-row items-center justify-between p-3 sm:p-4 border-b border-primary/20">
+            <CardTitle className="text-base sm:text-lg font-orbitron text-primary">WarP AI Assistant</CardTitle>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen(false)}
-              className="text-primary hover:bg-primary/10"
+              className="text-primary hover:bg-primary/10 p-1 sm:p-2"
             >
-              <X size={20} />
+              <X size={18} className="sm:w-5 sm:h-5" />
             </Button>
           </CardHeader>
           
-          <CardContent className="p-0 flex flex-col h-[420px]">
+          <CardContent className="p-0 flex flex-col h-[calc(100%-4rem)] sm:h-[420px]">
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4">
               {messages.length === 0 && (
-                <div className="text-center text-muted-foreground font-fira text-sm">
+                <div className="text-center text-muted-foreground font-fira text-xs sm:text-sm">
                   Hello! I'm your WarP Computer Club assistant. Ask me about our members, events, activities, or how to join!
                 </div>
               )}
@@ -251,20 +252,20 @@ What would you like to know more about?`;
                   className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[80%] p-3 rounded-lg ${
+                    className={`max-w-[85%] sm:max-w-[80%] p-2 sm:p-3 rounded-lg ${
                       message.isUser
                         ? 'bg-primary text-primary-foreground'
                         : 'bg-muted text-foreground'
                     }`}
                   >
-                    <p className="font-fira text-sm whitespace-pre-line">{message.content}</p>
+                    <p className="font-fira text-xs sm:text-sm whitespace-pre-line break-words">{message.content}</p>
                   </div>
                 </div>
               ))}
               
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-muted p-3 rounded-lg">
+                  <div className="bg-muted p-2 sm:p-3 rounded-lg">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
                       <div className="w-2 h-2 bg-primary rounded-full animate-pulse delay-75"></div>
@@ -278,8 +279,8 @@ What would you like to know more about?`;
             </div>
 
             {/* Input Area */}
-            <div className="p-4 border-t border-primary/20">
-              <div className="flex space-x-2">
+            <div className="p-3 sm:p-4 border-t border-primary/20">
+              <div className="flex space-x-1 sm:space-x-2">
                 <input
                   type="file"
                   ref={fileInputRef}
@@ -292,9 +293,9 @@ What would you like to know more about?`;
                   variant="outline"
                   size="sm"
                   onClick={() => fileInputRef.current?.click()}
-                  className="border-secondary text-secondary hover:bg-secondary/10"
+                  className="border-secondary text-secondary hover:bg-secondary/10 p-1.5 sm:p-2 min-w-0"
                 >
-                  <Upload size={16} />
+                  <Upload size={14} className="sm:w-4 sm:h-4" />
                 </Button>
                 
                 <input
@@ -303,16 +304,16 @@ What would you like to know more about?`;
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Ask about WarP Computer Club..."
-                  className="flex-1 px-3 py-2 bg-background border border-primary/30 rounded-md text-foreground font-fira text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  className="flex-1 px-2 sm:px-3 py-1.5 sm:py-2 bg-background border border-primary/30 rounded-md text-foreground font-fira text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
                 
                 <Button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
-                  className="bg-primary hover:bg-primary/80 text-primary-foreground"
+                  className="bg-primary hover:bg-primary/80 text-primary-foreground p-1.5 sm:p-2 min-w-0"
                   size="sm"
                 >
-                  <Send size={16} />
+                  <Send size={14} className="sm:w-4 sm:h-4" />
                 </Button>
               </div>
             </div>
