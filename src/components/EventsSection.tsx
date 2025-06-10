@@ -53,7 +53,7 @@ const EventsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-card/20">
+    <section id="events" className="py-20 bg-card/20">
       <div className="container mx-auto px-4">
         <div 
           ref={titleRef}
@@ -151,6 +151,14 @@ const EventsSection = () => {
               WarP Inter '25: T.B.D.
             </div>
           </div>
+        </div>
+
+        <div className="text-center mt-12">
+          <Button asChild className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira">
+            <Link to="/blog">
+              Read Our Blog & Announcements
+            </Link>
+          </Button>
         </div>
       </div>
     </section>
