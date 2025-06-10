@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -27,6 +26,113 @@ const AIChatbot = () => {
     scrollToBottom();
   }, [messages]);
 
+  // Knowledge base about WarP Computer Club
+  const clubKnowledge = {
+    about: "WarP Computer Club is a premier technology club at Delhi Public School Mathura Road, founded to cultivate digital innovators and push the boundaries of technology.",
+    members: [
+      "Soustin Roy - President (12th Grade)",
+      "Deeptanshu Shekhar - President (12th Grade)", 
+      "Girisha Mehra - Vice President (11th Grade)",
+      "Aaayan Ahmed War - Vice President (11th Grade)",
+      "Ayaan Ali - Senior Executive (12th Grade)",
+      "Rishit Uppal - Senior Executive (12th Grade)",
+      "Ansh Mittal - Executive (11th Grade)",
+      "Kunal Kachhawa - Executive (11th Grade)"
+    ],
+    events: {
+      upcoming: ["WarP Intra '25 (August 2, 2025)", "WarP Inter '25 (TBD)"],
+      past: ["WarP Intra '24", "WarP Intra '23", "WarP Inter '23", "WarP Intra '22", "WarP Inter '22"]
+    },
+    contact: {
+      email: "warp.dpsmr@gmail.com",
+      meeting: "Mon to Fri, 08:00 AM to 01:00 PM",
+      location: "Computer Lab 1/2/3, Senior School Building, Ground Floor"
+    },
+    activities: ["Competitive Programming", "Web Development", "AI/ML Workshops", "Cybersecurity CTF", "Hackathons", "Tech Expo"]
+  };
+
+  const generateIntelligentResponse = (userInput: string): string => {
+    const input = userInput.toLowerCase();
+    
+    // Greetings
+    if (input.includes('hello') || input.includes('hi') || input.includes('hey')) {
+      return "Hello! Welcome to WarP Computer Club! I'm here to help you learn about our club, events, members, and activities. What would you like to know?";
+    }
+    
+    // About the club
+    if (input.includes('about') || input.includes('what is warp') || input.includes('club')) {
+      return `${clubKnowledge.about} We have ${clubKnowledge.members.length} active members working on cutting-edge projects in programming, AI/ML, cybersecurity, and more. Our mission is to architect the digital future through innovation and technology.`;
+    }
+    
+    // Members
+    if (input.includes('member') || input.includes('team') || input.includes('who') || input.includes('president')) {
+      if (input.includes('president')) {
+        return "Our club has two Presidents: Soustin Roy and Deeptanshu Shekhar, both in 12th Grade. They lead our club with expertise in full-stack development, AI/ML, and system architecture.";
+      }
+      return `We have ${clubKnowledge.members.length} dedicated members:\n\n${clubKnowledge.members.join('\n')}\n\nEach member brings unique skills in areas like programming, AI/ML, cybersecurity, web development, and more!`;
+    }
+    
+    // Events
+    if (input.includes('event') || input.includes('competition') || input.includes('intra') || input.includes('inter')) {
+      if (input.includes('upcoming') || input.includes('future') || input.includes('2025')) {
+        return `Our upcoming events include:\n• ${clubKnowledge.events.upcoming.join('\n• ')}\n\nWarP Intra '25 will be held on August 2, 2025, featuring competitive programming, AI/ML workshops, and cybersecurity CTF challenges!`;
+      }
+      return `We organize amazing events! Our upcoming events: ${clubKnowledge.events.upcoming.join(', ')}. We've also successfully conducted: ${clubKnowledge.events.past.join(', ')}. These events feature competitive programming, hackathons, workshops, and tech exhibitions.`;
+    }
+    
+    // Contact information
+    if (input.includes('contact') || input.includes('email') || input.includes('reach') || input.includes('meeting')) {
+      return `You can reach us at:\n📧 Email: ${clubKnowledge.contact.email}\n🕐 Meeting Times: ${clubKnowledge.contact.meeting}\n📍 Location: ${clubKnowledge.contact.location}\n\nFeel free to visit us during our meeting hours!`;
+    }
+    
+    // Activities and skills
+    if (input.includes('activity') || input.includes('skill') || input.includes('learn') || input.includes('programming') || input.includes('coding')) {
+      return `We focus on various exciting activities:\n• ${clubKnowledge.activities.join('\n• ')}\n\nWhether you're interested in competitive programming, web development, AI/ML, or cybersecurity, we have something for everyone!`;
+    }
+    
+    // Join the club
+    if (input.includes('join') || input.includes('how to') || input.includes('participate')) {
+      return `Great to hear you're interested in joining WarP! You can:\n1. Visit us during our meeting times (Mon-Fri, 8 AM - 1 PM)\n2. Email us at ${clubKnowledge.contact.email}\n3. Participate in our upcoming events\n4. Follow our activities and workshops\n\nWe welcome all students passionate about technology!`;
+    }
+    
+    // Programming languages
+    if (input.includes('language') || input.includes('python') || input.includes('javascript') || input.includes('java') || input.includes('c++')) {
+      return "Our members work with various programming languages including Python, JavaScript, Java, C++, and more! We organize workshops and coding sessions to help everyone improve their skills regardless of their current level.";
+    }
+    
+    // AI/ML
+    if (input.includes('ai') || input.includes('machine learning') || input.includes('artificial intelligence') || input.includes('ml')) {
+      return "AI/ML is one of our key focus areas! We conduct workshops on machine learning, data science, and AI applications. Our members work on exciting projects involving neural networks, data analysis, and intelligent systems.";
+    }
+    
+    // Cybersecurity
+    if (input.includes('security') || input.includes('cyber') || input.includes('hacking') || input.includes('ctf')) {
+      return "Cybersecurity is a major part of our activities! We organize CTF (Capture The Flag) competitions, ethical hacking workshops, and network security sessions. Our members learn about protecting digital infrastructure and ethical security research.";
+    }
+    
+    // School information
+    if (input.includes('school') || input.includes('dps') || input.includes('delhi public school')) {
+      return "We're based at Delhi Public School Mathura Road, a prestigious institution known for excellence in education and innovation. Our school provides state-of-the-art facilities and supports our technological endeavors.";
+    }
+    
+    // Thanks
+    if (input.includes('thank') || input.includes('thanks')) {
+      return "You're welcome! I'm always here to help you learn more about WarP Computer Club. Feel free to ask anything else about our members, events, activities, or how to get involved!";
+    }
+    
+    // Default response for unrecognized queries
+    return `I'd be happy to help you learn about WarP Computer Club! You can ask me about:
+    
+• Our members and leadership team
+• Upcoming and past events
+• Club activities and focus areas
+• How to join or participate
+• Contact information and meeting times
+• Programming languages and technologies we work with
+
+What would you like to know more about?`;
+  };
+
   const sendMessage = async () => {
     if (!input.trim()) return;
 
@@ -42,10 +148,12 @@ const AIChatbot = () => {
     setIsLoading(true);
 
     try {
-      // Simulated AI response - in real implementation, you'd call Gemini API here
+      // Generate intelligent response based on user input
+      const responseContent = generateIntelligentResponse(input);
+      
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
-        content: "I'm a simulated AI response. In a real implementation, this would connect to Google's Gemini API to provide intelligent responses.",
+        content: responseContent,
         isUser: false,
         timestamp: new Date()
       };
@@ -57,6 +165,15 @@ const AIChatbot = () => {
     } catch (error) {
       setIsLoading(false);
       console.error('Error sending message:', error);
+      
+      const errorResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        content: "I apologize, but I'm having trouble processing your request right now. Please try asking about our club members, events, activities, or contact information!",
+        isUser: false,
+        timestamp: new Date()
+      };
+      
+      setMessages(prev => [...prev, errorResponse]);
     }
   };
 
@@ -70,8 +187,15 @@ const AIChatbot = () => {
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Handle file upload - in real implementation, you'd process the file
       console.log('File uploaded:', file.name);
+      // For now, just acknowledge the file upload
+      const fileMessage: Message = {
+        id: Date.now().toString(),
+        content: `I see you've uploaded "${file.name}". While I can't process files yet, feel free to ask me any questions about WarP Computer Club!`,
+        isUser: false,
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, fileMessage]);
     }
   };
 
@@ -91,7 +215,7 @@ const AIChatbot = () => {
       {isOpen && (
         <Card className="fixed bottom-6 right-6 z-50 w-96 h-[500px] bg-card/95 backdrop-blur-sm cyber-border">
           <CardHeader className="flex flex-row items-center justify-between p-4 border-b border-primary/20">
-            <CardTitle className="text-lg font-orbitron text-primary">AI Assistant</CardTitle>
+            <CardTitle className="text-lg font-orbitron text-primary">WarP AI Assistant</CardTitle>
             <Button
               variant="ghost"
               size="sm"
@@ -107,7 +231,7 @@ const AIChatbot = () => {
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
               {messages.length === 0 && (
                 <div className="text-center text-muted-foreground font-fira text-sm">
-                  Ask me anything! I'm here to help.
+                  Hello! I'm your WarP Computer Club assistant. Ask me about our members, events, activities, or how to join!
                 </div>
               )}
               
@@ -123,7 +247,7 @@ const AIChatbot = () => {
                         : 'bg-muted text-foreground'
                     }`}
                   >
-                    <p className="font-fira text-sm">{message.content}</p>
+                    <p className="font-fira text-sm whitespace-pre-line">{message.content}</p>
                   </div>
                 </div>
               ))}
@@ -168,7 +292,7 @@ const AIChatbot = () => {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Type your message..."
+                  placeholder="Ask about WarP Computer Club..."
                   className="flex-1 px-3 py-2 bg-background border border-primary/30 rounded-md text-foreground font-fira text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
                 

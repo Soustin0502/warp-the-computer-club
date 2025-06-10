@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  base: '/warp-the-computer-club/',  // keep this for correct routing
+  base: mode === 'production' ? '/warp-the-computer-club/' : '/',
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
@@ -19,7 +19,6 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    outDir: 'dist',  // default is 'dist' folder, keep it outside root
-    // emptyOutDir: false, // don't delete files outside outDir
+    outDir: 'dist',
   },
 }));

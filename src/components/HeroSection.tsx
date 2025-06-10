@@ -83,7 +83,7 @@ const HeroSection = () => {
             onMouseLeave={handleLogoMouseLeave}
           >
             <img 
-              src="/WARP TEXT HORIZ.png" 
+              src="./WARP TEXT HORIZ.png" 
               alt="WarP Logo" 
               className="h-24 md:h-32 mx-auto transition-transform duration-300 ease-out relative z-0"
               style={{

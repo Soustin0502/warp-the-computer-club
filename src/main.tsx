@@ -8,8 +8,8 @@ console.log("Main.tsx is executing");
 const rootElement = document.getElementById('root');
 console.log("Root element found:", rootElement);
 
-// Use consistent basename for both development and production
-const basename = '/warp-the-computer-club/';
+// Use conditional basename based on environment
+const basename = import.meta.env.PROD ? '/warp-the-computer-club/' : '/';
 
 if (rootElement) {
   createRoot(rootElement).render(

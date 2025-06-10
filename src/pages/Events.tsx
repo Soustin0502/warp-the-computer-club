@@ -2,18 +2,19 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Calendar, MapPin, Users, Clock, ChevronDown } from 'lucide-react';
+import { Calendar, MapPin, Users, Clock, ChevronDown, Trophy, Star } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 const Events = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
+  const [statsRef, statsVisible] = useScrollAnimation();
   const [eventsRef, eventsVisible] = useScrollAnimation();
   const [upcomingRef, upcomingVisible] = useScrollAnimation();
 
   const scrollToNextSection = () => {
-    const eventsSection = document.querySelector('#upcoming-events');
+    const eventsSection = document.querySelector('#events-stats');
     if (eventsSection) {
       eventsSection.scrollIntoView({ behavior: 'smooth' });
     }
@@ -49,26 +50,62 @@ const Events = () => {
   const pastEvents = [
     {
       id: 3,
-      title: "Cybersecurity Bootcamp",
-      description: "Intensive bootcamp covering ethical hacking, network security, and digital forensics with industry experts.",
-      date: "2024-02-10",
-      time: "10:00 AM - 04:00 PM",
-      location: "Main Conference Hall",
-      participants: "80",
-      tags: ["Bootcamp", "Security", "Expert Session"],
+      title: "WarP Intra '24",
+      description: "Our most successful intra-school competition featuring advanced programming challenges, AI workshops, and innovative project showcases.",
+      date: "2024-08-02",
+      time: "07:30 AM - 01:45 PM",
+      location: "KG Hall",
+      participants: "150",
+      tags: ["Competition", "Programming", "AI Workshop"],
       image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=300&fit=crop",
       status: "Completed"
     },
     {
       id: 4,
-      title: "Web Development Marathon",
-      description: "24-hour coding marathon where teams built full-stack web applications from scratch using modern frameworks.",
-      date: "2024-01-20",
-      time: "12:00 PM - 12:00 PM",
-      location: "Innovation Lab",
-      participants: "120",
-      tags: ["Marathon", "Web Dev", "Team Event"],
+      title: "WarP Intra '23",
+      description: "A landmark event that brought together coding enthusiasts for intense programming competitions and collaborative learning sessions.",
+      date: "2023-08-02",
+      time: "07:30 AM - 01:45 PM",
+      location: "KG Hall",
+      participants: "130",
+      tags: ["Competition", "Coding", "Collaboration"],
       image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=300&fit=crop",
+      status: "Completed"
+    },
+    {
+      id: 5,
+      title: "WarP Inter '23",
+      description: "Inter-school championship that showcased the best talent from multiple schools in competitive programming and tech innovation.",
+      date: "2023-12-15",
+      time: "07:30 AM - 01:45 PM",
+      location: "KG Hall",
+      participants: "200",
+      tags: ["Inter School", "Championship", "Innovation"],
+      image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&h=300&fit=crop",
+      status: "Completed"
+    },
+    {
+      id: 6,
+      title: "WarP Intra '22",
+      description: "Foundation event that established our reputation for organizing high-quality programming competitions and technical workshops.",
+      date: "2022-08-02",
+      time: "07:30 AM - 01:45 PM",
+      location: "KG Hall",
+      participants: "100",
+      tags: ["Foundation", "Programming", "Workshop"],
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop",
+      status: "Completed"
+    },
+    {
+      id: 7,
+      title: "WarP Inter '22",
+      description: "Our inaugural inter-school event that brought together young programmers from across the region for friendly competition.",
+      date: "2022-12-10",
+      time: "07:30 AM - 01:45 PM",
+      location: "KG Hall",
+      participants: "80",
+      tags: ["Inaugural", "Inter School", "Programming"],
+      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=300&fit=crop",
       status: "Completed"
     }
   ];
@@ -103,9 +140,49 @@ const Events = () => {
         </button>
       </section>
 
-      {/* Upcoming Events */}
-      <section id="upcoming-events" className="py-20">
+      {/* Stats Section */}
+      <section id="events-stats" className="py-20">
         <div className="container mx-auto px-4">
+          <div 
+            ref={statsRef}
+            className={`grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-20 stagger-children ${statsVisible ? 'animate' : ''}`}
+          >
+            <Card className="bg-card/50 cyber-border hover:glow-green transition-all duration-300">
+              <CardHeader className="text-center">
+                <div className="flex items-center justify-center mb-4">
+                  <Calendar className="text-primary" size={48} />
+                </div>
+                <CardTitle className="text-3xl font-orbitron font-bold text-primary">
+                  {upcomingEvents.length}
+                </CardTitle>
+                <p className="text-muted-foreground font-fira">Upcoming Events</p>
+              </CardHeader>
+              <CardContent>
+                <p className="text-center font-fira text-sm text-foreground/80">
+                  Exciting competitions and workshops planned for this year to challenge and inspire our community.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/50 cyber-border hover:glow-blue transition-all duration-300">
+              <CardHeader className="text-center">
+                <div className="flex items-center justify-center mb-4">
+                  <Trophy className="text-secondary" size={48} />
+                </div>
+                <CardTitle className="text-3xl font-orbitron font-bold text-secondary">
+                  {pastEvents.length}
+                </CardTitle>
+                <p className="text-muted-foreground font-fira">Successful Events</p>
+              </CardHeader>
+              <CardContent>
+                <p className="text-center font-fira text-sm text-foreground/80">
+                  Years of organizing memorable events that have shaped the tech community at our school.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Upcoming Events */}
           <div 
             ref={upcomingRef}
             className={`text-center mb-16 scroll-fade-in ${upcomingVisible ? 'animate' : ''}`}
@@ -196,7 +273,7 @@ const Events = () => {
             <div className="w-16 h-1 bg-gradient-to-r from-secondary to-accent mx-auto"></div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {pastEvents.map((event) => (
               <Card 
                 key={event.id} 
