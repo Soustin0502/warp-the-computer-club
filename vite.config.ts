@@ -20,14 +20,17 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true, // Add this to help with debugging
+    sourcemap: true,
     rollupOptions: {
       output: {
         manualChunks: {
-          // This helps with caching and performance
           vendor: ['react', 'react-dom'],
         },
       },
     },
+    assetsDir: 'assets',
+    // Add this to ensure assets are copied
+    copyPublicDir: true,
   },
+  publicDir: 'public',
 }));
