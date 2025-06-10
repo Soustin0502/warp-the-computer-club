@@ -1,10 +1,21 @@
+
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import './index.css';
 
-createRoot(document.getElementById('root')!).render(
-  <BrowserRouter basename="/warp-the-computer-club/">
-    <App />
-  </BrowserRouter>
-);
+console.log("Main.tsx is executing");
+
+const rootElement = document.getElementById('root');
+console.log("Root element found:", rootElement);
+
+if (rootElement) {
+  createRoot(rootElement).render(
+    <BrowserRouter basename="/warp-the-computer-club/">
+      <App />
+    </BrowserRouter>
+  );
+  console.log("App has been rendered");
+} else {
+  console.error("Root element not found!");
+}
