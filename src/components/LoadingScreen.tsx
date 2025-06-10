@@ -22,7 +22,7 @@ const LoadingScreen = ({ onLoadComplete }: { onLoadComplete: () => void }) => {
       <div className="fixed inset-0 bg-background z-50 flex items-center justify-center opacity-0 transition-opacity duration-500 pointer-events-none">
         <div className="text-center">
           <img 
-            src="./WarP Icon.png" 
+            src="/WarP Icon.png" 
             alt="WarP Computer Club" 
             className=
             {`h-24 md:h-32 mx-auto mb-8 animate-pulse ${
@@ -47,7 +47,7 @@ const LoadingScreen = ({ onLoadComplete }: { onLoadComplete: () => void }) => {
     <div className="fixed inset-0 bg-background z-50 flex items-center justify-center">
       <div className="text-center">
         <img 
-          src="./WarP Computer Club Logo.png" 
+          src="./WarP Icon.png" 
           alt="WarP Computer Club" 
           className="h-24 md:h-32 mx-auto mb-8 animate-pulse"
         />

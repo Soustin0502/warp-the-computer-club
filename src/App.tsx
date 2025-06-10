@@ -29,18 +29,22 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/members" element={<Members />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <AIChatbot />
-        </TooltipProvider>
+        {isLoading ? (
+          <LoadingScreen onLoadComplete={() => setIsLoading(false)} />
+        ) : (
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/members" element={<Members />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <AIChatbot />
+          </TooltipProvider>
+        )}
       </ThemeProvider>
     </QueryClientProvider>
   );
