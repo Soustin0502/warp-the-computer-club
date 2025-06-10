@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -21,10 +20,6 @@ const App = () => {
   
   console.log("App component is rendering");
   console.log("All page imports successful");
-  
-  if (isLoading) {
-    return <LoadingScreen onLoadComplete={() => setIsLoading(false)} />;
-  }
   
   return (
     <QueryClientProvider client={queryClient}>
