@@ -1,7 +1,10 @@
 
 import { useEffect, useState } from 'react';
+import { useTheme } from '@/contexts/ThemeContext';
+
 
 const LoadingScreen = ({ onLoadComplete }: { onLoadComplete: () => void }) => {
+  const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
@@ -19,9 +22,12 @@ const LoadingScreen = ({ onLoadComplete }: { onLoadComplete: () => void }) => {
       <div className="fixed inset-0 bg-background z-50 flex items-center justify-center opacity-0 transition-opacity duration-500 pointer-events-none">
         <div className="text-center">
           <img 
-            src="./WarP Computer Club Logo.png" 
+            src="./WarP Icon.png" 
             alt="WarP Computer Club" 
-            className="h-24 md:h-32 mx-auto mb-8 animate-pulse"
+            className=
+            {`h-24 md:h-32 mx-auto mb-8 animate-pulse ${
+              theme === 'light' ? 'logo-glow-light' : ''
+            }`}
           />
           <div className="flex space-x-2 justify-center">
             {[...Array(3)].map((_, i) => (
