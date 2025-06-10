@@ -1,7 +1,11 @@
+
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Cylinder3D from '@/components/Cylinder3D';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 
 const Members = () => {
@@ -24,6 +28,13 @@ const Members = () => {
     setHoveredCard(null);
   };
 
+  const scrollToNextSection = () => {
+    const nextSection = document.querySelector('main > div:nth-child(2)');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const getInitials = (name: string) => {
     return name.split(' ').map(word => word[0]).join('').toUpperCase();
   };
@@ -42,11 +53,13 @@ const Members = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden" style={{ scrollBehavior: 'smooth' }}>
       <Navbar />
-      <main className="pt-24 pb-12">
-        <div className="container mx-auto px-4">
+      
+      {/* Hero Section */}
+      <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        <div className="container mx-auto px-4 text-center z-10">
           <div 
             ref={titleRef}
-            className={`text-center mb-16 scroll-fade-in ${titleVisible ? 'animate' : ''}`}
+            className={`scroll-fade-in ${titleVisible ? 'animate' : ''}`}
           >
             <h1 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative">
               <span className="text-cyber relative z-10">Our Team</span>
@@ -57,7 +70,23 @@ const Members = () => {
               Meet the digital architects behind WarP Computer Club
             </p>
           </div>
+        </div>
 
+        {/* 3D Cylinder */}
+        <Cylinder3D text="MEMBERS" />
+
+        {/* Scroll Down Button */}
+        <button 
+          onClick={scrollToNextSection}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer bg-transparent border-none"
+          aria-label="Scroll to next section"
+        >
+          <ChevronDown className="text-primary" size={24} />
+        </button>
+      </section>
+
+      <main className="pb-12">
+        <div className="container mx-auto px-4">
           <div 
             ref={membersRef}
             className={`grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto stagger-children ${membersVisible ? 'animate' : ''}`}
@@ -69,11 +98,8 @@ const Members = () => {
                 onMouseMove={(e) => handleCardMouseMove(e, index)}
                 onMouseLeave={handleCardMouseLeave}
                 style={{
-                  // MODIFIED: Only set --mouse-x and --mouse-y when the card is actively hovered.
-                  // Setting them to undefined will remove the inline style property when not hovered,
-                  // preventing the glow from snapping to the center during fade-out.
-                  '--mouse-x': hoveredCard === index ? `${mousePosition.x}px` : undefined,
-                  '--mouse-y': hoveredCard === index ? `${mousePosition.y}px` : undefined,
+                  '--mouse-x': hoveredCard === index ? `${mousePosition.x}px` : '-200px',
+                  '--mouse-y': hoveredCard === index ? `${mousePosition.y}px` : '-200px',
                 } as React.CSSProperties}
               >
                 <div className="relative h-80 overflow-hidden">
@@ -90,11 +116,6 @@ const Members = () => {
                       </div>
                     </div>
                   )}
-                  {/*
-                    GRADIENT CLASS (unchanged from previous valid state):
-                    - Height remains h-48.
-                    - Gradient colors are 'from-[#130E0D] via-[#130E0D]/70 to-transparent'.
-                  */}
                   <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#130E0D] via-[#130E0D]/70 to-transparent z-10" />
                 </div>
                 <div className="relative z-20 p-4">

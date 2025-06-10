@@ -1,8 +1,10 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Cylinder3D from '@/components/Cylinder3D';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 
 const Events = () => {
@@ -23,6 +25,13 @@ const Events = () => {
 
   const handleCardMouseLeave = () => {
     setHoveredCard(null);
+  };
+
+  const scrollToNextSection = () => {
+    const nextSection = document.querySelector('main > div:nth-child(1)');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const events = [
@@ -67,11 +76,13 @@ const Events = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden" style={{ scrollBehavior: 'smooth' }}>
       <Navbar />
-      <main className="pt-24 pb-12">
-        <div className="container mx-auto px-4">
+      
+      {/* Hero Section */}
+      <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        <div className="container mx-auto px-4 text-center z-10">
           <div 
             ref={titleRef}
-            className={`text-center mb-16 scroll-fade-in ${titleVisible ? 'animate' : ''}`}
+            className={`scroll-fade-in ${titleVisible ? 'animate' : ''}`}
           >
             <h1 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative">
               <span className="text-cyber relative z-10">Events</span>
@@ -82,7 +93,23 @@ const Events = () => {
               Competitions that challenge minds and forge the future of technology
             </p>
           </div>
+        </div>
 
+        {/* 3D Cylinder */}
+        <Cylinder3D text="EVENTS" />
+
+        {/* Scroll Down Button */}
+        <button 
+          onClick={scrollToNextSection}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer bg-transparent border-none"
+          aria-label="Scroll to next section"
+        >
+          <ChevronDown className="text-primary" size={24} />
+        </button>
+      </section>
+
+      <main className="pb-12">
+        <div className="container mx-auto px-4">
           <div 
             ref={eventsRef}
             className={`space-y-8 max-w-4xl mx-auto stagger-children ${eventsVisible ? 'animate' : ''}`}
@@ -94,8 +121,8 @@ const Events = () => {
                 onMouseMove={(e) => handleCardMouseMove(e, index)}
                 onMouseLeave={handleCardMouseLeave}
                 style={{
-                  '--mouse-x': hoveredCard === index ? `${mousePosition.x}px` : '50%',
-                  '--mouse-y': hoveredCard === index ? `${mousePosition.y}px` : '50%',
+                  '--mouse-x': hoveredCard === index ? `${mousePosition.x}px` : '-200px',
+                  '--mouse-y': hoveredCard === index ? `${mousePosition.y}px` : '-200px',
                 } as React.CSSProperties}
               >
                 <CardHeader>
