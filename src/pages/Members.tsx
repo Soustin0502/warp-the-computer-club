@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Github, Linkedin, Mail, ChevronDown, Users, Calendar } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import SkillsDisplay from '@/components/SkillsDisplay';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -219,21 +220,8 @@ const Members = () => {
                     {member.bio}
                   </p>
                   
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {member.skills.slice(0, 2).map((skill) => (
-                      <Badge 
-                        key={skill} 
-                        variant="outline" 
-                        className="text-xs border-primary/30 text-primary"
-                      >
-                        {skill}
-                      </Badge>
-                    ))}
-                    {member.skills.length > 2 && (
-                      <Badge variant="outline" className="text-xs border-muted text-muted-foreground">
-                        +{member.skills.length - 2}
-                      </Badge>
-                    )}
+                  <div className="mb-4">
+                    <SkillsDisplay skills={member.skills} maxVisible={2} />
                   </div>
                   
                   <div className="flex gap-3">

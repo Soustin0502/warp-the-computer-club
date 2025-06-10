@@ -1,6 +1,10 @@
+
 import { Link } from 'react-router-dom';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const Footer = () => {
+  const { theme } = useTheme();
+  
   return (
     <footer className="bg-card/30 border-t border-primary/20 py-12">
       <div className="container mx-auto px-4">
@@ -11,7 +15,9 @@ const Footer = () => {
                 <img 
                   src="./WarP Computer Club Logo.png" 
                   alt="The Computer Club" 
-                  className="h-8"
+                  className={`h-8 transition-all duration-300 ${
+                    theme === 'light' ? 'logo-glow-light' : ''
+                  }`}
                 />
               </Link>
             </div>

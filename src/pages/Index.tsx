@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 
 const Index = () => {
   console.log("Index page is rendering");
+  console.log("All components imported successfully");
   
   return (
     <div className="min-h-screen bg-background overflow-x-hidden" style={{ scrollBehavior: 'smooth' }}>

@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Calendar, MapPin, Users, Clock, ChevronDown, Trophy, Star } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import SkillsDisplay from '@/components/SkillsDisplay';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -37,10 +38,10 @@ const Events = () => {
       id: 2,
       title: "WarP Inter '25",
       description: "The ultimate battleground where schools compete in the digital arena. A prestigious event that brings together the brightest minds from across the region.",
-      date: "2025-12-31",
+      date: "T.B.D.",
       time: "07:30 AM - 01:45 PM",
       location: "KG Hall",
-      participants: "170+",
+      participants: "200+",
       tags: ["Inter School", "Competition", "Tech Expo"],
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop",
       registration: "Open"
@@ -229,7 +230,7 @@ const Events = () => {
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Calendar size={16} />
-                      <span className="font-fira">{new Date(event.date).toLocaleDateString()}</span>
+                      <span className="font-fira">{event.date === "T.B.D." ? event.date : new Date(event.date).toLocaleDateString()}</span>
                     </div>
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Clock size={16} />
@@ -245,17 +246,11 @@ const Events = () => {
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-2">
-                    {event.tags.map((tag) => (
-                      <Badge 
-                        key={tag} 
-                        variant="outline" 
-                        className="text-xs border-secondary/30 text-secondary"
-                      >
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
+                  <SkillsDisplay 
+                    skills={event.tags} 
+                    maxVisible={3} 
+                    primaryColor="secondary"
+                  />
 
                   <Button className="w-full bg-primary hover:bg-primary/80 text-primary-foreground font-fira">
                     Register Now

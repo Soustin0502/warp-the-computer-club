@@ -1,3 +1,4 @@
+
 import { createRoot } from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import App from './App.tsx';
@@ -9,6 +10,7 @@ const rootElement = document.getElementById('root');
 console.log("Root element found:", rootElement);
 
 if (rootElement) {
+  console.log("About to render App component");
   createRoot(rootElement).render(
     <HashRouter>
       <App />
