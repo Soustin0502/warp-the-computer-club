@@ -162,7 +162,7 @@
     z-index: -1;
     opacity: 1;
     pointer-events: none;
-    transform: scalae(110%)
+    transform: scale(110%)
   }
 
   /* Events cards overlapping animation - updated with less tilting and better positioning */
