@@ -159,10 +159,10 @@ const Blog = () => {
             animate={headingVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative inline-block">
-              <span className="text-cyber relative z-10 title-glow">Latest Posts</span>
+            <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative title-glow">
+              <span className="text-cyber relative z-10">Latest Posts</span>
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mt-4"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mB-6"></div>
           </motion.div>
 
           {/* Blog Posts Grid */}
