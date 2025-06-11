@@ -1,93 +1,109 @@
-import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { motion } from 'framer-motion';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import SkeletonLoader from "@/components/SkeletonLoader";
 
 const BlogAdmin = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
-  const [formRef, formVisible] = useScrollAnimation();
-  const [formData, setFormData] = useState({
-    title: '',
-    content: '',
-    excerpt: '',
-    author: '',
-    category: 'announcement',
-    featured_image_url: '',
-    instagram_post_url: '',
-    published: false
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [posts, setPosts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  const [formData, setFormData] = useState({
+    title: "",
+    content: "",
+    author: "",
+    category: "",
+    imageUrl: "",
+  });
 
-  const handleSelectChange = (value: string) => {
-    setFormData(prev => ({ ...prev, category: value }));
-  };
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
-  const handleSwitchChange = (checked: boolean) => {
-    setFormData(prev => ({ ...prev, published: checked }));
+  const fetchPosts = async () => {
+    try {
+      const { data, error } = await supabase.from("posts").select("*");
+      if (error) throw error;
+      setPosts(data || []);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to fetch posts. Please try again.",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
     try {
-      const { data, error } = await supabase
-        .from('blog_posts')
-        .insert([
-          {
-            title: formData.title,
-            content: formData.content,
-            excerpt: formData.excerpt,
-            author: formData.author,
-            category: formData.category,
-            featured_image_url: formData.featured_image_url,
-            instagram_post_url: formData.instagram_post_url,
-            published: formData.published
-          }
-        ]);
-
-      if (error) {
-        throw error;
-      }
-
-      setFormData({
-        title: '',
-        content: '',
-        excerpt: '',
-        author: '',
-        category: 'announcement',
-        featured_image_url: '',
-        instagram_post_url: '',
-        published: false
-      });
-
+      const { error } = await supabase.from("posts").insert([formData]);
+      if (error) throw error;
       toast({
         title: "Success",
-        description: "Blog post created successfully.",
+        description: "Post created successfully!",
       });
-    } catch (error: any) {
+      setFormData({
+        title: "",
+        content: "",
+        author: "",
+        category: "",
+        imageUrl: "",
+      });
+      fetchPosts();
+    } catch (error) {
+      console.error("Error creating post:", error);
       toast({
+        variant: "destructive",
         title: "Error",
-        description: error.message,
+        description: "Failed to create post. Please try again.",
       });
-    } finally {
-      setIsSubmitting(false);
+    }
+  };
+
+  const handleEdit = (postId: string) => {
+    navigate(`/admin/blog/edit/${postId}`);
+  };
+
+  const handleDelete = async (postId: string) => {
+    if (!window.confirm("Are you sure you want to delete this post?")) return;
+    try {
+      const { error } = await supabase.from("posts").delete().eq("id", postId);
+      if (error) throw error;
+      toast({
+        title: "Success",
+        description: "Post deleted successfully!",
+      });
+      fetchPosts();
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to delete post. Please try again.",
+      });
     }
   };
 
@@ -118,25 +134,15 @@ const BlogAdmin = () => {
       {/* Blog Form Section */}
       <section id="blog-form" className="py-20">
         <div className="container mx-auto px-4">
-          <motion.div 
-            ref={formRef}
-            initial={{ opacity: 0, y: 20 }}
-            animate={formVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 text-primary relative">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 text-primary relative inline-block">
               Create New Post
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-150"></div>
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={formVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
             <Card className="bg-card/50 cyber-border">
               <CardHeader>
                 <CardTitle className="text-xl font-orbitron text-primary">Blog Post Details</CardTitle>
@@ -146,11 +152,11 @@ const BlogAdmin = () => {
                   <div>
                     <Label htmlFor="title">Title</Label>
                     <Input
-                      type="text"
                       id="title"
-                      name="title"
                       value={formData.title}
-                      onChange={handleChange}
+                      onChange={(e) =>
+                        setFormData({ ...formData, title: e.target.value })
+                      }
                       required
                     />
                   </div>
@@ -158,84 +164,110 @@ const BlogAdmin = () => {
                     <Label htmlFor="content">Content</Label>
                     <Textarea
                       id="content"
-                      name="content"
                       value={formData.content}
-                      onChange={handleChange}
-                      rows={6}
+                      onChange={(e) =>
+                        setFormData({ ...formData, content: e.target.value })
+                      }
                       required
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="excerpt">Excerpt</Label>
-                    <Input
-                      type="text"
-                      id="excerpt"
-                      name="excerpt"
-                      value={formData.excerpt}
-                      onChange={handleChange}
-                      required
+                      className="min-h-[200px]"
                     />
                   </div>
                   <div>
                     <Label htmlFor="author">Author</Label>
                     <Input
-                      type="text"
                       id="author"
-                      name="author"
                       value={formData.author}
-                      onChange={handleChange}
+                      onChange={(e) =>
+                        setFormData({ ...formData, author: e.target.value })
+                      }
                       required
                     />
                   </div>
                   <div>
                     <Label htmlFor="category">Category</Label>
-                    <Select value={formData.category} onValueChange={handleSelectChange}>
-                      <SelectTrigger className="w-full">
+                    <Select
+                      value={formData.category}
+                      onValueChange={(value) =>
+                        setFormData({ ...formData, category: value })
+                      }
+                      required
+                    >
+                      <SelectTrigger>
                         <SelectValue placeholder="Select a category" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="announcement">Announcement</SelectItem>
-                        <SelectItem value="event">Event</SelectItem>
-                        <SelectItem value="tutorial">Tutorial</SelectItem>
-                        <SelectItem value="news">News</SelectItem>
+                        <SelectItem value="technology">Technology</SelectItem>
+                        <SelectItem value="programming">Programming</SelectItem>
+                        <SelectItem value="cybersecurity">
+                          Cybersecurity
+                        </SelectItem>
+                        <SelectItem value="ai">Artificial Intelligence</SelectItem>
+                        <SelectItem value="events">Events</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="featured_image_url">Featured Image URL</Label>
+                    <Label htmlFor="imageUrl">Image URL</Label>
                     <Input
-                      type="url"
-                      id="featured_image_url"
-                      name="featured_image_url"
-                      value={formData.featured_image_url}
-                      onChange={handleChange}
+                      id="imageUrl"
+                      value={formData.imageUrl}
+                      onChange={(e) =>
+                        setFormData({ ...formData, imageUrl: e.target.value })
+                      }
+                      placeholder="https://example.com/image.jpg"
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="instagram_post_url">Instagram Post URL</Label>
-                    <Input
-                      type="url"
-                      id="instagram_post_url"
-                      name="instagram_post_url"
-                      value={formData.instagram_post_url}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Label htmlFor="published">Published</Label>
-                    <Switch
-                      id="published"
-                      checked={formData.published}
-                      onCheckedChange={handleSwitchChange}
-                    />
-                  </div>
-                  <Button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? "Submitting..." : "Create Post"}
+                  <Button type="submit" className="w-full">
+                    Create Post
                   </Button>
                 </form>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Existing Posts Section */}
+      <section id="existing-posts" className="py-20">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-16 text-center text-primary relative inline-block">
+            Manage Existing Posts
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-150"></div>
+          </h2>
+          {loading ? (
+            <SkeletonLoader count={3} />
+          ) : (
+            <div className="grid gap-6">
+              {posts.map((post) => (
+                <Card key={post.id} className="bg-card/50 cyber-border">
+                  <CardHeader>
+                    <CardTitle className="text-xl font-orbitron text-primary">
+                      {post.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-foreground/80 mb-4">
+                      {post.content.substring(0, 200)}...
+                    </p>
+                    <div className="flex gap-4">
+                      <Button
+                        variant="outline"
+                        onClick={() => handleEdit(post.id)}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        onClick={() => handleDelete(post.id)}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
