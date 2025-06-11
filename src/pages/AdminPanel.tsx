@@ -281,7 +281,7 @@ const AdminPanel = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative heading-glow">
-              <span className="text-cyber relative z-10">Events Management</span>
+              <span className="text-cyber relative z-10 title-glow">Events Management</span>
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
           </motion.div>
