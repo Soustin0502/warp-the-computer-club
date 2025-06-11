@@ -24,7 +24,7 @@ const SchoolSection = () => {
   };
 
   return (
-    <section id="about-school" className="py-20">
+    <section id="about-school" className="py-20 bg-transparent">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div 
