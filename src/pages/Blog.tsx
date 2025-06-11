@@ -107,7 +107,7 @@ const Blog = () => {
         <div className="container mx-auto px-4">
           <motion.div 
             ref={headingRef}
-            className="text-center mb-16"
+{/*             className="text-center mb-16" */}
             initial={{ opacity: 0, y: 20 }}
             animate={headingVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6 }}
