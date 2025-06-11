@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -32,7 +33,9 @@ const BlogAdmin = () => {
     content: "",
     author: "",
     category: "",
-    imageUrl: "",
+    imageUrl: "", // maps to featured_image_url
+    excerpt: "",
+    published: false
   });
 
   useEffect(() => {
@@ -41,7 +44,10 @@ const BlogAdmin = () => {
 
   const fetchPosts = async () => {
     try {
-      const { data, error } = await supabase.from("posts").select("*");
+      const { data, error } = await supabase
+        .from("blog_posts")
+        .select("*")
+        .order('created_at', { ascending: false });
       if (error) throw error;
       setPosts(data || []);
     } catch (error) {
@@ -59,7 +65,19 @@ const BlogAdmin = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const { error } = await supabase.from("posts").insert([formData]);
+      const { error } = await supabase
+        .from("blog_posts")
+        .insert([{
+          title: formData.title,
+          content: formData.content,
+          author: formData.author,
+          category: formData.category,
+          featured_image_url: formData.imageUrl,
+          excerpt: formData.excerpt,
+          published: formData.published,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        }]);
       if (error) throw error;
       toast({
         title: "Success",
@@ -71,6 +89,8 @@ const BlogAdmin = () => {
         author: "",
         category: "",
         imageUrl: "",
+        excerpt: "",
+        published: false
       });
       fetchPosts();
     } catch (error) {
@@ -90,7 +110,10 @@ const BlogAdmin = () => {
   const handleDelete = async (postId: string) => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
     try {
-      const { error } = await supabase.from("posts").delete().eq("id", postId);
+      const { error } = await supabase
+        .from("blog_posts")
+        .delete()
+        .eq("id", postId);
       if (error) throw error;
       toast({
         title: "Success",
@@ -161,6 +184,18 @@ const BlogAdmin = () => {
                     />
                   </div>
                   <div>
+                    <Label htmlFor="excerpt">Excerpt</Label>
+                    <Textarea
+                      id="excerpt"
+                      value={formData.excerpt}
+                      onChange={(e) =>
+                        setFormData({ ...formData, excerpt: e.target.value })
+                      }
+                      placeholder="Brief summary of the post"
+                      className="min-h-[100px]"
+                    />
+                  </div>
+                  <div>
                     <Label htmlFor="content">Content</Label>
                     <Textarea
                       id="content"
@@ -207,7 +242,7 @@ const BlogAdmin = () => {
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="imageUrl">Image URL</Label>
+                    <Label htmlFor="imageUrl">Featured Image URL</Label>
                     <Input
                       id="imageUrl"
                       value={formData.imageUrl}
@@ -216,6 +251,16 @@ const BlogAdmin = () => {
                       }
                       placeholder="https://example.com/image.jpg"
                     />
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="published"
+                      checked={formData.published}
+                      onCheckedChange={(checked) =>
+                        setFormData({ ...formData, published: checked as boolean })
+                      }
+                    />
+                    <Label htmlFor="published">Publish immediately</Label>
                   </div>
                   <Button type="submit" className="w-full">
                     Create Post
@@ -241,13 +286,22 @@ const BlogAdmin = () => {
               {posts.map((post) => (
                 <Card key={post.id} className="bg-card/50 cyber-border">
                   <CardHeader>
-                    <CardTitle className="text-xl font-orbitron text-primary">
-                      {post.title}
+                    <CardTitle className="text-xl font-orbitron text-primary flex justify-between items-center">
+                      <span>{post.title}</span>
+                      <span className={`text-sm px-2 py-1 rounded ${post.published ? 'bg-green-500/20 text-green-500' : 'bg-yellow-500/20 text-yellow-500'}`}>
+                        {post.published ? 'Published' : 'Draft'}
+                      </span>
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
+                    <p className="text-sm text-foreground/80 mb-2">
+                      <span className="font-semibold">Author:</span> {post.author}
+                    </p>
+                    <p className="text-sm text-foreground/80 mb-2">
+                      <span className="font-semibold">Category:</span> {post.category}
+                    </p>
                     <p className="text-sm text-foreground/80 mb-4">
-                      {post.content.substring(0, 200)}...
+                      {post.excerpt || post.content.substring(0, 200)}...
                     </p>
                     <div className="flex gap-4">
                       <Button
