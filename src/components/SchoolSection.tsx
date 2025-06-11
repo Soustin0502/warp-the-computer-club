@@ -28,10 +28,10 @@ const SchoolSection = () => {
       <div className="container mx-auto px-4">
         <div 
           ref={titleRef}
-          className={`scroll-fade-in ${titleVisible ? 'animate' : ''}`}
+          className={`scroll-fade-in items-center ${titleVisible ? 'animate' : ''}`}
         >
           <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative title-glow">
-            <span className="text-cyber relative z-10">About Our School</span>
+            <span className="text-cyber text-center relative z-10">About Our School</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
         </div>
