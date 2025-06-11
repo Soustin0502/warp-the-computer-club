@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Users, Calendar, MessageSquare, BookOpen, Settings, BarChart3, Plus, Edit, Trash2, MapPin } from 'lucide-react';
+import { Users, Calendar, MessageSquare, BookOpen, Settings, BarChart3, Plus, Edit, Trash2, MapPin, ChevronDown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -260,12 +260,9 @@ const AdminPanel = () => {
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
         <div className="container mx-auto px-4 text-center z-10">
-          <motion.div 
+          <div 
             ref={titleRef}
-            initial={{ opacity: 0, y: 20 }}
-            animate={titleVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8"
+            className={`mb-8 scroll-animation ${titleVisible ? 'visible' : ''}`}
           >
             <h1 className="text-4xl md:text-7xl font-orbitron font-bold mb-6 relative heading-glow">
               <span className="text-cyber relative z-10">Admin Panel</span>
@@ -273,7 +270,7 @@ const AdminPanel = () => {
             <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto mb-8">
               Manage your WarP Computer Club operations and content
             </p>
-          </motion.div>
+          </div>
         </div>
         
 
@@ -290,18 +287,15 @@ const AdminPanel = () => {
       {/* Admin Stats and Management */}
       <section id="admin" className="py-20">
         <div className="container mx-auto px-4">
-          <motion.div 
-            ref={statsRef}
-            initial={{ opacity: 0, y: 20 }}
-            animate={statsVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+          <div 
+            ref={titleRef}
+            className={`mb-16 text-center scroll-animation ${titleVisible ? 'visible' : ''}`}
           >
             <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative heading-glow">
               <span className="text-cyber relative z-10 title-glow">Events Management</span>
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
-          </motion.div>
+          </div>
 
           {/* Add New Event Button */}
           <div className="text-center mb-8">
