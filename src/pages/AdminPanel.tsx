@@ -247,9 +247,9 @@ const AdminPanel = () => {
   ];
   
   const scrollToNextSection = () => {
-    const blogSection = document.getElementById('blog');
-    if (blogSection) {
-      blogSection.scrollIntoView({ behavior: 'smooth' });
+    const adminSection = document.getElementById('admin');
+    if (adminSection) {
+      adminSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -288,7 +288,7 @@ const AdminPanel = () => {
       </section>
 
       {/* Admin Stats and Management */}
-      <section className="py-20">
+      <section id="admin" className="py-20">
         <div className="container mx-auto px-4">
           <motion.div 
             ref={statsRef}
