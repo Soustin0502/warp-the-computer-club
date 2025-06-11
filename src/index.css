@@ -204,6 +204,16 @@
     }
   }
 
+  .bg-grid-white {
+    background-size: 100px 100px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  }
+  
+  .bg-grid-16 {
+    background-size: 16px 16px;
+  }
+
   /* Fixed card glossy glow effects - prevent center glow on mouse leave */
   .card-glossy-glow {
     position: relative;
