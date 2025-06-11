@@ -138,7 +138,7 @@ const Members = () => {
             ref={titleRef}
             className={`scroll-fade-in ${titleVisible ? 'animate' : ''} mb-8`}
           >
-            <h1 className="text-4xl md:text-7xl font-orbitron font-bold mb-6 relative heading-glow">
+            <h1 className="text-4xl md:text-7xl font-orbitron font-bold mb-6 relative title-glow">
               <span className="text-cyber relative z-10">Our Members</span>
             </h1>
             <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto mb-8">
