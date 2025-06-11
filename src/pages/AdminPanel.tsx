@@ -45,6 +45,13 @@ const AdminPanel = () => {
     totalTestimonials: 0,
     totalBlogPosts: 0
   });
+  
+  const scrollToNextSection = () => {
+    const adminSection = document.getElementById('admin');
+    if (adminSection) {
+      adminSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const [formData, setFormData] = useState({
     title: "",
@@ -245,13 +252,6 @@ const AdminPanel = () => {
       link: "/blog/admin"
     }
   ];
-  
-  const scrollToNextSection = () => {
-    const adminSection = document.getElementById('admin');
-    if (adminSection) {
-      adminSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden ">
