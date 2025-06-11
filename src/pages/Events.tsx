@@ -185,7 +185,7 @@ const Events = () => {
               <span className="text-cyber relative z-10">Upcoming Events</span>
 {/*               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110"></div> */}
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mt-4"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
           </div>
 
           <div 
