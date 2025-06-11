@@ -238,8 +238,6 @@ const Blog = () => {
           </motion.div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };
