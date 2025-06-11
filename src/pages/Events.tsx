@@ -181,7 +181,7 @@ const Events = () => {
       <section id="upcoming-events" className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 relative">
-            <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative heading-glow">
+            <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative title-glow">
               <span className="text-cyber relative z-10">Upcoming Events</span>
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110"></div>
             </h2>
@@ -256,7 +256,7 @@ const Events = () => {
 
           {/* Past Events */}
           <div className="text-center mb-16 relative">
-            <h3 className="text-2xl md:text-4xl font-orbitron font-bold mb-4 relative heading-glow">
+            <h3 className="text-2xl md:text-4xl font-orbitron font-bold mb-4 relative title-glow">
               <span className="text-cyber relative z-10">Past Events</span>
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110"></div>
             </h3>
