@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+// import Footer from "@/components/Footer";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -380,7 +380,7 @@ const BlogAdmin = () => {
         </section>
       </div>
 
-      <Footer />
+{/*       <Footer /> */}
     </div>
   );
 };
