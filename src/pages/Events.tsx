@@ -6,7 +6,7 @@ import { Calendar, MapPin, Users, Clock, ChevronDown, Trophy, Star } from 'lucid
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import SkillsDisplay from '@/components/SkillsDisplay';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+// import Footer from '@/components/Footer';
 
 const Events = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
@@ -339,7 +339,7 @@ const Events = () => {
         </div>
       </section>
 
-      <Footer />
+{/*       <Footer /> */}
     </div>
   );
 };
