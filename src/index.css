@@ -259,33 +259,50 @@
     position: relative;
     overflow: hidden;
   }
-
+  
   .card-glossy-glow::before {
-    content: '';
-    position: absolute;
-    top: var(--mouse-y, -500px);
-    left: var(--mouse-x, -500px);
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, 
-      rgba(255, 255, 255, 0.15) 0%, 
-      rgba(255, 255, 255, 0.08) 30%, 
-      transparent 70%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    z-index: 1;
+      content: '';
+      position: absolute;
+      top: var(--mouse-y, -500px);
+      left: var(--mouse-x, -500px);
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, 
+          rgba(255, 255, 255, 0.15) 0%, 
+          rgba(255, 255, 255, 0.08) 30%, 
+          transparent 70%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      /* Change transition to include transform for smoother effect */
+      transition: opacity 0.2s ease-out, transform 0.1s ease-out;
+      pointer-events: none;
+      z-index: 1;
+      /* Add initial transform state */
+      transform: translate(-50%, -50%) scale(0.5);
   }
-
+  
   .card-glossy-glow:hover::before {
-    opacity: 1;
+      opacity: 1;
+      /* Add hover transform state */
+      transform: translate(-50%, -50%) scale(1);
   }
-
+  
+  /* Add mouseenter animation */
+  .card-glossy-glow.mouse-enter::before {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+  }
+  
+  /* Add mouseleave animation */
+  .card-glossy-glow.mouse-leave::before {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.5);
+  }
+  
   .card-glossy-glow > * {
-    position: relative;
-    z-index: 2;
+      position: relative;
+      z-index: 2;
   }
 
   /* Member card hover effect with animations */
