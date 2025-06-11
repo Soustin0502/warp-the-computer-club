@@ -159,7 +159,7 @@ const TestimonialsSection = () => {
             variant="ghost" 
             className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira"
           >
-            <Link to="/testimonials">View All Testimonials <ArrowRight size={16} /></Link>
+            <Link to="/feedbacks">View All Testimonials <ArrowRight size={16} /></Link>
           </Button>
         </div>
       </div>
