@@ -38,6 +38,12 @@ const Footer = () => {
               <Link to="/events" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
                 Events
               </Link>
+              <Link to="/blog" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
+                Blog
+              </Link>
+              <Link to="/feedbacks" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
+                Feedbacks
+              </Link>
               <Link to="/contact" className="block font-fira text-sm text-muted-foreground hover:text-primary transition-colors">
                 Contact
               </Link>

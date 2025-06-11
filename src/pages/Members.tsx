@@ -131,7 +131,7 @@ const Members = () => {
           >
             <h1 className="text-4xl md:text-7xl font-orbitron font-bold mb-6 relative">
               <span className="text-cyber relative z-10">Our Members</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110 opacity-100"></div>
             </h1>
             <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto mb-8">
               Meet the brilliant minds driving innovation at WarP Computer Club
@@ -163,7 +163,7 @@ const Members = () => {
                 <CardTitle className="text-3xl font-orbitron font-bold text-primary">
                   {members.length}
                 </CardTitle>
-                <p className="text-muted-foreground font-fira">Active Members</p>
+                <p className="text-muted-foreground font-fira">Core Members</p>
               </CardHeader>
               <CardContent>
                 <p className="text-center font-fira text-sm text-foreground/80">
