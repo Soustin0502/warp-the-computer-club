@@ -21,7 +21,7 @@ interface Testimonial {
 }
 
 const TestimonialsSection = () => {
-  const [sectionRef, sectionVisible] = useScrollAnimation();
+  const [sectionRef, sectionVisible] = useScrollAnimation(0.1, '0px', true);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
 

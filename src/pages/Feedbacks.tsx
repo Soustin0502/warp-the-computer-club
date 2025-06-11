@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -20,7 +21,7 @@ interface Testimonial {
 
 const Feedbacks = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
-  const [feedbacksRef, feedbacksVisible] = useScrollAnimation(0.1, '0px');
+  const [feedbacksRef, feedbacksVisible] = useScrollAnimation(0.1, '0px', true);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   const [formHeadingRef, formHeadingVisible] = useScrollAnimation(0.2);
