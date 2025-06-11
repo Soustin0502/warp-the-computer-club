@@ -21,9 +21,22 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import SkeletonLoader from "@/components/SkeletonLoader";
 
+interface BlogPost {
+  id: string;
+  title: string;
+  content: string;
+  author: string;
+  category: string;
+  excerpt?: string;
+  featured_image_url?: string;
+  published: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 const BlogAdmin = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -134,35 +147,72 @@ const BlogAdmin = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="py-20 flex items-center justify-center relative overflow-hidden">
-        <div className="container mx-auto px-4 text-center z-10">
+      {/* Enhanced Hero Section */}
+      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-background to-background/50">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-grid-white/10 bg-grid-16 [mask-image:radial-gradient(white,transparent_85%)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/5 via-background/50 to-background/80" />
+        </div>
+
+        {/* Glowing Orbs */}
+        <div className="absolute -top-20 -left-20 w-72 h-72 bg-primary/30 rounded-full blur-3xl opacity-20" />
+        <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-secondary/30 rounded-full blur-3xl opacity-20" />
+
+        {/* Content */}
+        <div className="container mx-auto px-4 text-center relative z-10">
           <motion.div 
             ref={titleRef}
             initial={{ opacity: 0, y: 20 }}
             animate={titleVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
+            className="space-y-6"
           >
-            <h1 className="text-4xl md:text-7xl font-orbitron font-bold mb-6 relative">
-              <span className="text-cyber relative z-10">Admin Panel</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110"></div>
-            </h1>
-            <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto mb-8">
-              Create and manage blog posts for WarP Computer Club
+            <div className="relative inline-block">
+              <h1 className="text-4xl md:text-7xl font-orbitron font-bold mb-6 relative text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent">
+                Blog Admin Panel
+              </h1>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-150"></div>
+            </div>
+            
+            <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto">
+              Manage and create engaging content for WarP Computer Club
             </p>
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+              <div className="cyber-card p-6 bg-card/30 backdrop-blur-sm border border-primary/20 rounded-lg">
+                <h3 className="text-2xl font-orbitron text-primary mb-2">{posts.length}</h3>
+                <p className="text-sm text-foreground/60">Total Posts</p>
+              </div>
+              <div className="cyber-card p-6 bg-card/30 backdrop-blur-sm border border-secondary/20 rounded-lg">
+                <h3 className="text-2xl font-orbitron text-secondary mb-2">
+                  {posts.filter(post => post.published).length}
+                </h3>
+                <p className="text-sm text-foreground/60">Published Posts</p>
+              </div>
+              <div className="cyber-card p-6 bg-card/30 backdrop-blur-sm border border-accent/20 rounded-lg">
+                <h3 className="text-2xl font-orbitron text-accent mb-2">
+                  {posts.filter(post => !post.published).length}
+                </h3>
+                <p className="text-sm text-foreground/60">Draft Posts</p>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
 
       <div className="container mx-auto px-4">
-        {/* Blog Form Section */}
-        <section className="mb-20">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 text-primary relative inline-block">
-              Create New Post
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-150"></div>
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
+        {/* Create New Post Section */}
+        <section className="py-20">
+          <div className="text-center mb-16 relative">
+            <div className="relative inline-block">
+              <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                Create New Post
+              </h2>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 blur-xl -z-10 scale-150"></div>
+            </div>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mt-4"></div>
           </div>
 
           <Card className="bg-card/50 cyber-border">
@@ -180,6 +230,7 @@ const BlogAdmin = () => {
                       setFormData({ ...formData, title: e.target.value })
                     }
                     required
+                    className="bg-background/50"
                   />
                 </div>
                 <div>
@@ -191,7 +242,7 @@ const BlogAdmin = () => {
                       setFormData({ ...formData, excerpt: e.target.value })
                     }
                     placeholder="Brief summary of the post"
-                    className="min-h-[100px]"
+                    className="min-h-[100px] bg-background/50"
                   />
                 </div>
                 <div>
@@ -203,7 +254,7 @@ const BlogAdmin = () => {
                       setFormData({ ...formData, content: e.target.value })
                     }
                     required
-                    className="min-h-[200px]"
+                    className="min-h-[200px] bg-background/50"
                   />
                 </div>
                 <div>
@@ -215,6 +266,7 @@ const BlogAdmin = () => {
                       setFormData({ ...formData, author: e.target.value })
                     }
                     required
+                    className="bg-background/50"
                   />
                 </div>
                 <div>
@@ -226,15 +278,13 @@ const BlogAdmin = () => {
                     }
                     required
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="bg-background/50">
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="technology">Technology</SelectItem>
                       <SelectItem value="programming">Programming</SelectItem>
-                      <SelectItem value="cybersecurity">
-                        Cybersecurity
-                      </SelectItem>
+                      <SelectItem value="cybersecurity">Cybersecurity</SelectItem>
                       <SelectItem value="ai">Artificial Intelligence</SelectItem>
                       <SelectItem value="events">Events</SelectItem>
                     </SelectContent>
@@ -249,6 +299,7 @@ const BlogAdmin = () => {
                       setFormData({ ...formData, imageUrl: e.target.value })
                     }
                     placeholder="https://example.com/image.jpg"
+                    className="bg-background/50"
                   />
                 </div>
                 <div className="flex items-center space-x-2">
@@ -270,13 +321,15 @@ const BlogAdmin = () => {
         </section>
 
         {/* Existing Posts Section */}
-        <section className="mb-20">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 text-primary relative inline-block">
-              Manage Existing Posts
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-150"></div>
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
+        <section className="py-20">
+          <div className="text-center mb-16 relative">
+            <div className="relative inline-block">
+              <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-secondary to-accent">
+                Manage Existing Posts
+              </h2>
+              <div className="absolute inset-0 bg-gradient-to-r from-secondary/20 to-accent/20 blur-xl -z-10 scale-150"></div>
+            </div>
+            <div className="w-24 h-1 bg-gradient-to-r from-secondary to-accent mx-auto mt-4"></div>
           </div>
 
           {loading ? (
@@ -284,11 +337,15 @@ const BlogAdmin = () => {
           ) : (
             <div className="grid gap-6">
               {posts.map((post) => (
-                <Card key={post.id} className="bg-card/50 cyber-border">
+                <Card key={post.id} className="bg-card/50 cyber-border hover:bg-card/70 transition-colors duration-300">
                   <CardHeader>
                     <CardTitle className="text-xl font-orbitron text-primary flex justify-between items-center">
                       <span>{post.title}</span>
-                      <span className={`text-sm px-2 py-1 rounded ${post.published ? 'bg-green-500/20 text-green-500' : 'bg-yellow-500/20 text-yellow-500'}`}>
+                      <span className={`text-sm px-3 py-1 rounded-full ${
+                        post.published 
+                          ? 'bg-green-500/20 text-green-500 border border-green-500/30' 
+                          : 'bg-yellow-500/20 text-yellow-500 border border-yellow-500/30'
+                      }`}>
                         {post.published ? 'Published' : 'Draft'}
                       </span>
                     </CardTitle>
@@ -307,12 +364,14 @@ const BlogAdmin = () => {
                       <Button
                         variant="outline"
                         onClick={() => handleEdit(post.id)}
+                        className="hover:bg-primary/20 transition-colors duration-300"
                       >
                         Edit
                       </Button>
                       <Button
                         variant="destructive"
                         onClick={() => handleDelete(post.id)}
+                        className="hover:bg-destructive/80 transition-colors duration-300"
                       >
                         Delete
                       </Button>
