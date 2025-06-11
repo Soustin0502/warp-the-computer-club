@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
-// import Footer from '@/components/Footer';
+import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -143,6 +143,34 @@ ${data.message}
   };
 
   return (
+    {/* Hero Section */}
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      <div className="container mx-auto px-4 text-center z-10">
+        <motion.div 
+          ref={titleRef}
+          initial={{ opacity: 0, y: 20 }}
+          animate={titleVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1 className="text-4xl md:text-7xl font-orbitron font-bold mb-6 relative heading-glow">
+            <span className="text-cyber relative z-10">Blog</span>
+          </h1>
+          <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto mb-8">
+            Discover insights, announcements, and stories from the WarP Computer Club community
+          </p>
+        </motion.div>
+      </div>
+
+      <button 
+        onClick={scrollToNextSection}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer bg-transparent border-none"
+        aria-label="Scroll to blog posts"
+      >
+        <ChevronDown className="text-primary" size={24} />
+      </button>
+    </section>
+
+    {/* Contact Section */}
     <div className="min-h-screen bg-background overflow-x-hidden" style={{ scrollBehavior: 'smooth' }}>
       <Navbar />
       <main className="pt-24 pb-12">
@@ -303,7 +331,7 @@ ${data.message}
           </div>
         </div>
       </main>
-{/*       <Footer /> */}
+      <Footer />
     </div>
   );
 };

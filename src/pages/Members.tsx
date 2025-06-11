@@ -1,20 +1,17 @@
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Github, Linkedin, Mail, ChevronDown, Users, Calendar, Trophy } from 'lucide-react';
+import { Github, Linkedin, Mail, ChevronDown, Users, Trophy } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import SkillsDisplay from '@/components/SkillsDisplay';
 import Navbar from '@/components/Navbar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-// import Footer from '@/components/Footer';
+import Footer from '@/components/Footer';
 
 const Members = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
-  const [statsRef, statsVisible] = useScrollAnimation();
   const [membersHeaderRef, membersHeaderVisible] = useScrollAnimation();
   const [membersRef, membersVisible] = useScrollAnimation();
-  const [heroStatsRef, heroStatsVisible] = useScrollAnimation();
 
   const getInitials = (name: string) => {
     return name
@@ -25,7 +22,7 @@ const Members = () => {
   };
 
   const scrollToNextSection = () => {
-    const aboutSection = document.querySelector('#members-stats');
+    const aboutSection = document.querySelector('#members-grid');
     if (aboutSection) {
       aboutSection.scrollIntoView({ behavior: 'smooth' });
     }
@@ -131,7 +128,7 @@ const Members = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
       
       {/* Hero Section */}
@@ -148,36 +145,6 @@ const Members = () => {
               Meet the brilliant minds driving innovation at WarP Computer Club
             </p>
           </div>
-
-          {/* Hero Stats Cards */}
-          <div 
-            ref={heroStatsRef}
-            className={`grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8 stagger-children ${heroStatsVisible ? 'animate' : ''}`}
-          >
-            <Card className="bg-card/30 cyber-border hover:border-primary/60 transition-all duration-300">
-              <CardHeader className="text-center pb-3">
-                <div className="flex items-center justify-center mb-2">
-                  <Users className="text-primary" size={32} />
-                </div>
-                <CardTitle className="text-2xl font-orbitron font-bold text-primary">
-                  {members.length}
-                </CardTitle>
-                <p className="text-muted-foreground font-fira text-sm">Active Members</p>
-              </CardHeader>
-            </Card>
-
-            <Card className="bg-card/30 cyber-border hover:border-secondary/60 transition-all duration-300">
-              <CardHeader className="text-center pb-3">
-                <div className="flex items-center justify-center mb-2">
-                  <Trophy className="text-secondary" size={32} />
-                </div>
-                <CardTitle className="text-2xl font-orbitron font-bold text-secondary">
-                  5+
-                </CardTitle>
-                <p className="text-muted-foreground font-fira text-sm">Years Legacy</p>
-              </CardHeader>
-            </Card>
-          </div>
         </div>
 
         <button 
@@ -189,48 +156,9 @@ const Members = () => {
         </button>
       </section>
 
-      {/* Stats Section */}
-      <section id="members-stats" className="py-20">
+      {/* Members Grid */}
+      <section id="members-grid" className="py-20">
         <div className="container mx-auto px-4">
-          <div 
-            ref={statsRef}
-            className={`grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-20 stagger-children ${statsVisible ? 'animate' : ''}`}
-          >
-            <Card className="bg-card/50 cyber-border hover:glow-green transition-all duration-300">
-              <CardHeader className="text-center">
-                <div className="flex items-center justify-center mb-4">
-                  <Users className="text-primary" size={48} />
-                </div>
-                <CardTitle className="text-3xl font-orbitron font-bold text-primary">
-                  {members.length}
-                </CardTitle>
-                <p className="text-muted-foreground font-fira">Core Members</p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center font-fira text-sm text-foreground/80">
-                  Dedicated individuals working together to push the boundaries of technology and innovation.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-card/50 cyber-border hover:glow-blue transition-all duration-300">
-              <CardHeader className="text-center">
-                <div className="flex items-center justify-center mb-4">
-                  <Calendar className="text-secondary" size={48} />
-                </div>
-                <CardTitle className="text-3xl font-orbitron font-bold text-secondary">
-                  5+
-                </CardTitle>
-                <p className="text-muted-foreground font-fira">Years of Legacy</p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center font-fira text-sm text-foreground/80">
-                  Building a strong foundation of technological excellence and community engagement since our inception.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
           {/* Members Header */}
           <div 
             ref={membersHeaderRef}
@@ -243,77 +171,81 @@ const Members = () => {
           </div>
 
           {/* Members Grid */}
-          <div 
-            ref={membersRef}
-            className={`grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 stagger-children ${membersVisible ? 'animate' : ''}`}
-          >
-            {members.map((member, index) => (
-              <Card 
-                key={member.id} 
-                className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 overflow-hidden transform hover:scale-105 member-card"
-                style={{
-                  animationDelay: `${index * 0.1}s`
-                }}
-              >
-                <div className="relative">
-                  <div className="w-full h-48 flex items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20">
-                    <Avatar className="w-32 h-32">
-                      <AvatarImage src={member.image} alt={member.name} className="object-cover" />
-                      <AvatarFallback className="bg-primary/20 text-primary font-bold text-xl">
-                        {getInitials(member.name)}
-                      </AvatarFallback>
-                    </Avatar>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 h-24 member-fade"></div>
-                </div>
-                
-                <CardContent className="p-6 relative">
-                  <h3 className="text-xl font-orbitron font-semibold text-primary mb-1">
-                    {member.name}
-                  </h3>
-                  <p className="text-secondary font-fira text-sm mb-1">{member.role}</p>
-                  <p className="text-muted-foreground font-fira text-xs mb-4">{member.year}</p>
-                  
-                  <p className="text-foreground/80 font-fira text-sm mb-4 line-clamp-3">
-                    {member.bio}
-                  </p>
-                  
-                  <div className="mb-4">
-                    <SkillsDisplay skills={member.skills} maxVisible={2} />
+          <div className="flex justify-center">
+            <div 
+              ref={membersRef}
+              className={`grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 stagger-children ${membersVisible ? 'animate' : ''} max-w-7xl w-full justify-items-center`}
+            >
+              {members.map((member, index) => (
+                <Card 
+                  key={member.id} 
+                  className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 overflow-hidden transform hover:scale-105 member-card w-full max-w-sm h-[500px] flex flex-col"
+                  style={{
+                    animationDelay: `${index * 0.1}s`
+                  }}
+                >
+                  <div className="relative flex-shrink-0">
+                    <div className="w-full h-40 flex items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20">
+                      <Avatar className="w-24 h-24">
+                        <AvatarImage src={member.image} alt={member.name} className="object-cover" />
+                        <AvatarFallback className="bg-primary/20 text-primary font-bold text-lg">
+                          {getInitials(member.name)}
+                        </AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 h-16 member-fade"></div>
                   </div>
                   
-                  <div className="flex gap-3">
-                    <a 
-                      href={`https://github.com/${member.github}`}
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github size={16} />
-                    </a>
-                    <a 
-                      href={`https://linkedin.com/in/${member.linkedin}`}
-                      className="text-muted-foreground hover:text-secondary transition-colors"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Linkedin size={16} />
-                    </a>
-                    <a 
-                      href={`mailto:${member.email}`}
-                      className="text-muted-foreground hover:text-accent transition-colors"
-                    >
-                      <Mail size={16} />
-                    </a>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  <CardContent className="p-4 flex-1 flex flex-col justify-between">
+                    <div className="flex-1">
+                      <h3 className="text-lg font-orbitron font-semibold text-primary mb-1 line-clamp-1">
+                        {member.name}
+                      </h3>
+                      <p className="text-secondary font-fira text-sm mb-1">{member.role}</p>
+                      <p className="text-muted-foreground font-fira text-xs mb-3">{member.year}</p>
+                      
+                      <p className="text-foreground/80 font-fira text-sm mb-3 line-clamp-3 overflow-hidden">
+                        {member.bio}
+                      </p>
+                      
+                      <div className="mb-3">
+                        <SkillsDisplay skills={member.skills} maxVisible={2} />
+                      </div>
+                    </div>
+                    
+                    <div className="flex gap-3 flex-shrink-0 pt-2">
+                      <a 
+                        href={`https://github.com/${member.github}`}
+                        className="text-muted-foreground hover:text-primary transition-colors"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Github size={16} />
+                      </a>
+                      <a 
+                        href={`https://linkedin.com/in/${member.linkedin}`}
+                        className="text-muted-foreground hover:text-secondary transition-colors"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Linkedin size={16} />
+                      </a>
+                      <a 
+                        href={`mailto:${member.email}`}
+                        className="text-muted-foreground hover:text-accent transition-colors"
+                      >
+                        <Mail size={16} />
+                      </a>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-{/*       <Footer /> */}
+      <Footer />
     </div>
   );
 };

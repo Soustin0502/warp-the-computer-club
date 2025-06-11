@@ -92,9 +92,8 @@ const EventsSection = () => {
             ref={titleRef}
             className={`text-center mb-16 scroll-fade-in ${titleVisible ? 'animate' : ''}`}
             >
-                <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative">
+                <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative heading-glow">
                     <span className="text-cyber relative z-10">Our Events</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110 opacity-100 pointer-events-none"></div>
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
                 <p className="text-lg font-fira text-muted-foreground max-w-2xl mx-auto">
@@ -186,14 +185,14 @@ const EventsSection = () => {
                 </div>
             </div><br/><br/><br/><br/><br/>
             
-            {/* Blog Section */}
+            {/* Latest Posts Section */}
             <div 
             ref={blogRef}
             className={`text-center mb-16 scroll-fade-in ${blogVisible ? 'animate' : ''}`}
             >
-                <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative">
-                    <span className="text-cyber relative z-10">Latest from Our Blogs</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110 opacity-100 pointer-events-none"></div>
+                <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative heading-glow">
+                    <span className="text-cyber relative z-10">Latest Posts</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110"></div>
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
                     <p className="text-lg font-fira text-muted-foreground max-w-2xl mx-auto">
@@ -203,7 +202,7 @@ const EventsSection = () => {
 
             <div className="flex justify-center">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center">
-                    {blogPosts.map((post, index) => (
+                    {blogPosts.length > 0 ? blogPosts.map((post, index) => (
                         <Card key={post.id} className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 w-full max-w-md">
                             <CardHeader className="pb-3 text-center">
                                 <div className={`inline-block px-2 py-1 rounded-full text-xs font-fira uppercase tracking-wider mb-2 border ${getCategoryColor(post.category)}`}>
@@ -231,7 +230,13 @@ const EventsSection = () => {
                                 </p>
                             </CardContent>
                         </Card>
-                    ))}
+                    )) : (
+                        <div className="col-span-full text-center py-12">
+                            <p className="text-foreground/60 font-fira text-lg">
+                                No posts available yet. Check back soon!
+                            </p>
+                        </div>
+                    )}
                 </div>
             </div>
 
