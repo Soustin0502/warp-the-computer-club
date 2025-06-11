@@ -7,7 +7,7 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { supabase } from '@/integrations/supabase/client';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+// import Footer from '@/components/Footer';
 import FeedbackForm from '@/components/FeedbackForm';
 
 interface Testimonial {
@@ -204,7 +204,7 @@ const Feedbacks = () => {
         </div>
       </section>
 
-      <Footer />
+{/*       <Footer /> */}
     </div>
   );
 };
