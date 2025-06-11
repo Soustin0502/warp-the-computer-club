@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { Toaster } from '@/components/ui/toaster';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import LoadingScreen from '@/components/LoadingScreen';
 import ProtectedRoute from '@/components/ProtectedRoute';
 
@@ -31,6 +33,7 @@ function App() {
           <Router>
             <div className="min-h-screen bg-background text-foreground">
               <LoadingScreen onLoadComplete={() => {}} />
+              <Navbar />
               <main>
                 <Routes>
                   <Route path="/" element={<Index />} />
@@ -67,6 +70,7 @@ function App() {
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
+              <Footer/>
               <Toaster />
             </div>
           </Router>
