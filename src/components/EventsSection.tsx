@@ -103,7 +103,7 @@ const EventsSection = () => {
 
             <div 
             ref={eventsRef}
-            className={`relative max-w-6xl mx-auto events-container ${eventsVisible ? 'animate' : ''}`}
+            className={`relative max-w-6xl mx-auto events-container items-center ${eventsVisible ? 'animate' : ''}`}
             >
                 {events.map((event, index) => (
                     <Card 
