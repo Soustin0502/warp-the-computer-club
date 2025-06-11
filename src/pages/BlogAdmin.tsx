@@ -147,20 +147,19 @@ const BlogAdmin = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      {/* Enhanced Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-background to-background/50">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-grid-white/10 bg-grid-16 [mask-image:radial-gradient(white,transparent_85%)]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/5 via-background/50 to-background/80" />
+      {/* Hero Section */}
+      <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-background/90 z-10" />
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-0 -left-1/2 w-[100rem] h-[100rem] bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute bottom 0 -right-1/2 w-[100rem] h-[100rem] bg-secondary/20 rounded-full blur-3xl" />
+          </div>
         </div>
 
-        {/* Glowing Orbs */}
-        <div className="absolute -top-20 -left-20 w-72 h-72 bg-primary/30 rounded-full blur-3xl opacity-20" />
-        <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-secondary/30 rounded-full blur-3xl opacity-20" />
-
         {/* Content */}
-        <div className="container mx-auto px-4 text-center relative z-10">
+        <div className="container mx-auto px-4 text-center relative z-20">
           <motion.div 
             ref={titleRef}
             initial={{ opacity: 0, y: 20 }}
@@ -168,30 +167,28 @@ const BlogAdmin = () => {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            <div className="relative inline-block">
-              <h1 className="text-4xl md:text-7xl font-orbitron font-bold mb-6 relative text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent">
-                Blog Admin Panel
-              </h1>
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-150"></div>
-            </div>
+            <h1 className="text-4xl md:text-7xl font-orbitron font-bold mb-6 relative inline-block">
+              <span className="text-cyber relative z-10">Admin Panel</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-[100px] scale-150" />
+            </h1>
             
-            <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto">
+            <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto mb-12">
               Manage and create engaging content for WarP Computer Club
             </p>
 
             {/* Quick Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-              <div className="cyber-card p-6 bg-card/30 backdrop-blur-sm border border-primary/20 rounded-lg">
+              <div className="p-6 bg-card/30 backdrop-blur-sm border border-primary/20 rounded-lg cyber-box">
                 <h3 className="text-2xl font-orbitron text-primary mb-2">{posts.length}</h3>
                 <p className="text-sm text-foreground/60">Total Posts</p>
               </div>
-              <div className="cyber-card p-6 bg-card/30 backdrop-blur-sm border border-secondary/20 rounded-lg">
+              <div className="p-6 bg-card/30 backdrop-blur-sm border border-secondary/20 rounded-lg cyber-box">
                 <h3 className="text-2xl font-orbitron text-secondary mb-2">
                   {posts.filter(post => post.published).length}
                 </h3>
                 <p className="text-sm text-foreground/60">Published Posts</p>
               </div>
-              <div className="cyber-card p-6 bg-card/30 backdrop-blur-sm border border-accent/20 rounded-lg">
+              <div className="p-6 bg-card/30 backdrop-blur-sm border border-accent/20 rounded-lg cyber-box">
                 <h3 className="text-2xl font-orbitron text-accent mb-2">
                   {posts.filter(post => !post.published).length}
                 </h3>
@@ -200,22 +197,23 @@ const BlogAdmin = () => {
             </div>
           </motion.div>
         </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 bg-grid-white/10 bg-grid-16 [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none" />
       </section>
 
       <div className="container mx-auto px-4">
         {/* Create New Post Section */}
         <section className="py-20">
-          <div className="text-center mb-16 relative">
-            <div className="relative inline-block">
-              <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                Create New Post
-              </h2>
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 blur-xl -z-10 scale-150"></div>
-            </div>
+          <div className="text-center relative mb-16">
+            <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative inline-block">
+              <span className="text-cyber relative z-10">Create New Post</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-[100px] scale-150" />
+            </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mt-4"></div>
           </div>
 
-          <Card className="bg-card/50 cyber-border">
+          <Card className="bg-card/50 cyber-box">
             <CardHeader>
               <CardTitle className="text-xl font-orbitron text-primary">Blog Post Details</CardTitle>
             </CardHeader>
@@ -322,14 +320,12 @@ const BlogAdmin = () => {
 
         {/* Existing Posts Section */}
         <section className="py-20">
-          <div className="text-center mb-16 relative">
-            <div className="relative inline-block">
-              <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-secondary to-accent">
-                Manage Existing Posts
-              </h2>
-              <div className="absolute inset-0 bg-gradient-to-r from-secondary/20 to-accent/20 blur-xl -z-10 scale-150"></div>
-            </div>
-            <div className="w-24 h-1 bg-gradient-to-r from-secondary to-accent mx-auto mt-4"></div>
+          <div className="text-center relative mb-16">
+            <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative inline-block">
+              <span className="text-cyber relative z-10">Manage Existing Posts</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-[100px] scale-150" />
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mt-4"></div>
           </div>
 
           {loading ? (
@@ -337,7 +333,7 @@ const BlogAdmin = () => {
           ) : (
             <div className="grid gap-6">
               {posts.map((post) => (
-                <Card key={post.id} className="bg-card/50 cyber-border hover:bg-card/70 transition-colors duration-300">
+                <Card key={post.id} className="bg-card/50 cyber-box hover:bg-card/70 transition-colors duration-300">
                   <CardHeader>
                     <CardTitle className="text-xl font-orbitron text-primary flex justify-between items-center">
                       <span>{post.title}</span>
