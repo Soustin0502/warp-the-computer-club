@@ -92,7 +92,7 @@ const EventsSection = () => {
             ref={titleRef}
             className={`text-center mb-16 scroll-fade-in ${titleVisible ? 'animate' : ''}`}
             >
-                <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative heading-glow">
+                <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative title-glow">
                     <span className="text-cyber relative z-10">Our Events</span>
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
