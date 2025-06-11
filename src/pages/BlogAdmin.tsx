@@ -33,7 +33,7 @@ const BlogAdmin = () => {
     content: "",
     author: "",
     category: "",
-    imageUrl: "", // maps to featured_image_url
+    imageUrl: "",
     excerpt: "",
     published: false
   });
@@ -135,7 +135,7 @@ const BlogAdmin = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      <section className="py-20 flex items-center justify-center relative overflow-hidden">
         <div className="container mx-auto px-4 text-center z-10">
           <motion.div 
             ref={titleRef}
@@ -154,9 +154,9 @@ const BlogAdmin = () => {
         </div>
       </section>
 
-      {/* Blog Form Section */}
-      <section id="blog-form" className="py-20">
-        <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4">
+        {/* Blog Form Section */}
+        <section className="mb-20">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 text-primary relative inline-block">
               Create New Post
@@ -165,120 +165,120 @@ const BlogAdmin = () => {
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
           </div>
 
-          <div>
-            <Card className="bg-card/50 cyber-border">
-              <CardHeader>
-                <CardTitle className="text-xl font-orbitron text-primary">Blog Post Details</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <Label htmlFor="title">Title</Label>
-                    <Input
-                      id="title"
-                      value={formData.title}
-                      onChange={(e) =>
-                        setFormData({ ...formData, title: e.target.value })
-                      }
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="excerpt">Excerpt</Label>
-                    <Textarea
-                      id="excerpt"
-                      value={formData.excerpt}
-                      onChange={(e) =>
-                        setFormData({ ...formData, excerpt: e.target.value })
-                      }
-                      placeholder="Brief summary of the post"
-                      className="min-h-[100px]"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="content">Content</Label>
-                    <Textarea
-                      id="content"
-                      value={formData.content}
-                      onChange={(e) =>
-                        setFormData({ ...formData, content: e.target.value })
-                      }
-                      required
-                      className="min-h-[200px]"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="author">Author</Label>
-                    <Input
-                      id="author"
-                      value={formData.author}
-                      onChange={(e) =>
-                        setFormData({ ...formData, author: e.target.value })
-                      }
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="category">Category</Label>
-                    <Select
-                      value={formData.category}
-                      onValueChange={(value) =>
-                        setFormData({ ...formData, category: value })
-                      }
-                      required
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a category" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="technology">Technology</SelectItem>
-                        <SelectItem value="programming">Programming</SelectItem>
-                        <SelectItem value="cybersecurity">
-                          Cybersecurity
-                        </SelectItem>
-                        <SelectItem value="ai">Artificial Intelligence</SelectItem>
-                        <SelectItem value="events">Events</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <Label htmlFor="imageUrl">Featured Image URL</Label>
-                    <Input
-                      id="imageUrl"
-                      value={formData.imageUrl}
-                      onChange={(e) =>
-                        setFormData({ ...formData, imageUrl: e.target.value })
-                      }
-                      placeholder="https://example.com/image.jpg"
-                    />
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="published"
-                      checked={formData.published}
-                      onCheckedChange={(checked) =>
-                        setFormData({ ...formData, published: checked as boolean })
-                      }
-                    />
-                    <Label htmlFor="published">Publish immediately</Label>
-                  </div>
-                  <Button type="submit" className="w-full">
-                    Create Post
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+          <Card className="bg-card/50 cyber-border">
+            <CardHeader>
+              <CardTitle className="text-xl font-orbitron text-primary">Blog Post Details</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <Label htmlFor="title">Title</Label>
+                  <Input
+                    id="title"
+                    value={formData.title}
+                    onChange={(e) =>
+                      setFormData({ ...formData, title: e.target.value })
+                    }
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="excerpt">Excerpt</Label>
+                  <Textarea
+                    id="excerpt"
+                    value={formData.excerpt}
+                    onChange={(e) =>
+                      setFormData({ ...formData, excerpt: e.target.value })
+                    }
+                    placeholder="Brief summary of the post"
+                    className="min-h-[100px]"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="content">Content</Label>
+                  <Textarea
+                    id="content"
+                    value={formData.content}
+                    onChange={(e) =>
+                      setFormData({ ...formData, content: e.target.value })
+                    }
+                    required
+                    className="min-h-[200px]"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="author">Author</Label>
+                  <Input
+                    id="author"
+                    value={formData.author}
+                    onChange={(e) =>
+                      setFormData({ ...formData, author: e.target.value })
+                    }
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="category">Category</Label>
+                  <Select
+                    value={formData.category}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, category: value })
+                    }
+                    required
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="technology">Technology</SelectItem>
+                      <SelectItem value="programming">Programming</SelectItem>
+                      <SelectItem value="cybersecurity">
+                        Cybersecurity
+                      </SelectItem>
+                      <SelectItem value="ai">Artificial Intelligence</SelectItem>
+                      <SelectItem value="events">Events</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="imageUrl">Featured Image URL</Label>
+                  <Input
+                    id="imageUrl"
+                    value={formData.imageUrl}
+                    onChange={(e) =>
+                      setFormData({ ...formData, imageUrl: e.target.value })
+                    }
+                    placeholder="https://example.com/image.jpg"
+                  />
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="published"
+                    checked={formData.published}
+                    onCheckedChange={(checked) =>
+                      setFormData({ ...formData, published: checked as boolean })
+                    }
+                  />
+                  <Label htmlFor="published">Publish immediately</Label>
+                </div>
+                <Button type="submit" className="w-full">
+                  Create Post
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </section>
 
-      {/* Existing Posts Section */}
-      <section id="existing-posts" className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-16 text-center text-primary relative inline-block">
-            Manage Existing Posts
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-150"></div>
-          </h2>
+        {/* Existing Posts Section */}
+        <section className="mb-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 text-primary relative inline-block">
+              Manage Existing Posts
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-150"></div>
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
+          </div>
+
           {loading ? (
             <SkeletonLoader count={3} />
           ) : (
@@ -322,8 +322,8 @@ const BlogAdmin = () => {
               ))}
             </div>
           )}
-        </div>
-      </section>
+        </section>
+      </div>
 
       <Footer />
     </div>
