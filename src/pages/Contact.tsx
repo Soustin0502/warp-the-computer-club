@@ -7,6 +7,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { motion } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 
 const Contact = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
@@ -141,6 +143,12 @@ const Contact = () => {
       setIsLoading(false);
     }
   };
+  const scrollToNextSection = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  };
 
   return (
     // {/* Contact Section */}
@@ -156,10 +164,10 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-7xl font-orbitron font-bold mb-6 relative heading-glow">
-              <span className="text-cyber relative z-10">Blog</span>
+              <span className="text-cyber relative z-10">Contact Us</span>
             </h1>
             <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto mb-8">
-              Discover insights, announcements, and stories from the WarP Computer Club community
+              Ready to connect with the digital revolution? Get in touch with us.
             </p>
           </motion.div>
         </div>
@@ -174,19 +182,6 @@ const Contact = () => {
       </section>
       <main className="pt-24 pb-12">
         <div className="container mx-auto px-4">
-          <div 
-            ref={titleRef}
-            className={`text-center mb-16 scroll-fade-in ${titleVisible ? 'animate' : ''}`}
-          >
-            <h1 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative">
-              <span className="text-cyber relative z-10">Contact Us</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110"></div>
-            </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
-            <p className="text-lg font-fira text-muted-foreground max-w-2xl mx-auto">
-              Ready to connect with the digital revolution? Get in touch with us.
-            </p>
-          </div>
 
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             <Card 
