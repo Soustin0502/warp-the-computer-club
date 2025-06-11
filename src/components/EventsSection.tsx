@@ -86,7 +86,7 @@ const EventsSection = () => {
   };
 
   return (
-    <section id="events" className="py-20 bg-card/20">
+    <section id="events" className="py-20 bg-transparent">
         <div className="container mx-auto px-4">
             <div 
             ref={titleRef}
