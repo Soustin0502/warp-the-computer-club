@@ -201,7 +201,7 @@ const EventsSection = () => {
             </div>
 
             <div className="flex justify-center">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center items-center">
                     {blogPosts.length > 0 ? blogPosts.map((post, index) => (
                         <Card key={post.id} className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 w-full max-w-md">
                             <CardHeader className="pb-3 text-center">
