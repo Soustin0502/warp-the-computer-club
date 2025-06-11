@@ -245,9 +245,16 @@ const AdminPanel = () => {
       link: "/blog/admin"
     }
   ];
+  
+  const scrollToNextSection = () => {
+    const blogSection = document.getElementById('blog');
+    if (blogSection) {
+      blogSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden ">
       <Navbar />
       
       {/* Hero Section */}
@@ -268,6 +275,16 @@ const AdminPanel = () => {
             </p>
           </motion.div>
         </div>
+        
+
+        <button 
+          onClick={scrollToNextSection}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer bg-transparent border-none"
+          aria-label="Scroll to blog posts"
+        >
+          <ChevronDown className="text-primary" size={24} />
+        </button>
+        
       </section>
 
       {/* Admin Stats and Management */}
