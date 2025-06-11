@@ -184,7 +184,11 @@ const EventsSection = () => {
                         WarP Inter '25: T.B.D.
                     </div>
                 </div>
+<<<<<<< HEAD
             </div><br/><br/><br/><br/><br/>
+=======
+            </div>
+>>>>>>> 6ff2cc8b804767530d041e62f969acaea327fa0c
             
             {/* Blog Section */}
             <div 
