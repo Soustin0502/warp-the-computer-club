@@ -68,7 +68,7 @@ const TestimonialsSection = () => {
   };
 
   return (
-    <section className="py-20">
+    <section className="py-20 bg-transparent">
       <div className="container mx-auto px-4">
         <motion.div 
           ref={sectionRef}
