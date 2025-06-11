@@ -17,7 +17,6 @@ interface Event {
 
 const Events = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
-  const [eventsRef, eventsVisible] = useScrollAnimation();
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -41,11 +40,11 @@ const Events = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="w-full min-h-screen bg-background overflow-x-hidden">
       <Navbar />
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+      <section className="min-h-screen w-full flex flex-col items-center justify-center relative overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-background/90 z-10" />
@@ -56,7 +55,7 @@ const Events = () => {
         </div>
 
         {/* Content */}
-        <div className="container mx-auto px-4 text-center relative z-20">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-20">
           <motion.div
             ref={titleRef}
             initial={{ opacity: 0, y: 20 }}
@@ -78,8 +77,8 @@ const Events = () => {
       </section>
 
       {/* Events Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
+      <section className="w-full py-20">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center relative mb-16">
             <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative inline-block">
               <span className="text-cyber relative z-10">Upcoming Events</span>
@@ -93,9 +92,12 @@ const Events = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {events.map((event) => (
-                <Card key={event.id} className="bg-card/50 cyber-box hover:bg-card/70 transition-colors duration-300">
+                <Card 
+                  key={event.id} 
+                  className="bg-card/50 cyber-box hover:bg-card/70 transition-colors duration-300 overflow-hidden"
+                >
                   {event.image_url && (
-                    <div className="relative h-48 overflow-hidden rounded-t-lg">
+                    <div className="relative h-48 overflow-hidden">
                       <img
                         src={event.image_url}
                         alt={event.title}
