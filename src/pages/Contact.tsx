@@ -143,7 +143,7 @@ const Contact = () => {
   };
 
   return (
-    {/* Contact Section */}
+    // {/* Contact Section */}
     <div className="min-h-screen bg-background overflow-x-hidden" style={{ scrollBehavior: 'smooth' }}>
       <Navbar />
       {/* Hero Section */}
