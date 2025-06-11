@@ -141,10 +141,7 @@
   .heading-glow::before {
     content: '';
     position: absolute;
-    left: -100vw;
-    right: -100vw;
-    top: -20px;
-    bottom: -20px;
+    inset: 0;
     background: linear-gradient(to right, transparent, hsl(var(--primary) / 0.15), hsl(var(--secondary) / 0.15), hsl(var(--accent) / 0.15), transparent);
     filter: blur(30px);
     z-index: -1;
@@ -159,15 +156,13 @@
   .title-glow::before {
     content: '';
     position: absolute;
-    left: -100vw;
-    right: -100vw;
-    top: -20px;
-    bottom: -20px;
+    inset: 0;
     background: linear-gradient(to right, transparent, hsl(var(--primary) / 0.15), hsl(var(--secondary) / 0.15), hsl(var(--accent) / 0.15), transparent);
-    filter: blur(30px);
+    filter: blur(16px);
     z-index: -1;
     opacity: 1;
     pointer-events: none;
+    transform: scalae(110%)
   }
 
   /* Events cards overlapping animation - updated with less tilting and better positioning */
