@@ -88,7 +88,7 @@ const TestimonialsSection = () => {
           {loading ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center">
               {[...Array(3)].map((_, i) => (
-                <Card key={i} className="bg-card/50 cyber-border animate-pulse p-6 w-full max-w-md">
+                <Card key={i} className="bg-card/50 cyber-border animate-pulse p-6 w-full max-w-md card-glossy-glow">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="w-12 h-12 rounded-full bg-muted"></div>
                     <div className="flex-1">
@@ -103,6 +103,12 @@ const TestimonialsSection = () => {
                   </div>
                 </Card>
               ))}
+            </div>
+          ) : testimonials.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-foreground/60 font-fira text-lg">
+                No feedbacks available yet. Be the first to share your experience!
+              </p>
             </div>
           ) : (
             <div
@@ -135,7 +141,7 @@ const TestimonialsSection = () => {
                       </div>
                     </div>
                     <p className="text-foreground/80 font-fira text-sm leading-relaxed">
-                      {testimonial.feedback}
+                      "{testimonial.feedback}"
                     </p>
                   </Card>
                 </div>

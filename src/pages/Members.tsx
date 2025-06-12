@@ -150,10 +150,10 @@ const Members = () => {
           {/* Hero Cards Section */}
           <div 
             ref={heroCardsRef}
-            className={`grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-8 scroll-fade-in ${heroCardsVisible ? 'animate' : ''}`}
+            className={`grid md:grid-cols-2 gap-8 max-w-2xl mx-auto mb-8 scroll-fade-in ${heroCardsVisible ? 'animate' : ''}`}
           >
-            <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 card-glossy-glow">
-              <CardHeader className="text-center">
+            <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 card-glossy-glow p-6">
+              <CardHeader className="text-center pb-4">
                 <div className="flex items-center justify-center mb-4">
                   <Users className="text-primary" size={48} />
                 </div>
@@ -162,15 +162,15 @@ const Members = () => {
                 </CardTitle>
                 <p className="text-muted-foreground font-fira text-sm">Core Members</p>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-0">
                 <p className="text-center font-fira text-sm text-foreground/80">
                   Dedicated students passionate about technology and innovation
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 card-glossy-glow">
-              <CardHeader className="text-center">
+            <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 card-glossy-glow p-6">
+              <CardHeader className="text-center pb-4">
                 <div className="flex items-center justify-center mb-4">
                   <Trophy className="text-secondary" size={48} />
                 </div>
@@ -179,7 +179,7 @@ const Members = () => {
                 </CardTitle>
                 <p className="text-muted-foreground font-fira text-sm">Achievements</p>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-0">
                 <p className="text-center font-fira text-sm text-foreground/80">
                   Competitions won and projects completed successfully
                 </p>
