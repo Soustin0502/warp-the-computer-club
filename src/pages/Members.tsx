@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Github, Linkedin, Mail, ChevronDown, Users, Target, Trophy } from 'lucide-react';
+import { Github, Linkedin, Mail, ChevronDown, Users, User } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import SkillsDisplay from '@/components/SkillsDisplay';
 import Navbar from '@/components/Navbar';
@@ -152,7 +152,7 @@ const Members = () => {
             <Card className="bg-card/30 cyber-border hover:border-primary/60 transition-all duration-300">
               <CardHeader className="text-center pb-2 pt-4">
                 <div className="flex items-center justify-center mb-2">
-                  <Target className="text-primary" size={24} />
+                  <User className="text-primary" size={24} />
                 </div>
                 <CardTitle className="text-xl font-orbitron font-bold text-secondary">
                   8+
@@ -169,7 +169,7 @@ const Members = () => {
             <Card className="bg-card/30 cyber-border hover:border-secondary/60 transition-all duration-300">
               <CardHeader className="text-center pb-2 pt-4">
                 <div className="flex items-center justify-center mb-2">
-                  <Trophy className="text-secondary" size={24} />
+                  <Users className="text-secondary" size={24} />
                 </div>
                 <CardTitle className="text-xl font-orbitron font-bold text-secondary">
                   90+
