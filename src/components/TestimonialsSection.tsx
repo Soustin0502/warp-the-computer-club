@@ -9,12 +9,13 @@ import { ArrowRight } from 'lucide-react';
 
 interface Testimonial {
   id: string;
-  created_at: string;
   name: string;
   feedback: string;
-  message?: string; // Add message field to handle both feedback and message
+  message?: string;
   rating?: number;
   position?: string;
+  created_at: string;
+  status?: string;
 }
 
 const TestimonialsSection = () => {
@@ -37,29 +38,26 @@ const TestimonialsSection = () => {
 
   const fetchTestimonials = async () => {
     try {
-      console.log('Fetching testimonials for TestimonialsSection...');
+      console.log('Fetching testimonials...');
       
       const { data, error } = await supabase
         .from('testimonials')
         .select('*')
-        // Temporarily comment out approved filter for testing
-        // .eq('approved', true)
+        .eq('status', 'approved') // Change from 'approved' boolean to 'status' field
         .order('created_at', { ascending: false })
         .limit(3);
-
-      console.log('Supabase response for testimonials:', { data, error });
-
+  
       if (error) {
         console.error('Error fetching testimonials:', error);
         throw error;
       }
       
       if (data) {
-        // Transform the data to ensure all required fields exist
+        // Transform the data to handle both feedback and message fields
         const formattedData = data.map(item => ({
           id: item.id,
-          name: item.name,
-          feedback: item.feedback || item.message || '', // Handle both feedback and message fields
+          name: item.name || 'Anonymous',
+          feedback: item.message || item.feedback || '', // Try message first, then feedback
           rating: item.rating,
           position: item.position,
           created_at: item.created_at
@@ -67,9 +65,6 @@ const TestimonialsSection = () => {
         
         console.log('Formatted testimonials:', formattedData);
         setTestimonials(formattedData);
-      } else {
-        console.log('No testimonials data received');
-        setTestimonials([]);
       }
     } catch (error) {
       console.error('Error in fetchTestimonials:', error);
@@ -165,7 +160,7 @@ const TestimonialsSection = () => {
                       </div>
                     </div>
                     <p className="text-foreground/80 font-fira text-sm leading-relaxed flex-1 overflow-hidden">
-                      "{testimonial.feedback}"
+                      "{testimonial.feedback || testimonial.message}"
                     </p>
                   </Card>
                 </div>
