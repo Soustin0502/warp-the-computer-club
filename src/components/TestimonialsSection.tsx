@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { supabase } from '@/integrations/supabase/client';
-import { Calendar, User, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface Testimonial {
   id: string;
@@ -115,7 +115,7 @@ const TestimonialsSection = () => {
               ref={cardsRef}
               className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center stagger-children ${cardsVisible ? 'animate' : ''}`}
             >
-              {testimonials.map((testimonial, index) => (
+              {testimonials.map((testimonial) => (
                 <div
                   key={testimonial.id}
                   className="w-full max-w-sm"

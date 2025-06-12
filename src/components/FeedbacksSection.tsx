@@ -88,7 +88,6 @@ const FeedbacksSection = () => {
         >
           <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative heading-glow">
             <span className="text-cyber relative z-10">Community Feedbacks</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110"></div>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
           <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto">
@@ -128,7 +127,7 @@ const FeedbacksSection = () => {
               ref={cardsRef}
               className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center stagger-children ${cardsVisible ? 'animate' : ''}`}
             >
-              {testimonials.map((testimonial, index) => (
+              {testimonials.map((testimonial) => (
                 <div
                   key={testimonial.id}
                   className="w-full max-w-md"
