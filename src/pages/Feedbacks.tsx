@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -9,6 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 import Navbar from '@/components/Navbar';
 import FeedbackForm from '@/components/FeedbackForm';
 import Footer from '@/components/Footer';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 interface Testimonial {
   id: string;
@@ -27,6 +27,14 @@ const Feedbacks = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   const [displayCount, setDisplayCount] = useState(4);
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase();
+  };
 
   // Calculate initial display count based on screen width
   useEffect(() => {
@@ -63,17 +71,31 @@ const Feedbacks = () => {
 
   const fetchTestimonials = async () => {
     try {
+      console.log('Fetching testimonials for Feedbacks page...');
+      
       const { data, error } = await supabase
         .from('testimonials')
         .select('*')
         .eq('approved', true)
         .order('created_at', { ascending: false });
-  
-      if (error) throw error;
-      console.log('Fetched testimonials:', data); // Add this line to debug
-      setTestimonials(data || []);
+
+      console.log('Supabase response for feedbacks page:', { data, error });
+
+      if (error) {
+        console.error('Error fetching testimonials:', error);
+        throw error;
+      }
+      
+      if (data) {
+        console.log('Testimonials fetched for feedbacks page:', data);
+        setTestimonials(data);
+      } else {
+        console.log('No testimonials data received');
+        setTestimonials([]);
+      }
     } catch (error) {
-      console.error('Error fetching testimonials:', error);
+      console.error('Error in fetchTestimonials:', error);
+      setTestimonials([]);
     } finally {
       setLoading(false);
     }
@@ -178,6 +200,12 @@ const Feedbacks = () => {
                   </Card>
                 ))}
               </div>
+            </div>
+          ) : testimonials.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-foreground/60 font-fira text-lg">
+                No feedbacks available yet. Be the first to share your experience!
+              </p>
             </div>
           ) : (
             <>

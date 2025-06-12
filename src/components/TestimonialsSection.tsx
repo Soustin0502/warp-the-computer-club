@@ -1,22 +1,19 @@
-
 import { useState, useEffect } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { supabase } from '@/integrations/supabase/client';
+import { Card } from '@/components/ui/card';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ArrowRight } from 'lucide-react';
 
 interface Testimonial {
   id: string;
   created_at: string;
   name: string;
-  email: string;
   feedback: string;
-  position: string;
-  rating: number;
-  approved: boolean;
+  rating?: number;
+  position?: string;
 }
 
 const TestimonialsSection = () => {
@@ -39,7 +36,7 @@ const TestimonialsSection = () => {
 
   const fetchTestimonials = async () => {
     try {
-      console.log('Fetching testimonials...');
+      console.log('Fetching testimonials for TestimonialsSection...');
       
       const { data, error } = await supabase
         .from('testimonials')
@@ -48,47 +45,61 @@ const TestimonialsSection = () => {
         .order('created_at', { ascending: false })
         .limit(3);
 
-      console.log('Supabase response:', { data, error });
+      console.log('Supabase response for testimonials:', { data, error });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching testimonials:', error);
+        throw error;
+      }
       
       if (data) {
-        console.log('Testimonials fetched:', data);
+        console.log('Testimonials fetched for testimonials section:', data);
         setTestimonials(data);
       } else {
         console.log('No testimonials data received');
         setTestimonials([]);
       }
     } catch (error) {
-      console.error('Error fetching testimonials:', error);
+      console.error('Error in fetchTestimonials:', error);
       setTestimonials([]);
     } finally {
       setLoading(false);
     }
   };
 
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <span
+        key={i}
+        className={i < rating ? 'text-yellow-400' : 'text-gray-300'}
+      >
+        ★
+      </span>
+    ));
+  };
+
   return (
-    <section className="py-20 bg-transparent">
+    <section className="py-20">
       <div className="container mx-auto px-4">
         <div 
           ref={sectionRef}
           className={`text-center mb-16 scroll-fade-in ${sectionVisible ? 'animate' : ''}`}
         >
-          <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative inline-block title-glow">
-            <span className="text-cyber relative z-10">Feedbacks</span>
+          <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative heading-glow">
+            <span className="text-cyber relative z-10">Community Feedbacks</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
           <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto">
-            Hear from our valued members about their journey with us.
+            See what our community members have to say about their experiences.
           </p>
         </div>
 
-        {/* Testimonials Grid - Center aligned */}
+        {/* Feedbacks Grid */}
         <div className="mb-12 flex justify-center">
           {loading ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center">
               {[...Array(3)].map((_, i) => (
-                <Card key={i} className="bg-card/50 cyber-border animate-pulse p-6 w-full max-w-md card-glossy-glow">
+                <Card key={i} className="bg-card/50 cyber-border animate-pulse p-6 h-80 w-full max-w-md card-glossy-glow">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="w-12 h-12 rounded-full bg-muted"></div>
                     <div className="flex-1">
@@ -118,29 +129,30 @@ const TestimonialsSection = () => {
               {testimonials.map((testimonial) => (
                 <div
                   key={testimonial.id}
-                  className="w-full max-w-sm"
+                  className="w-full max-w-md"
                 >
-                  <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 p-6 card-glossy-glow">
+                  <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 p-6 h-80 flex flex-col card-glossy-glow">
                     <div className="flex items-center gap-4 mb-4">
-                      <Avatar className="w-12 h-12 bg-primary/20">
+                      <Avatar className="w-12 h-12 bg-primary/20 flex-shrink-0">
                         <AvatarFallback className="bg-primary/20 text-primary font-medium">
                           {getInitials(testimonial.name)}
                         </AvatarFallback>
                       </Avatar>
-                      <div>
-                        <h4 className="font-orbitron text-primary">{testimonial.name}</h4>
-                        <p className="text-sm text-muted-foreground font-fira">
-                          {testimonial.position}
-                        </p>
-                        {/* Add star rating */}
-                        <div className="flex items-center mt-1">
-                          {[...Array(testimonial.rating)].map((_, i) => (
-                            <span key={i} className="text-yellow-500">★</span>
-                          ))}
-                        </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-orbitron text-primary truncate">{testimonial.name}</h4>
+                        {testimonial.position && (
+                          <p className="text-sm text-muted-foreground font-fira truncate">
+                            {testimonial.position}
+                          </p>
+                        )}
+                        {testimonial.rating && (
+                          <div className="flex items-center mt-1">
+                            {renderStars(testimonial.rating)}
+                          </div>
+                        )}
                       </div>
                     </div>
-                    <p className="text-foreground/80 font-fira text-sm leading-relaxed">
+                    <p className="text-foreground/80 font-fira text-sm leading-relaxed flex-1 overflow-hidden">
                       "{testimonial.feedback}"
                     </p>
                   </Card>
@@ -154,10 +166,12 @@ const TestimonialsSection = () => {
         <div className="text-center">
           <Button 
             asChild 
-            variant="ghost" 
             className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira"
           >
-            <Link to="/feedbacks">View All Feedbacks <ArrowRight size={16} /></Link>
+            <Link to="/feedbacks" className="flex items-center gap-2">
+              View All Feedbacks
+              <ArrowRight size={16} />
+            </Link>
           </Button>
         </div>
       </div>
