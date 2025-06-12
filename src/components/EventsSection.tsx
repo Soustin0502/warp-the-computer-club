@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -192,7 +191,6 @@ const EventsSection = () => {
             >
                 <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative title-glow">
                     <span className="text-cyber relative z-10">Latest Posts</span>
-{/*                     <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110"></div> */}
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
                     <p className="text-lg font-fira text-muted-foreground max-w-2xl mx-auto">
@@ -203,7 +201,7 @@ const EventsSection = () => {
             <div className="flex justify-center">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center items-center">
                     {blogPosts.length > 0 ? blogPosts.map((post, index) => (
-                        <Card key={post.id} className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 w-full max-w-md">
+                        <Card key={post.id} className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 w-full max-w-md card-glossy-glow">
                             <CardHeader className="pb-3 text-center">
                                 <div className={`inline-block px-2 py-1 rounded-full text-xs font-fira uppercase tracking-wider mb-2 border ${getCategoryColor(post.category)}`}>
                                     {post.category}

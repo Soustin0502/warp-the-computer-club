@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Star, User, Calendar, ChevronDown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { supabase } from '@/integrations/supabase/client';
-import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import FeedbackForm from '@/components/FeedbackForm';
 import Footer from '@/components/Footer';
@@ -23,6 +22,7 @@ interface Testimonial {
 const Feedbacks = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
   const [feedbacksRef, feedbacksVisible] = useScrollAnimation(0.1, '0px', true);
+  const [cardsRef, cardsVisible] = useScrollAnimation(0.1, '0px', true);
   const [formHeadingRef, formHeadingVisible] = useScrollAnimation(0.2);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
@@ -122,11 +122,9 @@ const Feedbacks = () => {
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
         <div className="container mx-auto px-4 text-center z-10">
-          <motion.div 
+          <div 
             ref={titleRef}
-            initial={{ opacity: 0, y: 20 }}
-            animate={titleVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6 }}
+            className={`scroll-fade-in ${titleVisible ? 'animate' : ''}`}
           >
             <h1 className="text-4xl md:text-7xl font-orbitron font-bold mb-6 relative heading-glow">
               <span className="text-cyber relative z-10">Feedbacks</span>
@@ -134,7 +132,7 @@ const Feedbacks = () => {
             <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto mb-8">
               See what our community members say about WarP Computer Club
             </p>
-          </motion.div>
+          </div>
         </div>
 
         <button 
@@ -149,24 +147,21 @@ const Feedbacks = () => {
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20 relative z-10">
         <div className="container mx-auto px-4">
-          <motion.div 
+          <div 
             ref={feedbacksRef}
-            initial={{ opacity: 0, y: 20 }}
-            animate={feedbacksVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className={`text-center mb-16 scroll-fade-in ${feedbacksVisible ? 'animate' : ''}`}
           >
             <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 text-primary relative heading-glow">
               <span className="text-cyber relative z-10">Community Feedbacks</span>
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
-          </motion.div>
+          </div>
 
           {loading ? (
             <div className="flex justify-center">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl w-full">
                 {[...Array(4)].map((_, i) => (
-                  <Card key={i} className="bg-card/50 cyber-border animate-pulse h-80">
+                  <Card key={i} className="bg-card/50 cyber-border animate-pulse h-80 card-glossy-glow">
                     <CardHeader>
                       <div className="h-6 bg-muted rounded w-3/4"></div>
                       <div className="h-4 bg-muted rounded w-1/2"></div>
@@ -185,20 +180,13 @@ const Feedbacks = () => {
           ) : (
             <>
               <div className="flex justify-center">
-                <motion.div 
-                  className={`grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl w-full stagger-children ${feedbacksVisible ? 'animate' : ''}`}
-                  initial={{ opacity: 0 }}
-                  animate={feedbacksVisible ? { opacity: 1 } : { opacity: 0 }}
-                  transition={{ duration: 0.6, staggerChildren: 0.1 }}
+                <div 
+                  ref={cardsRef}
+                  className={`grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl w-full stagger-children ${cardsVisible ? 'animate' : ''}`}
                 >
                   {displayedTestimonials.map((testimonial) => (
-                    <motion.div
-                      key={testimonial.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={feedbacksVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 h-80">
+                    <div key={testimonial.id}>
+                      <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 h-80 card-glossy-glow">
                         <CardHeader>
                           <div className="flex items-center justify-between">
                             <CardTitle className="text-lg font-orbitron text-primary">
@@ -229,9 +217,9 @@ const Feedbacks = () => {
                           </p>
                         </CardContent>
                       </Card>
-                    </motion.div>
+                    </div>
                   ))}
-                </motion.div>
+                </div>
               </div>
 
               {hasMore && (
