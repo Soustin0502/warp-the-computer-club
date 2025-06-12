@@ -10,6 +10,7 @@ import Footer from '@/components/Footer';
 
 const Members = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
+  const [heroCardsRef, heroCardsVisible] = useScrollAnimation();
   const [membersHeaderRef, membersHeaderVisible] = useScrollAnimation();
   const [membersRef, membersVisible] = useScrollAnimation();
 
@@ -144,6 +145,46 @@ const Members = () => {
             <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto mb-8">
               Meet the brilliant minds driving innovation at WarP Computer Club
             </p>
+          </div>
+
+          {/* Hero Cards Section */}
+          <div 
+            ref={heroCardsRef}
+            className={`grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-8 scroll-fade-in ${heroCardsVisible ? 'animate' : ''}`}
+          >
+            <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 card-glossy-glow">
+              <CardHeader className="text-center">
+                <div className="flex items-center justify-center mb-4">
+                  <Users className="text-primary" size={48} />
+                </div>
+                <CardTitle className="text-2xl font-orbitron font-bold text-primary">
+                  8+
+                </CardTitle>
+                <p className="text-muted-foreground font-fira text-sm">Core Members</p>
+              </CardHeader>
+              <CardContent>
+                <p className="text-center font-fira text-sm text-foreground/80">
+                  Dedicated students passionate about technology and innovation
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 card-glossy-glow">
+              <CardHeader className="text-center">
+                <div className="flex items-center justify-center mb-4">
+                  <Trophy className="text-secondary" size={48} />
+                </div>
+                <CardTitle className="text-2xl font-orbitron font-bold text-secondary">
+                  50+
+                </CardTitle>
+                <p className="text-muted-foreground font-fira text-sm">Achievements</p>
+              </CardHeader>
+              <CardContent>
+                <p className="text-center font-fira text-sm text-foreground/80">
+                  Competitions won and projects completed successfully
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
 

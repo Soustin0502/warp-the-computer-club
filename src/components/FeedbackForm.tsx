@@ -120,12 +120,12 @@ const FeedbackForm = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="position" className="font-fira">Position/Class</Label>
+              <Label htmlFor="position" className="font-fira">Position/Class/Role</Label>
               <Input
                 id="position"
                 value={formData.position}
                 onChange={(e) => handleInputChange('position', e.target.value)}
-                placeholder="e.g., Class 12 Student, Alumni, etc."
+                placeholder="e.g., Class 12 Student, Alumni, Teacher, etc."
                 className="font-fira"
               />
             </div>

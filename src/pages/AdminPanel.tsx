@@ -5,12 +5,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Users, Calendar, MessageSquare, BookOpen, Plus, Edit, Trash2, MapPin, ChevronDown, X } from 'lucide-react';
+import { Users, Calendar, MessageSquare, BookOpen, Plus, Edit, Trash2, MapPin, ChevronDown, X, Archive, Star } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 interface Event {
   id: string;
@@ -41,22 +42,48 @@ interface BlogPost {
   updated_at: string;
 }
 
+interface Member {
+  id: number;
+  name: string;
+  role: string;
+  year: string;
+  skills: string[];
+  github: string;
+  linkedin: string;
+  email: string;
+  bio: string;
+}
+
+interface Feedback {
+  id: string;
+  name: string;
+  email: string | null;
+  feedback: string;
+  position: string | null;
+  rating: number | null;
+  approved: boolean | null;
+  created_at: string;
+}
+
 const AdminPanel = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
   const [cardsRef, cardsVisible] = useScrollAnimation();
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [events, setEvents] = useState<Event[]>([]);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [showEventForm, setShowEventForm] = useState(false);
   const [showBlogForm, setShowBlogForm] = useState(false);
+  const [showMemberForm, setShowMemberForm] = useState(false);
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
   const [editingBlog, setEditingBlog] = useState<BlogPost | null>(null);
+  const [editingMember, setEditingMember] = useState<Member | null>(null);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
   const [stats, setStats] = useState({
     totalMembers: 0,
     totalEvents: 0,
-    totalTestimonials: 0,
+    totalFeedbacks: 0,
     totalBlogPosts: 0
   });
   
@@ -66,6 +93,98 @@ const AdminPanel = () => {
       adminSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  // Static members data (can be moved to database later)
+  const [members, setMembers] = useState<Member[]>([
+    {
+      id: 1,
+      name: "Soustin Roy",
+      role: "President",
+      year: "12th Grade",
+      skills: ["Full-Stack Development", "AI/ML", "Leadership"],
+      github: "soustinroy",
+      linkedin: "soustin-roy",
+      email: "soustin@school.edu",
+      bio: "Leading the club with a vision to bridge technology and innovation, passionate about creating impactful digital solutions."
+    },
+    {
+      id: 2,
+      name: "Deeptanshu Shekhar",
+      role: "President",
+      year: "12th Grade",
+      skills: ["Backend Development", "System Architecture", "Leadership"],
+      github: "deeptanshushekhar",
+      linkedin: "deeptanshu-shekhar",
+      email: "deeptanshu@school.edu",
+      bio: "Co-leading the club with expertise in building robust systems and fostering collaborative learning environments."
+    },
+    {
+      id: 3,
+      name: "Girisha Mehra",
+      role: "Vice President",
+      year: "11th Grade",
+      skills: ["Frontend Development", "UI/UX Design", "Project Management"],
+      github: "girishamehra",
+      linkedin: "girisha-mehra",
+      email: "girisha@school.edu",
+      bio: "Focused on creating beautiful user experiences and managing innovative projects that inspire the next generation."
+    },
+    {
+      id: 4,
+      name: "Aaayan Ahmed War",
+      role: "Vice President",
+      year: "11th Grade",
+      skills: ["Machine Learning", "Data Science", "Research"],
+      github: "aaayanawar",
+      linkedin: "aaayan-ahmed-war",
+      email: "aaayan@school.edu",
+      bio: "Exploring the frontiers of artificial intelligence and leading research initiatives in machine learning applications."
+    },
+    {
+      id: 5,
+      name: "Ayaan Ali",
+      role: "Senior Executive",
+      year: "12th Grade",
+      skills: ["Cybersecurity", "Ethical Hacking", "Network Security"],
+      github: "ayaanali",
+      linkedin: "ayaan-ali-security",
+      email: "ayaan@school.edu",
+      bio: "Dedicated to understanding and protecting digital infrastructure through ethical security research and education."
+    },
+    {
+      id: 6,
+      name: "Rishit Uppal",
+      role: "Senior Executive",
+      year: "12th Grade",
+      skills: ["DevOps", "Cloud Computing", "Automation"],
+      github: "rishituppal",
+      linkedin: "rishit-uppal",
+      email: "rishit@school.edu",
+      bio: "Passionate about streamlining development processes and building scalable cloud infrastructure solutions."
+    },
+    {
+      id: 7,
+      name: "Ansh Mittal",
+      role: "Executive",
+      year: "11th Grade",
+      skills: ["Web Development", "Mobile Apps", "Game Development"],
+      github: "anshmittal",
+      linkedin: "ansh-mittal",
+      email: "ansh@school.edu",
+      bio: "Creating engaging digital experiences across web and mobile platforms with a focus on interactive applications."
+    },
+    {
+      id: 8,
+      name: "Kunal Kachhawa",
+      role: "Executive",
+      year: "11th Grade",
+      skills: ["Data Analytics", "Python", "Database Management"],
+      github: "kunalkachhawa",
+      linkedin: "kunal-kachhawa",
+      email: "kunal@school.edu",
+      bio: "Transforming raw data into meaningful insights and building efficient database solutions for complex problems."
+    }
+  ]);
 
   const [eventFormData, setEventFormData] = useState({
     title: "",
@@ -89,24 +208,36 @@ const AdminPanel = () => {
     published: false
   });
 
+  const [memberFormData, setMemberFormData] = useState({
+    name: "",
+    role: "",
+    year: "",
+    skills: "",
+    github: "",
+    linkedin: "",
+    email: "",
+    bio: ""
+  });
+
   useEffect(() => {
     fetchStats();
     fetchEvents();
     fetchBlogPosts();
+    fetchFeedbacks();
   }, []);
 
   const fetchStats = async () => {
     try {
-      const [events, testimonials, blogPosts] = await Promise.all([
+      const [events, feedbacks, blogPosts] = await Promise.all([
         supabase.from('events').select('id', { count: 'exact' }),
         supabase.from('testimonials').select('id', { count: 'exact' }),
         supabase.from('blog_posts').select('id', { count: 'exact' })
       ]);
 
       setStats({
-        totalMembers: 8, // Static count from Members page
+        totalMembers: members.length,
         totalEvents: events.count || 0,
-        totalTestimonials: testimonials.count || 0,
+        totalFeedbacks: feedbacks.count || 0,
         totalBlogPosts: blogPosts.count || 0
       });
     } catch (error) {
@@ -147,12 +278,27 @@ const AdminPanel = () => {
     }
   };
 
+  const fetchFeedbacks = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("testimonials")
+        .select("*")
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      setFeedbacks(data || []);
+    } catch (error) {
+      console.error("Error fetching feedbacks:", error);
+    }
+  };
+
   const handleSectionToggle = (section: string) => {
     setActiveSection(activeSection === section ? null : section);
     setShowEventForm(false);
     setShowBlogForm(false);
+    setShowMemberForm(false);
     setEditingEvent(null);
     setEditingBlog(null);
+    setEditingMember(null);
   };
 
   const resetEventForm = () => {
@@ -183,6 +329,21 @@ const AdminPanel = () => {
     });
     setEditingBlog(null);
     setShowBlogForm(false);
+  };
+
+  const resetMemberForm = () => {
+    setMemberFormData({
+      name: "",
+      role: "",
+      year: "",
+      skills: "",
+      github: "",
+      linkedin: "",
+      email: "",
+      bio: ""
+    });
+    setEditingMember(null);
+    setShowMemberForm(false);
   };
 
   const handleEventSubmit = async (e: React.FormEvent) => {
@@ -269,6 +430,26 @@ const AdminPanel = () => {
     }
   };
 
+  const handleMemberSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const memberData = {
+      ...memberFormData,
+      skills: memberFormData.skills.split(',').map(skill => skill.trim()),
+      id: editingMember ? editingMember.id : Date.now()
+    };
+
+    if (editingMember) {
+      setMembers(prev => prev.map(m => m.id === editingMember.id ? memberData : m));
+      toast({ title: "Success", description: "Member updated successfully!" });
+    } else {
+      setMembers(prev => [...prev, memberData]);
+      toast({ title: "Success", description: "Member added successfully!" });
+    }
+    
+    resetMemberForm();
+    fetchStats();
+  };
+
   const handleEventEdit = (event: Event) => {
     setEditingEvent(event);
     setEventFormData({
@@ -297,6 +478,21 @@ const AdminPanel = () => {
       published: blog.published
     });
     setShowBlogForm(true);
+  };
+
+  const handleMemberEdit = (member: Member) => {
+    setEditingMember(member);
+    setMemberFormData({
+      name: member.name,
+      role: member.role,
+      year: member.year,
+      skills: member.skills.join(', '),
+      github: member.github,
+      linkedin: member.linkedin,
+      email: member.email,
+      bio: member.bio
+    });
+    setShowMemberForm(true);
   };
 
   const handleEventDelete = async (eventId: string) => {
@@ -335,6 +531,77 @@ const AdminPanel = () => {
     }
   };
 
+  const handleMemberDelete = (memberId: number) => {
+    if (!window.confirm("Are you sure you want to delete this member?")) return;
+    setMembers(prev => prev.filter(m => m.id !== memberId));
+    toast({ title: "Success", description: "Member deleted successfully!" });
+    fetchStats();
+  };
+
+  const handleFeedbackApprove = async (feedbackId: string) => {
+    try {
+      const { error } = await supabase
+        .from("testimonials")
+        .update({ approved: true })
+        .eq("id", feedbackId);
+      if (error) throw error;
+      toast({ title: "Success", description: "Feedback approved successfully!" });
+      fetchFeedbacks();
+    } catch (error) {
+      console.error("Error approving feedback:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to approve feedback. Please try again.",
+      });
+    }
+  };
+
+  const handleFeedbackArchive = async (feedbackId: string) => {
+    try {
+      const { error } = await supabase
+        .from("testimonials")
+        .update({ approved: false })
+        .eq("id", feedbackId);
+      if (error) throw error;
+      toast({ title: "Success", description: "Feedback archived successfully!" });
+      fetchFeedbacks();
+    } catch (error) {
+      console.error("Error archiving feedback:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to archive feedback. Please try again.",
+      });
+    }
+  };
+
+  const handleFeedbackDelete = async (feedbackId: string) => {
+    if (!window.confirm("Are you sure you want to delete this feedback?")) return;
+    try {
+      const { error } = await supabase.from("testimonials").delete().eq("id", feedbackId);
+      if (error) throw error;
+      toast({ title: "Success", description: "Feedback deleted successfully!" });
+      fetchFeedbacks();
+      fetchStats();
+    } catch (error) {
+      console.error("Error deleting feedback:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to delete feedback. Please try again.",
+      });
+    }
+  };
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase();
+  };
+
   const adminSections = [
     {
       id: "members",
@@ -342,8 +609,7 @@ const AdminPanel = () => {
       description: "Manage club members and their roles",
       icon: Users,
       count: stats.totalMembers,
-      color: "primary",
-      link: "/members"
+      color: "primary"
     },
     {
       id: "events",
@@ -354,13 +620,12 @@ const AdminPanel = () => {
       color: "secondary"
     },
     {
-      id: "testimonials",
-      title: "Testimonials",
-      description: "Review and approve testimonials",
+      id: "feedbacks",
+      title: "Feedbacks Management",
+      description: "Review and approve feedbacks",
       icon: MessageSquare,
-      count: stats.totalTestimonials,
-      color: "accent",
-      link: "/feedbacks"
+      count: stats.totalFeedbacks,
+      color: "accent"
     },
     {
       id: "blogs",
@@ -426,21 +691,12 @@ const AdminPanel = () => {
                   <p className="text-center font-fira text-sm text-foreground/80 mb-4">
                     {section.description}
                   </p>
-                  {section.link ? (
-                    <Button 
-                      asChild 
-                      className="w-full bg-primary hover:bg-primary/80 text-primary-foreground font-fira"
-                    >
-                      <a href={section.link}>Manage</a>
-                    </Button>
-                  ) : (
-                    <Button 
-                      onClick={() => handleSectionToggle(section.id)}
-                      className="w-full bg-primary hover:bg-primary/80 text-primary-foreground font-fira"
-                    >
-                      {activeSection === section.id ? 'Close' : 'Manage'}
-                    </Button>
-                  )}
+                  <Button 
+                    onClick={() => handleSectionToggle(section.id)}
+                    className="w-full bg-primary hover:bg-primary/80 text-primary-foreground font-fira"
+                  >
+                    {activeSection === section.id ? 'Close' : 'Manage'}
+                  </Button>
                 </CardContent>
               </Card>
             ))}
@@ -448,6 +704,269 @@ const AdminPanel = () => {
 
           {/* Expandable Management Sections */}
           <div className="max-w-6xl mx-auto">
+            {/* Members Management Section */}
+            {activeSection === 'members' && (
+              <div className="animate-fade-in">
+                <Card className="bg-card/50 cyber-border mb-8 card-glossy-glow">
+                  <CardHeader className="flex flex-row items-center justify-between">
+                    <CardTitle className="text-2xl font-orbitron text-primary">
+                      Members Management
+                    </CardTitle>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setActiveSection(null)}
+                    >
+                      <X size={20} />
+                    </Button>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="mb-6">
+                      <Button 
+                        onClick={() => setShowMemberForm(!showMemberForm)} 
+                        className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira"
+                      >
+                        <Plus className="mr-2" size={16} />
+                        {showMemberForm ? 'Cancel' : 'Add New Member'}
+                      </Button>
+                    </div>
+
+                    {/* Member Form */}
+                    {showMemberForm && (
+                      <Card className="bg-background/50 border border-primary/30 mb-6 card-glossy-glow">
+                        <CardHeader>
+                          <CardTitle className="text-xl font-orbitron text-primary">
+                            {editingMember ? 'Edit Member' : 'Add New Member'}
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <form onSubmit={handleMemberSubmit} className="space-y-4">
+                            <div className="grid md:grid-cols-2 gap-4">
+                              <div>
+                                <Label htmlFor="memberName">Name</Label>
+                                <Input
+                                  id="memberName"
+                                  value={memberFormData.name}
+                                  onChange={(e) => setMemberFormData({...memberFormData, name: e.target.value})}
+                                  required
+                                />
+                              </div>
+                              <div>
+                                <Label htmlFor="memberRole">Role</Label>
+                                <Input
+                                  id="memberRole"
+                                  value={memberFormData.role}
+                                  onChange={(e) => setMemberFormData({...memberFormData, role: e.target.value})}
+                                  required
+                                />
+                              </div>
+                              <div>
+                                <Label htmlFor="memberYear">Year</Label>
+                                <Input
+                                  id="memberYear"
+                                  value={memberFormData.year}
+                                  onChange={(e) => setMemberFormData({...memberFormData, year: e.target.value})}
+                                  required
+                                />
+                              </div>
+                              <div>
+                                <Label htmlFor="memberEmail">Email</Label>
+                                <Input
+                                  id="memberEmail"
+                                  type="email"
+                                  value={memberFormData.email}
+                                  onChange={(e) => setMemberFormData({...memberFormData, email: e.target.value})}
+                                  required
+                                />
+                              </div>
+                              <div>
+                                <Label htmlFor="memberGithub">GitHub Username</Label>
+                                <Input
+                                  id="memberGithub"
+                                  value={memberFormData.github}
+                                  onChange={(e) => setMemberFormData({...memberFormData, github: e.target.value})}
+                                />
+                              </div>
+                              <div>
+                                <Label htmlFor="memberLinkedin">LinkedIn Username</Label>
+                                <Input
+                                  id="memberLinkedin"
+                                  value={memberFormData.linkedin}
+                                  onChange={(e) => setMemberFormData({...memberFormData, linkedin: e.target.value})}
+                                />
+                              </div>
+                            </div>
+                            <div>
+                              <Label htmlFor="memberSkills">Skills (comma separated)</Label>
+                              <Input
+                                id="memberSkills"
+                                value={memberFormData.skills}
+                                onChange={(e) => setMemberFormData({...memberFormData, skills: e.target.value})}
+                                placeholder="e.g., React, Node.js, Python"
+                              />
+                            </div>
+                            <div>
+                              <Label htmlFor="memberBio">Bio</Label>
+                              <Textarea
+                                id="memberBio"
+                                value={memberFormData.bio}
+                                onChange={(e) => setMemberFormData({...memberFormData, bio: e.target.value})}
+                                rows={3}
+                                required
+                              />
+                            </div>
+                            <div className="flex gap-2">
+                              <Button type="submit" className="bg-primary hover:bg-primary/80">
+                                {editingMember ? 'Update Member' : 'Add Member'}
+                              </Button>
+                              <Button type="button" variant="outline" onClick={resetMemberForm}>
+                                Cancel
+                              </Button>
+                            </div>
+                          </form>
+                        </CardContent>
+                      </Card>
+                    )}
+
+                    {/* Members List */}
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {members.map((member) => (
+                        <Card key={member.id} className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 card-glossy-glow">
+                          <CardHeader className="pb-3">
+                            <div className="flex items-center gap-3 mb-2">
+                              <Avatar className="w-12 h-12 bg-primary/20">
+                                <AvatarFallback className="bg-primary/20 text-primary font-medium">
+                                  {getInitials(member.name)}
+                                </AvatarFallback>
+                              </Avatar>
+                              <div>
+                                <CardTitle className="text-lg font-orbitron text-primary line-clamp-1">
+                                  {member.name}
+                                </CardTitle>
+                                <p className="text-sm text-muted-foreground">{member.role}</p>
+                              </div>
+                            </div>
+                          </CardHeader>
+                          <CardContent className="space-y-3">
+                            <p className="text-sm text-foreground/80 line-clamp-2">{member.bio}</p>
+                            <div className="flex gap-2 pt-2">
+                              <Button 
+                                size="sm" 
+                                variant="outline" 
+                                onClick={() => handleMemberEdit(member)}
+                                className="flex-1"
+                              >
+                                <Edit size={14} className="mr-1" />
+                                Edit
+                              </Button>
+                              <Button 
+                                size="sm" 
+                                variant="destructive" 
+                                onClick={() => handleMemberDelete(member.id)}
+                              >
+                                <Trash2 size={14} />
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+
+            {/* Feedbacks Management Section */}
+            {activeSection === 'feedbacks' && (
+              <div className="animate-fade-in">
+                <Card className="bg-card/50 cyber-border mb-8 card-glossy-glow">
+                  <CardHeader className="flex flex-row items-center justify-between">
+                    <CardTitle className="text-2xl font-orbitron text-primary">
+                      Feedbacks Management
+                    </CardTitle>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setActiveSection(null)}
+                    >
+                      <X size={20} />
+                    </Button>
+                  </CardHeader>
+                  <CardContent>
+                    {/* Feedbacks List */}
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {feedbacks.map((feedback) => (
+                        <Card key={feedback.id} className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 card-glossy-glow">
+                          <CardHeader className="pb-3">
+                            <div className="flex items-center justify-between">
+                              <CardTitle className="text-lg font-orbitron text-primary line-clamp-1">
+                                {feedback.name}
+                              </CardTitle>
+                              {feedback.rating && (
+                                <div className="flex gap-1">
+                                  {[...Array(feedback.rating)].map((_, i) => (
+                                    <Star key={i} size={14} className="text-yellow-400 fill-current" />
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                            {feedback.position && (
+                              <p className="text-sm text-muted-foreground">{feedback.position}</p>
+                            )}
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="text-muted-foreground">
+                                {new Date(feedback.created_at).toLocaleDateString()}
+                              </span>
+                              <span className={`px-2 py-1 rounded text-xs ${
+                                feedback.approved 
+                                  ? 'bg-green-100 text-green-800' 
+                                  : 'bg-yellow-100 text-yellow-800'
+                              }`}>
+                                {feedback.approved ? 'Approved' : 'Pending'}
+                              </span>
+                            </div>
+                          </CardHeader>
+                          <CardContent className="space-y-3">
+                            <p className="text-sm text-foreground/80 line-clamp-3">"{feedback.feedback}"</p>
+                            <div className="flex gap-2 pt-2">
+                              {!feedback.approved && (
+                                <Button 
+                                  size="sm" 
+                                  variant="outline" 
+                                  onClick={() => handleFeedbackApprove(feedback.id)}
+                                  className="flex-1"
+                                >
+                                  Approve
+                                </Button>
+                              )}
+                              {feedback.approved && (
+                                <Button 
+                                  size="sm" 
+                                  variant="outline" 
+                                  onClick={() => handleFeedbackArchive(feedback.id)}
+                                  className="flex-1"
+                                >
+                                  <Archive size={14} className="mr-1" />
+                                  Archive
+                                </Button>
+                              )}
+                              <Button 
+                                size="sm" 
+                                variant="destructive" 
+                                onClick={() => handleFeedbackDelete(feedback.id)}
+                              >
+                                <Trash2 size={14} />
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+
             {/* Events Management Section */}
             {activeSection === 'events' && (
               <div className="animate-fade-in">
