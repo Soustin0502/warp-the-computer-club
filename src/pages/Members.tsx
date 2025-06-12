@@ -40,7 +40,7 @@ const Members = () => {
       github: "soustinroy",
       linkedin: "soustin-roy",
       email: "soustin@school.edu",
-      bio: "Visionary leaders spearheading technological innovation at WarP Computer Club"
+      bio: "Visionary leader spearheading technological innovation at WarP Computer Club"
     },
     {
       id: 2,
@@ -52,7 +52,7 @@ const Members = () => {
       github: "deeptanshushekhar",
       linkedin: "deeptanshu-shekhar",
       email: "deeptanshu@school.edu",
-      bio: "Visionary leaders spearheading technological innovation at WarP Computer Club"
+      bio: "Visionary leader spearheading technological innovation at WarP Computer Club"
     },
     {
       id: 3,
@@ -64,7 +64,7 @@ const Members = () => {
       github: "girishamehra",
       linkedin: "girisha-mehra",
       email: "girisha@school.edu",
-      bio: "Strategic directors driving club initiatives and fostering tech excellence"
+      bio: "Strategic director driving club initiatives and fostering tech excellence"
     },
     {
       id: 4,
@@ -76,7 +76,7 @@ const Members = () => {
       github: "aaayanawar",
       linkedin: "aaayan-ahmed-war",
       email: "aaayan@school.edu",
-      bio: "Strategic directors driving club initiatives and fostering tech excellence"
+      bio: "Strategic director driving club initiatives and fostering tech excellence"
     },
     {
       id: 5,
@@ -88,7 +88,7 @@ const Members = () => {
       github: "ayaanali",
       linkedin: "ayaan-ali-security",
       email: "ayaan@school.edu",
-      bio: "Experienced leaders managing key technical projects and club operations"
+      bio: "Experienced leader managing key technical projects and club operations"
     },
     {
       id: 6,
@@ -100,7 +100,7 @@ const Members = () => {
       github: "rishituppal",
       linkedin: "rishit-uppal",
       email: "rishit@school.edu",
-      bio: "Experienced leaders managing key technical projects and club operations"
+      bio: "Experienced leader managing key technical projects and club operations"
     },
     {
       id: 7,
@@ -112,7 +112,7 @@ const Members = () => {
       github: "anshmittal",
       linkedin: "ansh-mittal",
       email: "ansh@school.edu",
-      bio: "Dedicated team leads implementing club initiatives and technical solutions"
+      bio: "Dedicated team lead implementing club initiatives and technical solutions"
     },
     {
       id: 8,
@@ -124,7 +124,7 @@ const Members = () => {
       github: "kunalkachhawa",
       linkedin: "kunal-kachhawa",
       email: "kunal@school.edu",
-      bio: "Dedicated team leads implementing club initiatives and technical solutions"
+      bio: "Dedicated team lead implementing club initiatives and technical solutions"
     }
   ];
 
