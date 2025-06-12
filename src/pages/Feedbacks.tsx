@@ -68,8 +68,9 @@ const Feedbacks = () => {
         .select('*')
         .eq('approved', true)
         .order('created_at', { ascending: false });
-
+  
       if (error) throw error;
+      console.log('Fetched testimonials:', data); // Add this line to debug
       setTestimonials(data || []);
     } catch (error) {
       console.error('Error fetching testimonials:', error);
@@ -113,6 +114,7 @@ const Feedbacks = () => {
   };
 
   const displayedTestimonials = testimonials.slice(0, displayCount);
+  console.log('Displayed testimonials:', displayedTestimonials);
   const hasMore = testimonials.length > displayCount;
 
   return (
