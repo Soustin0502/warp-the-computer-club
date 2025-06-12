@@ -148,40 +148,37 @@ const Members = () => {
           </div>
 
           {/* Hero Cards Section */}
-          <div 
-            ref={heroCardsRef}
-            className={`grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-8 scroll-fade-in ${heroCardsVisible ? 'animate' : ''}`}
-          >
-            <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 card-glossy-glow p-8 min-h-[250px]">
-              <CardHeader className="text-center pb-4">
-                <div className="flex items-center justify-center mb-4">
-                  <Users className="text-primary" size={48} />
+          <div className="grid md:grid-cols-2 gap-4 max-w-xl mx-auto mb-8">
+            <Card className="bg-card/30 cyber-border hover:border-primary/60 transition-all duration-300">
+              <CardHeader className="text-center pb-2 pt-4">
+                <div className="flex items-center justify-center mb-2">
+                  <Target className="text-primary" size={24} />
                 </div>
-                <CardTitle className="text-2xl font-orbitron font-bold text-primary">
+                <CardTitle className="text-xl font-orbitron font-bold text-secondary">
                   8+
                 </CardTitle>
-                <p className="text-muted-foreground font-fira text-sm">Core Members</p>
+                <p className="text-muted-foreground font-fira text-xs">Core Members</p>
               </CardHeader>
-              <CardContent className="pt-0">
-                <p className="text-center font-fira text-sm text-foreground/80">
-                  Dedicated students passionate about technology and innovation
+              <CardContent className="pt-0 pb-4">
+                <p className="text-center font-fira text-xs text-foreground/80">
+                  Dedicated students leading the WarP Computer Club.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 card-glossy-glow p-6">
-              <CardHeader className="text-center pb-4">
-                <div className="flex items-center justify-center mb-4">
-                  <Trophy className="text-secondary" size={48} />
+            <Card className="bg-card/30 cyber-border hover:border-secondary/60 transition-all duration-300">
+              <CardHeader className="text-center pb-2 pt-4">
+                <div className="flex items-center justify-center mb-2">
+                  <Trophy className="text-secondary" size={24} />
                 </div>
-                <CardTitle className="text-2xl font-orbitron font-bold text-secondary">
-                  50+
+                <CardTitle className="text-xl font-orbitron font-bold text-secondary">
+                  90+
                 </CardTitle>
-                <p className="text-muted-foreground font-fira text-sm">Achievements</p>
+                <p className="text-muted-foreground font-fira text-xs">Total Members</p>
               </CardHeader>
-              <CardContent className="pt-0">
-                <p className="text-center font-fira text-sm text-foreground/80">
-                  Competitions won and projects completed successfully
+              <CardContent className="pt-0 pb-4">
+                <p className="text-center font-fira text-xs text-foreground/80">
+                  Growing community of passionate tech enthusiasts exploring and learning together.
                 </p>
               </CardContent>
             </Card>
