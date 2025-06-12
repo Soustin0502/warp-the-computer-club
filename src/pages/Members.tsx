@@ -154,7 +154,7 @@ const Members = () => {
                 <div className="flex items-center justify-center mb-2">
                   <User className="text-primary" size={24} />
                 </div>
-                <CardTitle className="text-xl font-orbitron font-bold text-secondary">
+                <CardTitle className="text-xl font-orbitron font-bold text-primary">
                   8+
                 </CardTitle>
                 <p className="text-muted-foreground font-fira text-xs">Core Members</p>
