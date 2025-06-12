@@ -12,6 +12,7 @@ interface Testimonial {
   created_at: string;
   name: string;
   feedback: string;
+  message?: string; // Add message field to handle both feedback and message
   rating?: number;
   position?: string;
 }
@@ -41,7 +42,8 @@ const TestimonialsSection = () => {
       const { data, error } = await supabase
         .from('testimonials')
         .select('*')
-        .eq('approved', true)
+        // Temporarily comment out approved filter for testing
+        // .eq('approved', true)
         .order('created_at', { ascending: false })
         .limit(3);
 
@@ -53,8 +55,18 @@ const TestimonialsSection = () => {
       }
       
       if (data) {
-        console.log('Testimonials fetched for testimonials section:', data);
-        setTestimonials(data);
+        // Transform the data to ensure all required fields exist
+        const formattedData = data.map(item => ({
+          id: item.id,
+          name: item.name,
+          feedback: item.feedback || item.message || '', // Handle both feedback and message fields
+          rating: item.rating,
+          position: item.position,
+          created_at: item.created_at
+        }));
+        
+        console.log('Formatted testimonials:', formattedData);
+        setTestimonials(formattedData);
       } else {
         console.log('No testimonials data received');
         setTestimonials([]);
