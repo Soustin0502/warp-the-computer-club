@@ -259,6 +259,16 @@
     position: relative;
     overflow: hidden;
   }
+
+  .card-glossy-glow {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  .stagger-children > * {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
   
   .card-glossy-glow::before {
       content: '';
