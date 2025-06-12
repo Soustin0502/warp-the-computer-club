@@ -150,9 +150,9 @@ const Members = () => {
           {/* Hero Cards Section */}
           <div 
             ref={heroCardsRef}
-            className={`grid md:grid-cols-2 gap-8 max-w-2xl mx-auto mb-8 scroll-fade-in ${heroCardsVisible ? 'animate' : ''}`}
+            className={`grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-8 scroll-fade-in ${heroCardsVisible ? 'animate' : ''}`}
           >
-            <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 card-glossy-glow p-6">
+            <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 card-glossy-glow p-8 min-h-[250px]">
               <CardHeader className="text-center pb-4">
                 <div className="flex items-center justify-center mb-4">
                   <Users className="text-primary" size={48} />
