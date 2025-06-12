@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Github, Linkedin, Mail, ChevronDown, Users, Trophy } from 'lucide-react';
+import { Github, Linkedin, Mail, ChevronDown, Users, Target, Trophy } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import SkillsDisplay from '@/components/SkillsDisplay';
 import Navbar from '@/components/Navbar';
