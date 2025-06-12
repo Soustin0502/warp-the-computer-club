@@ -43,24 +43,24 @@ const TestimonialsSection = () => {
       const { data, error } = await supabase
         .from('testimonials')
         .select('*')
-        .eq('status', 'approved') // Change from 'approved' boolean to 'status' field
+        .eq('status', 'approved')
         .order('created_at', { ascending: false })
         .limit(3);
-  
+
       if (error) {
         console.error('Error fetching testimonials:', error);
         throw error;
       }
       
       if (data) {
-        // Transform the data to handle both feedback and message fields
         const formattedData = data.map(item => ({
           id: item.id,
           name: item.name || 'Anonymous',
-          feedback: item.message || item.feedback || '', // Try message first, then feedback
+          feedback: item.message || item.feedback || '', // Handle both fields
           rating: item.rating,
           position: item.position,
-          created_at: item.created_at
+          created_at: item.created_at,
+          status: item.status
         }));
         
         console.log('Formatted testimonials:', formattedData);
