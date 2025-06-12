@@ -1,19 +1,152 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Calendar, User, ArrowRight } from 'lucide-react';
+import { gsap } from 'gsap';
+import { TextPlugin } from 'gsap/TextPlugin';
+import { useGSAPScrollTrigger } from '@/hooks/useGSAPAnimation';
+
+gsap.registerPlugin(TextPlugin);
 
 const EventsSection = () => {
-  const [titleRef, titleVisible] = useScrollAnimation();
-  const [eventsRef, eventsVisible] = useScrollAnimation();
-  const [terminalRef, terminalVisible] = useScrollAnimation();
-  const [blogRef, blogVisible] = useScrollAnimation();
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [blogPosts, setBlogPosts] = useState<any[]>([]);
+
+  // Title animation
+  const titleRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    gsap.fromTo(element,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.8
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1.2,
+        ease: "power3.out"
+      }
+    );
+  }, { start: "top 80%" });
+
+  // Events cards with scroll-in animation
+  const eventsRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    const cards = element.querySelectorAll('.event-card');
+    
+    gsap.fromTo(cards,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.9
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out"
+      }
+    );
+  }, { start: "top 75%" });
+
+  // Terminal typing animation for events schedule
+  const terminalRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    const commandElement = element.querySelector('.terminal-command');
+    const infoElements = element.querySelectorAll('.terminal-info');
+    
+    // Initial setup
+    gsap.set(element, { opacity: 0, x: 100 });
+    gsap.set(commandElement, { text: "" });
+    gsap.set(infoElements, { opacity: 0 });
+    
+    const tl = gsap.timeline();
+    
+    // Slide in terminal
+    tl.to(element, {
+      opacity: 1,
+      x: 0,
+      duration: 0.6,
+      ease: "power2.out"
+    })
+    // Type command
+    .to(commandElement, {
+      text: "$ events --schedule",
+      duration: 1.5,
+      ease: "none"
+    })
+    // Show info with stagger
+    .to(infoElements, {
+      opacity: 1,
+      duration: 0.3,
+      stagger: 0.2,
+      ease: "power2.out"
+    }, "+=0.5");
+  }, { start: "top 80%" });
+
+  // Blog section animation
+  const blogRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    gsap.fromTo(element,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.9
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1,
+        ease: "power3.out"
+      }
+    );
+  }, { start: "top 80%" });
+
+  // Latest Posts animation
+  const postsRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    const cards = element.querySelectorAll('.blog-card');
+    
+    gsap.fromTo(cards,
+      {
+        opacity: 0,
+        y: 80,
+        rotationX: 45,
+        scale: 0.8
+      },
+      {
+        opacity: 1,
+        y: 0,
+        rotationX: 0,
+        scale: 1,
+        duration: 0.6,
+        stagger: 0.2,
+        ease: "back.out(1.7)"
+      }
+    );
+  }, { start: "top 75%" });
+
+  // Feedbacks terminal animation - scroll in with pink color
+  const feedbacksTerminalRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    gsap.fromTo(element,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.9
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        ease: "power3.out"
+      }
+    );
+  }, { start: "top 80%" });
 
   useEffect(() => {
     fetchLatestBlogPosts();
@@ -42,10 +175,25 @@ const EventsSection = () => {
       y: e.clientY - rect.top
     });
     setHoveredCard(index);
+
+    // Only scale effect, no rotation
+    gsap.to(e.currentTarget, {
+      scale: 1.02,
+      z: 100,
+      duration: 0.3,
+      ease: "power2.out"
+    });
   };
 
-  const handleCardMouseLeave = () => {
+  const handleCardMouseLeave = (e: React.MouseEvent) => {
     setHoveredCard(null);
+    
+    gsap.to(e.currentTarget, {
+      scale: 1,
+      z: 0,
+      duration: 0.5,
+      ease: "elastic.out(1, 0.3)"
+    });
   };
 
   const events = [
@@ -89,7 +237,7 @@ const EventsSection = () => {
         <div className="container mx-auto px-4">
             <div 
             ref={titleRef}
-            className={`text-center mb-16 scroll-fade-in ${titleVisible ? 'animate' : ''}`}
+            className="text-center mb-16"
             >
                 <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative title-glow">
                     <span className="text-cyber relative z-10">Our Events</span>
@@ -102,25 +250,24 @@ const EventsSection = () => {
 
             <div 
             ref={eventsRef}
-            className={`relative max-w-6xl mx-auto events-container items-center ${eventsVisible ? 'animate' : ''}`}
+            className="relative max-w-5xl mx-auto mb-16 flex justify-center items-center gap-4"
             >
                 {events.map((event, index) => (
                     <Card 
                     key={index} 
                     className={`
-                        bg-card cyber-border transition-all duration-300 group event-card
-                        ${index === 0 ? 'event-card-1' : 'event-card-2'}
-                        ${hoveredCard === index ? 'z-20' : ''}
-                        ${hoveredCard !== null && hoveredCard !== index ? 'adjacent-glow' : ''}
+                        event-card bg-card cyber-border transition-all duration-300 group min-h-[400px] flex flex-col w-80
+                        ${index === 0 ? '-rotate-3 origin-center z-10 -mr-8' : 'rotate-3 origin-center z-20'}
+                        ${hoveredCard === index ? 'z-30' : ''}
                     `}
+                    style={{
+                        backgroundColor: 'hsl(var(--card))',
+                        zIndex: hoveredCard === index ? 30 : (index === 0 ? 10 : 20)
+                    }}
                     onMouseMove={(e) => handleCardMouseMove(e, index)}
                     onMouseLeave={handleCardMouseLeave}
-                    style={{
-                        '--mouse-x': hoveredCard === index ? `${mousePosition.x}px` : '50%',
-                        '--mouse-y': hoveredCard === index ? `${mousePosition.y}px` : '50%',
-                    } as React.CSSProperties}
                     >
-                        <CardHeader>
+                        <CardHeader className="flex-shrink-0">
                             <div className={`inline-block px-3 py-1 rounded-full text-xs font-fira uppercase tracking-wider mb-2 ${
                             event.color === 'primary' 
                                 ? 'bg-primary/20 text-primary border border-primary/30' 
@@ -134,12 +281,12 @@ const EventsSection = () => {
                                 </span>
                             </CardTitle>
                         </CardHeader>
-                        <CardContent className="space-y-4">
+                        <CardContent className="space-y-4 flex-1 flex flex-col">
                             <p className="font-fira text-foreground/80 leading-relaxed">
                             {event.description}
                             </p>
                             
-                            <div className="space-y-2">
+                            <div className="space-y-2 flex-1">
                                 <h4 className="font-orbitron font-semibold text-sm uppercase tracking-wider text-muted-foreground">
                                     Key Features:
                                 </h4>
@@ -158,7 +305,7 @@ const EventsSection = () => {
                             <Button 
                             asChild
                             variant="outline" 
-                            className={`w-full font-fira ${
+                            className={`w-full font-fira mt-auto ${
                                 event.color === 'primary' 
                                 ? 'border-primary text-primary hover:bg-primary/10' 
                                 : 'border-secondary text-secondary hover:bg-secondary/10'
@@ -173,21 +320,21 @@ const EventsSection = () => {
 
             <div 
             ref={terminalRef}
-            className={`text-center mt-12 scroll-fade-in ${terminalVisible ? 'animate' : ''}`}
+            className="text-center mb-20"
             >
                 <div className="terminal-text bg-background/50 border border-accent/30 rounded-lg p-4 max-w-md mx-auto">
-                    <div className="text-accent mb-1">$ events --schedule</div>
+                    <div className="terminal-command text-accent mb-1"></div>
                     <div className="text-muted-foreground text-sm">
-                        WarP Intra '25: August 02, 2025<br/>
-                        WarP Inter '25: T.B.D.
+                        <div className="terminal-info">WarP Intra '25: August 02, 2025</div>
+                        <div className="terminal-info">WarP Inter '25: T.B.D.</div>
                     </div>
                 </div>
-            </div><br/><br/><br/><br/><br/>
+            </div>
             
             {/* Latest Posts Section */}
             <div 
             ref={blogRef}
-            className={`text-center mb-16 scroll-fade-in ${blogVisible ? 'animate' : ''}`}
+            className="text-center mb-16"
             >
                 <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative title-glow">
                     <span className="text-cyber relative z-10">Latest Posts</span>
@@ -199,9 +346,9 @@ const EventsSection = () => {
             </div>
 
             <div className="flex justify-center">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center items-center">
+                <div ref={postsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center items-center">
                     {blogPosts.length > 0 ? blogPosts.map((post, index) => (
-                        <Card key={post.id} className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 w-full max-w-md card-glossy-glow">
+                        <Card key={post.id} className="blog-card bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 w-full max-w-md">
                             <CardHeader className="pb-3 text-center">
                                 <div className={`inline-block px-2 py-1 rounded-full text-xs font-fira uppercase tracking-wider mb-2 border ${getCategoryColor(post.category)}`}>
                                     {post.category}
@@ -238,10 +385,24 @@ const EventsSection = () => {
                 </div>
             </div>
 
+            {/* Blog Terminal Info */}
+            <div 
+            ref={feedbacksTerminalRef}
+            className="text-center mt-8"
+            >
+                <div className="terminal-text bg-background/50 border border-primary/30 rounded-lg p-4 max-w-md mx-auto">
+                    <div className="text-primary mb-2 font-mono">$ feedbacks --info</div>
+                    <div className="text-muted-foreground text-sm">
+                        <div>Total Feedbacks: Active</div>
+                        <div>Status: ✓ Regularly Collected</div>
+                    </div>
+                </div>
+            </div>
+
             <div className="text-center mt-8">
                 <Button asChild className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira">
-                    <Link to="/blog" className="flex items-center gap-2">
-                        View All Posts
+                    <Link to="/feedbacks" className="flex items-center gap-2">
+                        View All Feedbacks
                         <ArrowRight size={16} />
                     </Link>
                 </Button>

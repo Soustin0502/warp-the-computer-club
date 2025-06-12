@@ -1,11 +1,17 @@
+
 import { useState, useEffect } from 'react';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ArrowRight } from 'lucide-react';
+import { gsap } from 'gsap';
+import { TextPlugin } from 'gsap/TextPlugin';
+import { useGSAPScrollTrigger } from '@/hooks/useGSAPAnimation';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+
+gsap.registerPlugin(TextPlugin);
 
 interface Testimonial {
   id: string;
@@ -17,10 +23,32 @@ interface Testimonial {
 }
 
 const FeedbacksSection = () => {
-  const [sectionRef, sectionVisible] = useScrollAnimation(0.1, '0px', true);
-  const [cardsRef, cardsVisible] = useScrollAnimation(0.1, '0px', true);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Section title animation
+  const sectionRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    gsap.fromTo(element,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.8
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1.2,
+        ease: "power3.out"
+      }
+    );
+  }, { start: "top 80%" });
+
+  // Cards animation
+  const [cardsRef, cardsVisible] = useScrollAnimation();
+
+  // Terminal animation - simple scroll in
+  const [terminalRef, terminalVisible] = useScrollAnimation();
 
   const getInitials = (name: string) => {
     return name
@@ -83,7 +111,7 @@ const FeedbacksSection = () => {
       <div className="container mx-auto px-4">
         <div 
           ref={sectionRef}
-          className={`text-center mb-16 scroll-fade-in ${sectionVisible ? 'animate' : ''}`}
+          className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative heading-glow">
             <span className="text-cyber relative z-10">Community Feedbacks</span>
@@ -99,7 +127,7 @@ const FeedbacksSection = () => {
           {loading ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center">
               {[...Array(3)].map((_, i) => (
-                <Card key={i} className="bg-card/50 cyber-border animate-pulse p-6 h-80 w-full max-w-md card-glossy-glow">
+                <Card key={i} className="bg-card/50 cyber-border animate-pulse p-6 h-80 w-full max-w-md">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="w-12 h-12 rounded-full bg-muted"></div>
                     <div className="flex-1">
@@ -131,7 +159,7 @@ const FeedbacksSection = () => {
                   key={testimonial.id}
                   className="w-full max-w-md"
                 >
-                  <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 p-6 h-80 flex flex-col card-glossy-glow">
+                  <Card className="feedback-card bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 p-6 h-80 flex flex-col">
                     <div className="flex items-center gap-4 mb-4">
                       <Avatar className="w-12 h-12 bg-primary/20 flex-shrink-0">
                         <AvatarFallback className="bg-primary/20 text-primary font-medium">
@@ -160,6 +188,21 @@ const FeedbacksSection = () => {
               ))}
             </div>
           )}
+        </div>
+
+        {/* Terminal Info */}
+        <div 
+          ref={terminalRef}
+          className={`text-center mb-8 scroll-fade-in ${terminalVisible ? 'animate' : ''}`}
+        >
+          <div className="terminal-text bg-background/50 border border-secondary/30 rounded-lg p-4 max-w-md mx-auto">
+            <div className="text-secondary mb-2 font-mono">$ feedbacks --info</div>
+            <div className="text-muted-foreground text-sm">
+              <div>Total Feedbacks: {testimonials.length}</div>
+              <div>Average Rating: 4.8/5</div>
+              <div>Status: ✓ Community Approved</div>
+            </div>
+          </div>
         </div>
 
         {/* View All Button */}
