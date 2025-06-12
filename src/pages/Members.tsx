@@ -40,7 +40,7 @@ const Members = () => {
       github: "soustinroy",
       linkedin: "soustin-roy",
       email: "soustin@school.edu",
-      bio: "Leading the club with a vision to bridge technology and innovation, passionate about creating impactful digital solutions."
+      bio: "Visionary leaders spearheading technological innovation at WarP Computer Club"
     },
     {
       id: 2,
@@ -52,7 +52,7 @@ const Members = () => {
       github: "deeptanshushekhar",
       linkedin: "deeptanshu-shekhar",
       email: "deeptanshu@school.edu",
-      bio: "Co-leading the club with expertise in building robust systems and fostering collaborative learning environments."
+      bio: "Visionary leaders spearheading technological innovation at WarP Computer Club"
     },
     {
       id: 3,
@@ -64,7 +64,7 @@ const Members = () => {
       github: "girishamehra",
       linkedin: "girisha-mehra",
       email: "girisha@school.edu",
-      bio: "Focused on creating beautiful user experiences and managing innovative projects that inspire the next generation."
+      bio: "Strategic directors driving club initiatives and fostering tech excellence"
     },
     {
       id: 4,
@@ -76,7 +76,7 @@ const Members = () => {
       github: "aaayanawar",
       linkedin: "aaayan-ahmed-war",
       email: "aaayan@school.edu",
-      bio: "Exploring the frontiers of artificial intelligence and leading research initiatives in machine learning applications."
+      bio: "Strategic directors driving club initiatives and fostering tech excellence"
     },
     {
       id: 5,
@@ -88,7 +88,7 @@ const Members = () => {
       github: "ayaanali",
       linkedin: "ayaan-ali-security",
       email: "ayaan@school.edu",
-      bio: "Dedicated to understanding and protecting digital infrastructure through ethical security research and education."
+      bio: "Experienced leaders managing key technical projects and club operations"
     },
     {
       id: 6,
@@ -100,7 +100,7 @@ const Members = () => {
       github: "rishituppal",
       linkedin: "rishit-uppal",
       email: "rishit@school.edu",
-      bio: "Passionate about streamlining development processes and building scalable cloud infrastructure solutions."
+      bio: "Experienced leaders managing key technical projects and club operations"
     },
     {
       id: 7,
@@ -112,7 +112,7 @@ const Members = () => {
       github: "anshmittal",
       linkedin: "ansh-mittal",
       email: "ansh@school.edu",
-      bio: "Creating engaging digital experiences across web and mobile platforms with a focus on interactive applications."
+      bio: "Dedicated team leads implementing club initiatives and technical solutions"
     },
     {
       id: 8,
@@ -124,7 +124,7 @@ const Members = () => {
       github: "kunalkachhawa",
       linkedin: "kunal-kachhawa",
       email: "kunal@school.edu",
-      bio: "Transforming raw data into meaningful insights and building efficient database solutions for complex problems."
+      bio: "Dedicated team leads implementing club initiatives and technical solutions"
     }
   ];
 
