@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Github, Linkedin, Mail, ChevronDown, Users, User } from 'lucide-react';
@@ -106,14 +105,7 @@ const Members = () => {
   const scrollToNextSection = () => {
     const aboutSection = document.querySelector('#members-grid');
     if (aboutSection) {
-      gsap.to(window, {
-        duration: 1,
-        scrollTo: {
-          y: aboutSection,
-          offsetY: 0
-        },
-        ease: "power2.inOut"
-      });
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
