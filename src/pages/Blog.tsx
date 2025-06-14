@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -130,23 +129,14 @@ const Blog = () => {
             </Card>
           </div>
 
-{/*           <div className="mt-8">
-            <Button asChild className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira">
-              <Link to="/blog/form" className="flex items-center gap-2">
-                <Plus size={16} />
-                Write a Post
-              </Link>
-            </Button>
-          </div> */}
+          <button 
+            onClick={scrollToNextSection}
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer bg-transparent border-none"
+            aria-label="Scroll to blog posts"
+          >
+            <ChevronDown className="text-primary" size={24} />
+          </button>
         </div>
-
-        <button 
-          onClick={scrollToNextSection}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer bg-transparent border-none"
-          aria-label="Scroll to blog posts"
-        >
-          <ChevronDown className="text-primary" size={24} />
-        </button>
       </section>
 
       {/* Blog Posts Section */}
@@ -159,7 +149,7 @@ const Blog = () => {
             animate={headingVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative title-glow">
+            <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative title-glow persist-glow">
               <span className="text-cyber relative z-10">Latest Posts</span>
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mB-6"></div>
