@@ -71,27 +71,28 @@ const Members = () => {
     );
   }, { start: "top 80%" });
 
-  // Members grid animation
+  // Members grid animation - ensuring all cards including the first one animate
   const membersRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
     const memberCards = element.querySelectorAll('.member-card');
     
-    gsap.fromTo(memberCards,
-      {
-        opacity: 0,
-        y: 100,
-        rotationY: 30,
-        scale: 0.8
-      },
-      {
-        opacity: 1,
-        y: 0,
-        rotationY: 0,
-        scale: 1,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "back.out(1.7)"
-      }
-    );
+    // Set initial state for all cards
+    gsap.set(memberCards, {
+      opacity: 0,
+      y: 100,
+      rotationY: 30,
+      scale: 0.8
+    });
+    
+    // Animate all cards with stagger
+    gsap.to(memberCards, {
+      opacity: 1,
+      y: 0,
+      rotationY: 0,
+      scale: 1,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: "back.out(1.7)"
+    });
   }, { start: "top 70%" });
 
   const getInitials = (name: string) => {
@@ -298,9 +299,6 @@ const Members = () => {
                 <Card 
                   key={member.id} 
                   className="member-card bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 overflow-hidden transform hover:scale-105 w-full max-w-sm h-[500px] flex flex-col"
-                  style={{
-                    animationDelay: `${index * 0.1}s`
-                  }}
                 >
                   <div className="relative flex-shrink-0">
                     <div className="w-full h-40 flex items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20">
