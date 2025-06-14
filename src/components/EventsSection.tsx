@@ -118,8 +118,8 @@ const EventsSection = () => {
     );
   }, { start: "top 75%" });
 
-  // Feedbacks terminal animation - scroll in with pink color
-  const feedbacksTerminalRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+  // Posts terminal animation - scroll in with primary color
+  const postsTerminalRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
     gsap.fromTo(element,
       {
         opacity: 0,
@@ -359,14 +359,14 @@ const EventsSection = () => {
 
             {/* Blog Terminal Info */}
             <div 
-            ref={feedbacksTerminalRef}
+            ref={postsTerminalRef}
             className="text-center mt-8"
             >
                 <div className="terminal-text bg-background/50 border border-primary/30 rounded-lg p-4 max-w-md mx-auto">
-                    <div className="text-primary mb-2 font-mono">$ feedbacks --info</div>
+                    <div className="text-primary mb-2 font-mono">$ posts --info</div>
                     <div className="text-muted-foreground text-sm">
-                        <div>Total Feedbacks: Active</div>
-                        <div>Status: ✓ Regularly Collected</div>
+                        <div>Total Posts: {blogPosts.length}</div>
+                        <div>Status: ✓ Published & Active</div>
                     </div>
                 </div>
             </div>
