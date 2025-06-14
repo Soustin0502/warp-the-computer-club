@@ -41,16 +41,22 @@ const EventsSection = () => {
     // Set initial state for all cards
     gsap.set(cards, {
       opacity: 0,
-      y: 50
+      y: 50,
+      rotation: 0
     });
     
-    // Simple fade in animation
+    // Simple fade in animation with stagger
     gsap.to(cards, {
       opacity: 1,
       y: 0,
       duration: 0.8,
       stagger: 0.2,
-      ease: "power2.out"
+      ease: "power2.out",
+      onComplete: () => {
+        // After fade in, apply the rotation to maintain the tilted effect
+        gsap.set(cards[0], { rotation: -20 });
+        gsap.set(cards[1], { rotation: 20 });
+      }
     });
   }, { start: "top 80%" });
 
@@ -241,7 +247,6 @@ const EventsSection = () => {
                     key={index} 
                     className={`
                         event-card bg-card cyber-border transition-all duration-300 group min-h-[400px] flex flex-col w-80
-                        ${index === 0 ? '-rotate-[20deg] origin-center z-10 -mr-8' : 'rotate-[20deg] origin-center z-20'}
                         ${hoveredCard === index ? 'z-30' : ''}
                     `}
                     style={{
