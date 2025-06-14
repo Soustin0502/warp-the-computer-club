@@ -44,8 +44,8 @@ const FeedbacksSection = () => {
     );
   }, { start: "top 80%" });
 
-  // Cards animation
-  const [cardsRef, cardsVisible] = useScrollAnimation();
+  // Cards animation - using basic scroll animation instead of complex GSAP
+  const [cardsRef, cardsVisible] = useScrollAnimation(0.1, '0px', true);
 
   // Terminal animation - simple scroll in
   const [terminalRef, terminalVisible] = useScrollAnimation();
@@ -152,12 +152,19 @@ const FeedbacksSection = () => {
           ) : (
             <div
               ref={cardsRef}
-              className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center stagger-children ${cardsVisible ? 'animate' : ''}`}
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center"
             >
-              {testimonials.map((testimonial) => (
+              {testimonials.map((testimonial, index) => (
                 <div
                   key={testimonial.id}
-                  className="w-full max-w-md"
+                  className={`w-full max-w-md transition-all duration-700 ease-out ${
+                    cardsVisible 
+                      ? 'opacity-100 translate-y-0' 
+                      : 'opacity-0 translate-y-10'
+                  }`}
+                  style={{ 
+                    transitionDelay: cardsVisible ? `${index * 150}ms` : '0ms' 
+                  }}
                 >
                   <Card className="feedback-card bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 p-6 h-80 flex flex-col">
                     <div className="flex items-center gap-4 mb-4">
@@ -193,7 +200,9 @@ const FeedbacksSection = () => {
         {/* Terminal Info */}
         <div 
           ref={terminalRef}
-          className={`text-center mb-8 scroll-fade-in ${terminalVisible ? 'animate' : ''}`}
+          className={`text-center mb-8 transition-all duration-700 ${
+            terminalVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
         >
           <div className="terminal-text bg-background/50 border border-secondary/30 rounded-lg p-4 max-w-md mx-auto">
             <div className="text-secondary mb-2 font-mono">$ feedbacks --info</div>

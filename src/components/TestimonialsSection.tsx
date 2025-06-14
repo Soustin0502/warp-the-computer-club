@@ -92,7 +92,9 @@ const TestimonialsSection = () => {
       <div className="container mx-auto px-4">
         <div 
           ref={sectionRef}
-          className={`text-center mb-16 scroll-fade-in ${sectionVisible ? 'animate' : ''}`}
+          className={`text-center mb-16 transition-all duration-700 ${
+            sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
         >
           <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative heading-glow">
             <span className="text-cyber relative z-10">Community Feedbacks</span>
@@ -133,12 +135,19 @@ const TestimonialsSection = () => {
           ) : (
             <div
               ref={cardsRef}
-              className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center stagger-children ${cardsVisible ? 'animate' : ''}`}
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center"
             >
-              {testimonials.map((testimonial) => (
+              {testimonials.map((testimonial, index) => (
                 <div
                   key={testimonial.id}
-                  className="w-full max-w-md"
+                  className={`w-full max-w-md transition-all duration-700 ease-out ${
+                    cardsVisible 
+                      ? 'opacity-100 translate-y-0' 
+                      : 'opacity-0 translate-y-10'
+                  }`}
+                  style={{ 
+                    transitionDelay: cardsVisible ? `${index * 150}ms` : '0ms' 
+                  }}
                 >
                   <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 p-6 h-80 flex flex-col card-glossy-glow">
                     <div className="flex items-center gap-4 mb-4">
