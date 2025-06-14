@@ -110,17 +110,17 @@ const AboutSection = () => {
       rotationY: 20
     });
     
-    // Then animate to final state with faster timing
+    // Then animate to final state with much faster timing
     gsap.to(statCards, {
       opacity: 1,
       y: 0,
       scale: 1,
       rotationX: 0,
       rotationY: 0,
-      duration: 0.6,
-      stagger: 0.15,
+      duration: 0.4,
+      stagger: 0.1,
       ease: "back.out(1.7)",
-      delay: 0.2,
+      delay: 0.1,
       onComplete: () => {
         console.log("Stats animation completed");
       }
