@@ -71,37 +71,37 @@ const Members = () => {
     );
   }, { start: "top 80%" });
 
-  // Members grid animation - ensuring consistent animation for all cards including the first
+  // Members grid animation - fixed to ensure consistent animation for ALL cards
   const membersRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
     const memberCards = element.querySelectorAll('.member-card');
     
-    // Force initial state on all cards immediately
-    memberCards.forEach((card) => {
-      gsap.set(card, {
-        opacity: 0,
-        y: 100,
-        rotationY: 30,
-        scale: 0.8,
-        force3D: true
-      });
+    // Clear any existing transforms and set consistent initial state
+    gsap.set(memberCards, {
+      clearProps: "all"
     });
     
-    // Create timeline for consistent animation
-    const tl = gsap.timeline();
-    
-    memberCards.forEach((card, index) => {
-      tl.to(card, {
-        opacity: 1,
-        y: 0,
-        rotationY: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: "back.out(1.7)",
-        force3D: true
-      }, index * 0.1);
+    // Set initial state for all cards consistently
+    gsap.set(memberCards, {
+      opacity: 0,
+      y: 100,
+      rotationY: 30,
+      scale: 0.8,
+      transformOrigin: "center center",
+      force3D: true
     });
     
-    return tl;
+    // Animate all cards with consistent stagger
+    gsap.to(memberCards, {
+      opacity: 1,
+      y: 0,
+      rotationY: 0,
+      scale: 1,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: "back.out(1.7)",
+      force3D: true,
+      transformOrigin: "center center"
+    });
   }, { start: "top 70%" });
 
   const getInitials = (name: string) => {
