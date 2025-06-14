@@ -93,7 +93,7 @@ const EventsSection = () => {
     }, "+=0.5");
   }, { start: "top 80%" });
 
-  // Blog section animation - ensure glow persists
+  // Blog section animation - removed clearProps to preserve glow
   const blogRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
     gsap.fromTo(element,
       {
@@ -106,14 +106,7 @@ const EventsSection = () => {
         y: 0,
         scale: 1,
         duration: 1,
-        ease: "power3.out",
-        onComplete: () => {
-          // Ensure the title-glow class remains active
-          const titleElement = element.querySelector('.title-glow');
-          if (titleElement) {
-            gsap.set(titleElement, { clearProps: "all" });
-          }
-        }
+        ease: "power3.out"
       }
     );
   }, { start: "top 80%" });
