@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -181,6 +182,7 @@ const Events = () => {
           <div className="text-center mb-16 relative">
             <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative title-glow persist-glow">
               <span className="text-cyber relative z-10">Upcoming Events</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110"></div>
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
           </div>
@@ -255,6 +257,7 @@ const Events = () => {
           <div className="text-center mb-16 relative">
             <h3 className="text-2xl md:text-4xl font-orbitron font-bold mb-4 relative title-glow persist-glow">
               <span className="text-cyber relative z-10">Past Events</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-secondary/20 via-accent/20 to-primary/20 blur-xl -z-10 scale-110"></div>
             </h3>
             <div className="w-16 h-1 bg-gradient-to-r from-secondary to-accent mx-auto mt-4"></div>
           </div>
