@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -224,7 +223,7 @@ const EventsSection = () => {
                     ref={index === 0 ? firstCardRef : secondCardRef}
                     className={`
                         event-card bg-card cyber-border transition-all duration-300 group min-h-[400px] flex flex-col w-80
-                        ${index === 0 ? 'rotate-3 origin-center z-10 -mr-8' : '-rotate-3 origin-center z-20'}
+                        ${index === 0 ? '-rotate-3 origin-center z-10 -mr-8' : 'rotate-3 origin-center z-20'}
                         ${hoveredCard === index ? 'z-30' : ''}
                         scroll-fade-in ${index === 0 ? (firstCardVisible ? 'animate' : '') : (secondCardVisible ? 'animate' : '')}
                     `}
