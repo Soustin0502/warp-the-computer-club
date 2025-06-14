@@ -2,7 +2,10 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { useState } from 'react';
 import { gsap } from 'gsap';
+import { TextPlugin } from 'gsap/TextPlugin';
 import { useGSAPScrollTrigger } from '@/hooks/useGSAPAnimation';
+
+gsap.registerPlugin(TextPlugin);
 
 const AboutSection = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -25,6 +28,41 @@ const AboutSection = () => {
         ease: "back.out(1.7)"
       }
     );
+  }, { start: "top 80%" });
+
+  // Terminal animation with typing effect
+  const terminalRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    const commandElement = element.querySelector('.terminal-command');
+    const infoElements = element.querySelectorAll('.terminal-info');
+    
+    // Initial setup
+    gsap.set(element, { opacity: 0, y: 60, scale: 0.9 });
+    gsap.set(commandElement, { text: "" });
+    gsap.set(infoElements, { opacity: 0 });
+    
+    const tl = gsap.timeline();
+    
+    // Slide in terminal
+    tl.to(element, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.8,
+      ease: "power3.out"
+    })
+    // Type command
+    .to(commandElement, {
+      text: "$ about --info",
+      duration: 1.5,
+      ease: "none"
+    })
+    // Show info with stagger
+    .to(infoElements, {
+      opacity: 1,
+      duration: 0.3,
+      stagger: 0.2,
+      ease: "power2.out"
+    }, "+=0.5");
   }, { start: "top 80%" });
 
   // Content cards animation with 3D transforms
@@ -134,6 +172,21 @@ const AboutSection = () => {
             <span className="text-cyber relative z-10">About Us</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
+        </div>
+
+        {/* Terminal Info with Typing Animation */}
+        <div 
+          ref={terminalRef}
+          className="text-center mb-16"
+        >
+          <div className="terminal-text bg-background/50 border border-primary/30 rounded-lg p-4 max-w-md mx-auto">
+            <div className="terminal-command text-primary mb-2 font-mono"></div>
+            <div className="text-muted-foreground text-sm">
+              <div className="terminal-info">Section: About WarP Computer Club</div>
+              <div className="terminal-info">Mission: Digital Innovation</div>
+              <div className="terminal-info">Status: ✓ Active Community</div>
+            </div>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
