@@ -135,16 +135,14 @@ const TestimonialsSection = () => {
           ) : (
             <div
               ref={cardsRef}
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center"
+              className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center transition-all duration-700 ${
+                cardsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
             >
               {testimonials.map((testimonial, index) => (
                 <div
                   key={testimonial.id}
-                  className={`w-full max-w-md transition-all duration-700 ease-out ${
-                    cardsVisible 
-                      ? 'opacity-100 translate-y-0' 
-                      : 'opacity-0 translate-y-10'
-                  }`}
+                  className="w-full max-w-md"
                   style={{ 
                     transitionDelay: cardsVisible ? `${index * 150}ms` : '0ms' 
                   }}
