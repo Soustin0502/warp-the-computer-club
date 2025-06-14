@@ -59,22 +59,39 @@ const EventsSection = () => {
     });
   }, { start: "top 80%" });
 
-  // Terminal scroll animation - same as feedbacks terminal
+  // Terminal scroll animation with typing effect - same as SchoolSection
   const terminalRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
-    gsap.fromTo(element,
-      {
-        opacity: 0,
-        y: 60,
-        scale: 0.9
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: "power3.out"
-      }
-    );
+    const commandElement = element.querySelector('.terminal-command');
+    const infoElements = element.querySelectorAll('.terminal-info');
+    
+    // Initial setup
+    gsap.set(element, { opacity: 0, y: 60, scale: 0.9 });
+    gsap.set(commandElement, { text: "" });
+    gsap.set(infoElements, { opacity: 0 });
+    
+    const tl = gsap.timeline();
+    
+    // Slide in terminal
+    tl.to(element, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.8,
+      ease: "power3.out"
+    })
+    // Type command
+    .to(commandElement, {
+      text: "$ events --schedule",
+      duration: 1.5,
+      ease: "none"
+    })
+    // Show info with stagger
+    .to(infoElements, {
+      opacity: 1,
+      duration: 0.3,
+      stagger: 0.2,
+      ease: "power2.out"
+    }, "+=0.5");
   }, { start: "top 80%" });
 
   // Blog section animation
@@ -118,22 +135,39 @@ const EventsSection = () => {
     );
   }, { start: "top 75%" });
 
-  // Posts terminal animation - scroll in with primary color
+  // Posts terminal animation with typing effect - same as SchoolSection
   const postsTerminalRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
-    gsap.fromTo(element,
-      {
-        opacity: 0,
-        y: 60,
-        scale: 0.9
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: "power3.out"
-      }
-    );
+    const commandElement = element.querySelector('.terminal-command');
+    const infoElements = element.querySelectorAll('.terminal-info');
+    
+    // Initial setup
+    gsap.set(element, { opacity: 0, y: 60, scale: 0.9 });
+    gsap.set(commandElement, { text: "" });
+    gsap.set(infoElements, { opacity: 0 });
+    
+    const tl = gsap.timeline();
+    
+    // Slide in terminal
+    tl.to(element, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.8,
+      ease: "power3.out"
+    })
+    // Type command
+    .to(commandElement, {
+      text: "$ posts --info",
+      duration: 1.5,
+      ease: "none"
+    })
+    // Show info with stagger
+    .to(infoElements, {
+      opacity: 1,
+      duration: 0.3,
+      stagger: 0.2,
+      ease: "power2.out"
+    }, "+=0.5");
   }, { start: "top 80%" });
 
   useEffect(() => {
@@ -295,10 +329,10 @@ const EventsSection = () => {
             className="text-center mb-20"
             >
                 <div className="terminal-text bg-background/50 border border-accent/30 rounded-lg p-4 max-w-md mx-auto">
-                    <div className="text-accent mb-1 font-mono">$ events --schedule</div>
+                    <div className="terminal-command text-accent mb-1 font-mono"></div>
                     <div className="text-muted-foreground text-sm">
-                        <div>WarP Intra '25: August 02, 2025</div>
-                        <div>WarP Inter '25: T.B.D.</div>
+                        <div className="terminal-info">WarP Intra '25: August 02, 2025</div>
+                        <div className="terminal-info">WarP Inter '25: T.B.D.</div>
                     </div>
                 </div>
             </div>
@@ -363,10 +397,10 @@ const EventsSection = () => {
             className="text-center mt-8"
             >
                 <div className="terminal-text bg-background/50 border border-primary/30 rounded-lg p-4 max-w-md mx-auto">
-                    <div className="text-primary mb-2 font-mono">$ posts --info</div>
+                    <div className="terminal-command text-primary mb-2 font-mono"></div>
                     <div className="text-muted-foreground text-sm">
-                        <div>Total Posts: {blogPosts.length}</div>
-                        <div>Status: ✓ Published & Active</div>
+                        <div className="terminal-info">Total Posts: {blogPosts.length}</div>
+                        <div className="terminal-info">Status: ✓ Published & Active</div>
                     </div>
                 </div>
             </div>
