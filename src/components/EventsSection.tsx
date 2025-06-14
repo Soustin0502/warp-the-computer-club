@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -7,6 +8,7 @@ import { Calendar, User, ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 import { useGSAPScrollTrigger } from '@/hooks/useGSAPAnimation';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 gsap.registerPlugin(TextPlugin);
 
@@ -33,11 +35,9 @@ const EventsSection = () => {
     );
   }, { start: "top 80%" });
 
-  // Simple fade-in animation for events cards
-  const eventsRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
-    const cards = element.querySelectorAll('.event-card');
-    
-    gsap.fromTo(cards,
+  // First card uses GSAP animation
+  const firstCardRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    gsap.fromTo(element,
       {
         opacity: 0,
         y: 40
@@ -46,11 +46,13 @@ const EventsSection = () => {
         opacity: 1,
         y: 0,
         duration: 0.8,
-        stagger: 0.2,
         ease: "power2.out"
       }
     );
   }, { start: "top 75%" });
+
+  // Second card uses simple scroll animation
+  const [secondCardRef, secondCardVisible] = useScrollAnimation();
 
   // Terminal typing animation for events schedule
   const terminalRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
@@ -230,17 +232,16 @@ const EventsSection = () => {
                 </p>
             </div>
 
-            <div 
-            ref={eventsRef}
-            className="relative max-w-5xl mx-auto mb-16 flex justify-center items-center gap-4"
-            >
+            <div className="relative max-w-5xl mx-auto mb-16 flex justify-center items-center gap-4">
                 {events.map((event, index) => (
                     <Card 
                     key={index} 
+                    ref={index === 0 ? firstCardRef : secondCardRef}
                     className={`
                         event-card bg-card cyber-border transition-all duration-300 group min-h-[400px] flex flex-col w-80
                         ${index === 0 ? '-rotate-3 origin-center z-10 -mr-8' : 'rotate-3 origin-center z-20'}
                         ${hoveredCard === index ? 'z-30' : ''}
+                        ${index === 1 ? `scroll-fade-in ${secondCardVisible ? 'animate' : ''}` : ''}
                     `}
                     style={{
                         backgroundColor: 'hsl(var(--card))',
