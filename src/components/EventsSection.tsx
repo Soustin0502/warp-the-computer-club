@@ -59,38 +59,22 @@ const EventsSection = () => {
     });
   }, { start: "top 80%" });
 
-  // Terminal typing animation for events schedule
+  // Terminal scroll animation - same as feedbacks terminal
   const terminalRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
-    const commandElement = element.querySelector('.terminal-command');
-    const infoElements = element.querySelectorAll('.terminal-info');
-    
-    // Initial setup
-    gsap.set(element, { opacity: 0, x: 100 });
-    gsap.set(commandElement, { text: "" });
-    gsap.set(infoElements, { opacity: 0 });
-    
-    const tl = gsap.timeline();
-    
-    // Slide in terminal
-    tl.to(element, {
-      opacity: 1,
-      x: 0,
-      duration: 0.6,
-      ease: "power2.out"
-    })
-    // Type command
-    .to(commandElement, {
-      text: "$ events --schedule",
-      duration: 1.5,
-      ease: "none"
-    })
-    // Show info with stagger
-    .to(infoElements, {
-      opacity: 1,
-      duration: 0.3,
-      stagger: 0.2,
-      ease: "power2.out"
-    }, "+=0.5");
+    gsap.fromTo(element,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.9
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        ease: "power3.out"
+      }
+    );
   }, { start: "top 80%" });
 
   // Blog section animation
@@ -311,10 +295,10 @@ const EventsSection = () => {
             className="text-center mb-20"
             >
                 <div className="terminal-text bg-background/50 border border-accent/30 rounded-lg p-4 max-w-md mx-auto">
-                    <div className="terminal-command text-accent mb-1"></div>
+                    <div className="text-accent mb-1 font-mono">$ events --schedule</div>
                     <div className="text-muted-foreground text-sm">
-                        <div className="terminal-info">WarP Intra '25: August 02, 2025</div>
-                        <div className="terminal-info">WarP Inter '25: T.B.D.</div>
+                        <div>WarP Intra '25: August 02, 2025</div>
+                        <div>WarP Inter '25: T.B.D.</div>
                     </div>
                 </div>
             </div>
