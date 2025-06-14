@@ -373,8 +373,8 @@ const EventsSection = () => {
 
             <div className="text-center mt-8">
                 <Button asChild className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira">
-                    <Link to="/feedbacks" className="flex items-center gap-2">
-                        View All Feedbacks
+                    <Link to="/blog" className="flex items-center gap-2">
+                        View All Posts
                         <ArrowRight size={16} />
                     </Link>
                 </Button>
