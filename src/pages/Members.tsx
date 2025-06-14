@@ -71,28 +71,37 @@ const Members = () => {
     );
   }, { start: "top 80%" });
 
-  // Members grid animation - ensuring all cards including the first one animate
+  // Members grid animation - ensuring consistent animation for all cards including the first
   const membersRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
     const memberCards = element.querySelectorAll('.member-card');
     
-    // Set initial state for all cards
-    gsap.set(memberCards, {
-      opacity: 0,
-      y: 100,
-      rotationY: 30,
-      scale: 0.8
+    // Force initial state on all cards immediately
+    memberCards.forEach((card) => {
+      gsap.set(card, {
+        opacity: 0,
+        y: 100,
+        rotationY: 30,
+        scale: 0.8,
+        force3D: true
+      });
     });
     
-    // Animate all cards with stagger
-    gsap.to(memberCards, {
-      opacity: 1,
-      y: 0,
-      rotationY: 0,
-      scale: 1,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: "back.out(1.7)"
+    // Create timeline for consistent animation
+    const tl = gsap.timeline();
+    
+    memberCards.forEach((card, index) => {
+      tl.to(card, {
+        opacity: 1,
+        y: 0,
+        rotationY: 0,
+        scale: 1,
+        duration: 0.8,
+        ease: "back.out(1.7)",
+        force3D: true
+      }, index * 0.1);
     });
+    
+    return tl;
   }, { start: "top 70%" });
 
   const getInitials = (name: string) => {
