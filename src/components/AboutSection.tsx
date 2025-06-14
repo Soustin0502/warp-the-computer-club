@@ -9,6 +9,7 @@ const AboutSection = () => {
 
   // Title animation
   const titleRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    console.log("Title animation triggered");
     gsap.fromTo(element, 
       { 
         opacity: 0, 
@@ -27,6 +28,7 @@ const AboutSection = () => {
 
   // Content cards animation with 3D transforms
   const contentRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    console.log("Content cards animation triggered");
     const cards = element.querySelectorAll('.content-card');
     
     gsap.fromTo(cards,
@@ -52,7 +54,14 @@ const AboutSection = () => {
 
   // Stats cards animation with enhanced 3D effects
   const statsRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    console.log("Stats animation triggered");
     const statCards = element.querySelectorAll('.stat-card');
+    console.log("Found stat cards:", statCards.length);
+    
+    // Log each card for debugging
+    statCards.forEach((card, index) => {
+      console.log(`Stat card ${index}:`, card);
+    });
     
     gsap.fromTo(statCards,
       {
@@ -70,7 +79,10 @@ const AboutSection = () => {
         rotationY: 0,
         duration: 0.6,
         stagger: 0.2,
-        ease: "back.out(1.7)"
+        ease: "back.out(1.7)",
+        onComplete: () => {
+          console.log("Stats animation completed");
+        }
       }
     );
   }, { start: "top 75%" });
