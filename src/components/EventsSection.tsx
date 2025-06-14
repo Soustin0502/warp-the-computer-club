@@ -351,9 +351,9 @@ const EventsSection = () => {
             </div>
 
             <div className="flex justify-center">
-                <div ref={postsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center items-center">
+                <div ref={postsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full">
                     {blogPosts.length > 0 ? blogPosts.map((post, index) => (
-                        <Card key={post.id} className="blog-card bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 w-full max-w-md">
+                        <Card key={post.id} className="blog-card bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 w-full max-w-md mx-auto">
                             <CardHeader className="pb-3 text-center">
                                 <div className={`inline-block px-2 py-1 rounded-full text-xs font-fira uppercase tracking-wider mb-2 border ${getCategoryColor(post.category)}`}>
                                     {post.category}
