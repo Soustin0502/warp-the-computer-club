@@ -239,7 +239,7 @@ const EventsSection = () => {
 
             <div 
             ref={cardsRef}
-            className="relative max-w-5xl mx-auto mb-16 flex justify-center items-center gap-4"
+            className="relative max-w-5xl mx-auto mb-16 flex justify-center items-center gap-2"
             >
                 {events.map((event, index) => (
                     <Card 
