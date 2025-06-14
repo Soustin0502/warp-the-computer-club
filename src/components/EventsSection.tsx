@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -34,7 +35,7 @@ const EventsSection = () => {
     );
   }, { start: "top 80%" });
 
-  // Cards animation - both cards get the same fade-in animation with opposite rotations
+  // Cards animation - both cards animate simultaneously with reduced tilt
   const cardsRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
     const cards = element.querySelectorAll('.event-card');
     
@@ -45,17 +46,16 @@ const EventsSection = () => {
       rotation: 0
     });
     
-    // Animate both cards with identical timing and easing
+    // Animate both cards simultaneously with identical timing
     gsap.to(cards, {
       opacity: 1,
       y: 0,
       duration: 0.8,
-      stagger: 0.2,
       ease: "power2.out",
       onComplete: () => {
-        // Apply opposite rotations after the fade-in completes
-        if (cards[0]) gsap.set(cards[0], { rotation: -20 });
-        if (cards[1]) gsap.set(cards[1], { rotation: 20 });
+        // Apply reduced opposite rotations after the fade-in completes
+        if (cards[0]) gsap.set(cards[0], { rotation: -10 });
+        if (cards[1]) gsap.set(cards[1], { rotation: 10 });
       }
     });
   }, { start: "top 80%" });
