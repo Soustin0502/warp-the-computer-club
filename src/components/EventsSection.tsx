@@ -34,9 +34,35 @@ const EventsSection = () => {
     );
   }, { start: "top 80%" });
 
-  // Both cards use simple scroll animation
-  const [firstCardRef, firstCardVisible] = useScrollAnimation();
-  const [secondCardRef, secondCardVisible] = useScrollAnimation();
+  // Cards animation - from inside to outside
+  const cardsRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    const cards = element.querySelectorAll('.event-card');
+    
+    // Set initial state - both cards at center (no rotation)
+    gsap.set(cards, {
+      rotation: 0,
+      opacity: 0,
+      scale: 0.8
+    });
+    
+    // Animate to final positions
+    gsap.to(cards[0], {
+      rotation: -20,
+      opacity: 1,
+      scale: 1,
+      duration: 0.8,
+      ease: "back.out(1.7)"
+    });
+    
+    gsap.to(cards[1], {
+      rotation: 20,
+      opacity: 1,
+      scale: 1,
+      duration: 0.8,
+      delay: 0.2,
+      ease: "back.out(1.7)"
+    });
+  }, { start: "top 80%" });
 
   // Terminal typing animation for events schedule
   const terminalRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
@@ -216,16 +242,17 @@ const EventsSection = () => {
                 </p>
             </div>
 
-            <div className="relative max-w-5xl mx-auto mb-16 flex justify-center items-center gap-4">
+            <div 
+            ref={cardsRef}
+            className="relative max-w-5xl mx-auto mb-16 flex justify-center items-center gap-4"
+            >
                 {events.map((event, index) => (
                     <Card 
                     key={index} 
-                    ref={index === 0 ? firstCardRef : secondCardRef}
                     className={`
                         event-card bg-card cyber-border transition-all duration-300 group min-h-[400px] flex flex-col w-80
                         ${index === 0 ? '-rotate-[20deg] origin-center z-10 -mr-8' : 'rotate-[20deg] origin-center z-20'}
                         ${hoveredCard === index ? 'z-30' : ''}
-                        scroll-fade-in ${index === 0 ? (firstCardVisible ? 'animate' : '') : (secondCardVisible ? 'animate' : '')}
                     `}
                     style={{
                         backgroundColor: 'hsl(var(--card))',
