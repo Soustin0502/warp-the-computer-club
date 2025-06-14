@@ -1,4 +1,3 @@
-
 import { Card, CardContent } from '@/components/ui/card';
 import { useState } from 'react';
 import { gsap } from 'gsap';
@@ -91,7 +90,7 @@ const AboutSection = () => {
     );
   }, { start: "top 70%" });
 
-  // Stats cards animation with enhanced 3D effects and better visibility
+  // Stats cards animation with enhanced 3D effects and faster timing
   const statsRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
     console.log("Stats animation triggered");
     const statCards = element.querySelectorAll('.stat-card');
@@ -111,15 +110,15 @@ const AboutSection = () => {
       rotationY: 20
     });
     
-    // Then animate to final state
+    // Then animate to final state with faster timing
     gsap.to(statCards, {
       opacity: 1,
       y: 0,
       scale: 1,
       rotationX: 0,
       rotationY: 0,
-      duration: 1.2,
-      stagger: 0.3,
+      duration: 0.6,
+      stagger: 0.15,
       ease: "back.out(1.7)",
       delay: 0.2,
       onComplete: () => {
