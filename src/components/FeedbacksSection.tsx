@@ -207,12 +207,11 @@ const FeedbacksSection = () => {
 
         {/* View All Button */}
         <div className="text-center">
-          <Button 
-            asChild 
-            variant="ghost" 
-            className="text-primary font-orbitron hover:text-primary/80 hover:bg-primary/20 transition-colors"
-          >
-            <Link to="/feedbacks">View All Feedbacks <ArrowRight size={16} /></Link>
+          <Button asChild className="bg-primary hover:bg-primary/80 text-primary-foreground font-fira">
+            <Link to="/feedbacks" className="flex items-center gap-2">
+              View All Feedbacks
+              <ArrowRight size={16} />
+            </Link>
           </Button>
         </div>
       </div>
