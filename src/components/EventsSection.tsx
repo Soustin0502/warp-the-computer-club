@@ -34,36 +34,24 @@ const EventsSection = () => {
     );
   }, { start: "top 80%" });
 
-  // Cards animation - from inside to outside with proper targeting
+  // Cards animation - simple fade in
   const cardsRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
     const cards = element.querySelectorAll('.event-card');
     
     // Set initial state for all cards
     gsap.set(cards, {
-      rotation: 0,
       opacity: 0,
-      scale: 0.8
+      y: 50
     });
     
-    // Create a timeline for better control
-    const tl = gsap.timeline();
-    
-    // Animate first card (WarP Intra)
-    tl.to(cards[0], {
-      rotation: -20,
+    // Simple fade in animation
+    gsap.to(cards, {
       opacity: 1,
-      scale: 1,
+      y: 0,
       duration: 0.8,
-      ease: "back.out(1.7)"
-    })
-    // Animate second card (WarP Inter) with slight delay
-    .to(cards[1], {
-      rotation: 20,
-      opacity: 1,
-      scale: 1,
-      duration: 0.8,
-      ease: "back.out(1.7)"
-    }, "-=0.6"); // Start 0.6 seconds before first animation ends
+      stagger: 0.2,
+      ease: "power2.out"
+    });
   }, { start: "top 80%" });
 
   // Terminal typing animation for events schedule
