@@ -7,7 +7,10 @@ import Navbar from '@/components/Navbar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Footer from '@/components/Footer';
 import { gsap } from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { useGSAPScrollTrigger } from '@/hooks/useGSAPAnimation';
+
+gsap.registerPlugin(ScrollToPlugin);
 
 const Members = () => {
   // Hero title animation
@@ -105,7 +108,10 @@ const Members = () => {
     if (aboutSection) {
       gsap.to(window, {
         duration: 1.5,
-        scrollTo: { y: aboutSection, offsetY: 0 },
+        scrollTo: {
+          y: aboutSection,
+          offsetY: 0
+        },
         ease: "power2.inOut"
       });
     }
