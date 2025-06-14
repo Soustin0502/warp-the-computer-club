@@ -107,7 +107,7 @@ const Members = () => {
     const aboutSection = document.querySelector('#members-grid');
     if (aboutSection) {
       gsap.to(window, {
-        duration: 1.5,
+        duration: 1,
         scrollTo: {
           y: aboutSection,
           offsetY: 0

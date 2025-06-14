@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -8,7 +7,6 @@ import { Calendar, User, ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 import { useGSAPScrollTrigger } from '@/hooks/useGSAPAnimation';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 gsap.registerPlugin(TextPlugin);
 
@@ -35,8 +33,24 @@ const EventsSection = () => {
     );
   }, { start: "top 80%" });
 
-  // Simple fade-in scroll animation for events cards
-  const [eventsRef, eventsVisible] = useScrollAnimation();
+  // Simple fade-in animation for events cards
+  const eventsRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    const cards = element.querySelectorAll('.event-card');
+    
+    gsap.fromTo(cards,
+      {
+        opacity: 0,
+        y: 40
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power2.out"
+      }
+    );
+  }, { start: "top 75%" });
 
   // Terminal typing animation for events schedule
   const terminalRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
@@ -218,7 +232,7 @@ const EventsSection = () => {
 
             <div 
             ref={eventsRef}
-            className={`relative max-w-5xl mx-auto mb-16 flex justify-center items-center gap-4 scroll-fade-in ${eventsVisible ? 'animate' : ''}`}
+            className="relative max-w-5xl mx-auto mb-16 flex justify-center items-center gap-4"
             >
                 {events.map((event, index) => (
                     <Card 
