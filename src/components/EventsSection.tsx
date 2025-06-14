@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -34,43 +33,26 @@ const EventsSection = () => {
     );
   }, { start: "top 80%" });
 
-  // Events cards with scroll-in animation and zoom-in on both cards
+  // Events cards with subtle bottom-to-top fade-in animation with directional movement
   const eventsRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
     const cards = element.querySelectorAll('.event-card');
     
-    gsap.fromTo(cards,
-      {
-        opacity: 0,
-        y: 60,
-        scale: 0.9
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power3.out"
-      }
-    );
-
-    // Add zoom-in hover effect to both cards
-    cards.forEach((card) => {
-      card.addEventListener('mouseenter', () => {
-        gsap.to(card, {
-          scale: 1.05,
-          duration: 0.3,
+    cards.forEach((card, index) => {
+      gsap.fromTo(card,
+        {
+          opacity: 0,
+          y: 40,
+          x: index === 0 ? -30 : 30, // Left card from left, right card from right
+        },
+        {
+          opacity: 1,
+          y: 0,
+          x: 0,
+          duration: 0.8,
+          delay: index * 0.2,
           ease: "power2.out"
-        });
-      });
-
-      card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.out"
-        });
-      });
+        }
+      );
     });
   }, { start: "top 75%" });
 
