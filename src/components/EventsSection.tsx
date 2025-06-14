@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -53,9 +52,9 @@ const EventsSection = () => {
       duration: 0.8,
       ease: "power2.out",
       onComplete: () => {
-        // Apply reduced opposite rotations after the fade-in completes
-        if (cards[0]) gsap.set(cards[0], { rotation: -10 });
-        if (cards[1]) gsap.set(cards[1], { rotation: 10 });
+        // Apply minimal opposite rotations after the fade-in completes
+        if (cards[0]) gsap.set(cards[0], { rotation: -3 });
+        if (cards[1]) gsap.set(cards[1], { rotation: 3 });
       }
     });
   }, { start: "top 80%" });
@@ -246,7 +245,7 @@ const EventsSection = () => {
                     <Card 
                     key={index} 
                     className={`
-                        event-card bg-card cyber-border transition-all duration-300 group min-h-[400px] flex flex-col w-80
+                        event-card bg-card cyber-border transition-all duration-300 group min-h-[450px] flex flex-col w-96
                         ${hoveredCard === index ? 'z-30' : ''}
                     `}
                     style={{
