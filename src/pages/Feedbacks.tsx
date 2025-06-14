@@ -11,6 +11,7 @@ import Footer from '@/components/Footer';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { gsap } from 'gsap';
 import { useGSAPScrollTrigger } from '@/hooks/useGSAPAnimation';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface Testimonial {
   id: string;
@@ -62,28 +63,8 @@ const Feedbacks = () => {
     );
   }, { start: "top 80%" });
 
-  // Cards animation
-  const cardsRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
-    const cards = element.querySelectorAll('.testimonial-card');
-    
-    gsap.fromTo(cards,
-      {
-        opacity: 0,
-        y: 80,
-        rotationX: 45,
-        scale: 0.8
-      },
-      {
-        opacity: 1,
-        y: 0,
-        rotationX: 0,
-        scale: 1,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: "back.out(1.7)"
-      }
-    );
-  }, { start: "top 75%" });
+  // Cards animation using useScrollAnimation hook
+  const [cardsRef, cardsVisible] = useScrollAnimation();
 
   // Form heading animation
   const formHeadingRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
@@ -289,7 +270,7 @@ const Feedbacks = () => {
               <div className="flex justify-center">
                 <div 
                   ref={cardsRef}
-                  className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl w-full"
+                  className={`grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl w-full stagger-children ${cardsVisible ? 'animate' : ''}`}
                 >
                   {displayedTestimonials.map((testimonial) => (
                     <div key={testimonial.id}>
