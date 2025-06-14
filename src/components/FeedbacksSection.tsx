@@ -47,8 +47,40 @@ const FeedbacksSection = () => {
   // Cards animation
   const [cardsRef, cardsVisible] = useScrollAnimation();
 
-  // Terminal animation - simple scroll in
-  const [terminalRef, terminalVisible] = useScrollAnimation();
+  // Terminal animation with typing effect - same as SchoolSection
+  const terminalRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
+    const commandElement = element.querySelector('.terminal-command');
+    const infoElements = element.querySelectorAll('.terminal-info');
+    
+    // Initial setup
+    gsap.set(element, { opacity: 0, y: 60, scale: 0.9 });
+    gsap.set(commandElement, { text: "" });
+    gsap.set(infoElements, { opacity: 0 });
+    
+    const tl = gsap.timeline();
+    
+    // Slide in terminal
+    tl.to(element, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.8,
+      ease: "power3.out"
+    })
+    // Type command
+    .to(commandElement, {
+      text: "$ feedbacks --info",
+      duration: 1.5,
+      ease: "none"
+    })
+    // Show info with stagger
+    .to(infoElements, {
+      opacity: 1,
+      duration: 0.3,
+      stagger: 0.2,
+      ease: "power2.out"
+    }, "+=0.5");
+  }, { start: "top 80%" });
 
   const getInitials = (name: string) => {
     return name
@@ -193,14 +225,14 @@ const FeedbacksSection = () => {
         {/* Terminal Info */}
         <div 
           ref={terminalRef}
-          className={`text-center mb-8 scroll-fade-in ${terminalVisible ? 'animate' : ''}`}
+          className="text-center mb-8"
         >
           <div className="terminal-text bg-background/50 border border-secondary/30 rounded-lg p-4 max-w-md mx-auto">
-            <div className="text-secondary mb-2 font-mono">$ feedbacks --info</div>
+            <div className="terminal-command text-secondary mb-2 font-mono"></div>
             <div className="text-muted-foreground text-sm">
-              <div>Total Feedbacks: {testimonials.length}</div>
-              <div>Average Rating: 4.8/5</div>
-              <div>Status: ✓ Community Approved</div>
+              <div className="terminal-info">Total Feedbacks: {testimonials.length}</div>
+              <div className="terminal-info">Average Rating: 4.8/5</div>
+              <div className="terminal-info">Status: ✓ Community Approved</div>
             </div>
           </div>
         </div>
