@@ -174,21 +174,6 @@ const AboutSection = () => {
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
         </div>
 
-        {/* Terminal Info with Typing Animation */}
-        <div 
-          ref={terminalRef}
-          className="text-center mb-16"
-        >
-          <div className="terminal-text bg-background/50 border border-primary/30 rounded-lg p-4 max-w-md mx-auto">
-            <div className="terminal-command text-primary mb-2 font-mono"></div>
-            <div className="text-muted-foreground text-sm">
-              <div className="terminal-info">Section: About WarP Computer Club</div>
-              <div className="terminal-info">Mission: Digital Innovation</div>
-              <div className="terminal-info">Status: ✓ Active Community</div>
-            </div>
-          </div>
-        </div>
-
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div ref={contentRef} className="space-y-6">
             <div 
@@ -275,6 +260,21 @@ const AboutSection = () => {
                 <div className="text-sm font-fira text-muted-foreground uppercase tracking-wider">Annual Events</div>
               </CardContent>
             </Card>
+          </div>
+        </div>
+
+        {/* Terminal Info with Typing Animation - moved below the main content */}
+        <div 
+          ref={terminalRef}
+          className="text-center mt-16"
+        >
+          <div className="terminal-text bg-background/50 border border-primary/30 rounded-lg p-4 max-w-md mx-auto">
+            <div className="terminal-command text-primary mb-2 font-mono"></div>
+            <div className="text-muted-foreground text-sm">
+              <div className="terminal-info">Section: About WarP Computer Club</div>
+              <div className="terminal-info">Mission: Digital Innovation</div>
+              <div className="terminal-info">Status: ✓ Active Community</div>
+            </div>
           </div>
         </div>
       </div>
