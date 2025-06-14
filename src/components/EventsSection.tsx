@@ -34,7 +34,7 @@ const EventsSection = () => {
     );
   }, { start: "top 80%" });
 
-  // Events cards with scroll-in animation
+  // Events cards with scroll-in animation and zoom-in on both cards
   const eventsRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
     const cards = element.querySelectorAll('.event-card');
     
@@ -53,6 +53,25 @@ const EventsSection = () => {
         ease: "power3.out"
       }
     );
+
+    // Add zoom-in hover effect to both cards
+    cards.forEach((card) => {
+      card.addEventListener('mouseenter', () => {
+        gsap.to(card, {
+          scale: 1.05,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+    });
   }, { start: "top 75%" });
 
   // Terminal typing animation for events schedule
@@ -175,25 +194,10 @@ const EventsSection = () => {
       y: e.clientY - rect.top
     });
     setHoveredCard(index);
-
-    // Only scale effect, no rotation
-    gsap.to(e.currentTarget, {
-      scale: 1.02,
-      z: 100,
-      duration: 0.3,
-      ease: "power2.out"
-    });
   };
 
   const handleCardMouseLeave = (e: React.MouseEvent) => {
     setHoveredCard(null);
-    
-    gsap.to(e.currentTarget, {
-      scale: 1,
-      z: 0,
-      duration: 0.5,
-      ease: "elastic.out(1, 0.3)"
-    });
   };
 
   const events = [
