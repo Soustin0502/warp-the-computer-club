@@ -165,6 +165,19 @@
     transform: scale(110%)
   }
 
+  /* Persistent glow class to prevent GSAP from clearing the effect */
+  .persist-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, transparent, hsl(var(--primary) / 0.15), hsl(var(--secondary) / 0.15), hsl(var(--accent) / 0.15), transparent) !important;
+    filter: blur(16px) !important;
+    z-index: -1;
+    opacity: 1 !important;
+    pointer-events: none;
+    transform: scale(110%) !important;
+  }
+
   /* Events cards overlapping animation - updated with less tilting and better positioning */
   .events-container {
     display: flex;

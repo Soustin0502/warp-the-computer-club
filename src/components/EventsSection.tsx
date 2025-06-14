@@ -7,7 +7,6 @@ import { Calendar, User, ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 import { useGSAPScrollTrigger } from '@/hooks/useGSAPAnimation';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 gsap.registerPlugin(TextPlugin);
 
@@ -94,7 +93,7 @@ const EventsSection = () => {
     }, "+=0.5");
   }, { start: "top 80%" });
 
-  // Blog section animation
+  // Blog section animation - ensure glow persists
   const blogRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
     gsap.fromTo(element,
       {
@@ -107,7 +106,14 @@ const EventsSection = () => {
         y: 0,
         scale: 1,
         duration: 1,
-        ease: "power3.out"
+        ease: "power3.out",
+        onComplete: () => {
+          // Ensure the title-glow class remains active
+          const titleElement = element.querySelector('.title-glow');
+          if (titleElement) {
+            gsap.set(titleElement, { clearProps: "all" });
+          }
+        }
       }
     );
   }, { start: "top 80%" });
@@ -246,7 +252,7 @@ const EventsSection = () => {
             ref={titleRef}
             className="text-center mb-16"
             >
-                <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative title-glow">
+                <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative title-glow persist-glow">
                     <span className="text-cyber relative z-10">Our Events</span>
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
@@ -342,7 +348,7 @@ const EventsSection = () => {
             ref={blogRef}
             className="text-center mb-16"
             >
-                <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative title-glow">
+                <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative title-glow persist-glow">
                     <span className="text-cyber relative z-10">Latest Posts</span>
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
