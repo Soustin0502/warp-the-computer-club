@@ -34,18 +34,18 @@ const EventsSection = () => {
     );
   }, { start: "top 80%" });
 
-  // Cards animation - simple fade in
+  // Cards animation - both cards get the same fade-in animation with opposite rotations
   const cardsRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
     const cards = element.querySelectorAll('.event-card');
     
-    // Set initial state for all cards
+    // Set initial state for all cards - exactly the same for both
     gsap.set(cards, {
       opacity: 0,
       y: 50,
       rotation: 0
     });
     
-    // Simple fade in animation with stagger
+    // Animate both cards with identical timing and easing
     gsap.to(cards, {
       opacity: 1,
       y: 0,
@@ -53,9 +53,9 @@ const EventsSection = () => {
       stagger: 0.2,
       ease: "power2.out",
       onComplete: () => {
-        // After fade in, apply the rotation to maintain the tilted effect
-        gsap.set(cards[0], { rotation: -20 });
-        gsap.set(cards[1], { rotation: 20 });
+        // Apply opposite rotations after the fade-in completes
+        if (cards[0]) gsap.set(cards[0], { rotation: -20 });
+        if (cards[1]) gsap.set(cards[1], { rotation: 20 });
       }
     });
   }, { start: "top 80%" });
