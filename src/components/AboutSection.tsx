@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from '@/components/ui/card';
 import { useState } from 'react';
 import { gsap } from 'gsap';
@@ -52,7 +53,7 @@ const AboutSection = () => {
     );
   }, { start: "top 70%" });
 
-  // Stats cards animation with enhanced 3D effects
+  // Stats cards animation with enhanced 3D effects and better visibility
   const statsRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
     console.log("Stats animation triggered");
     const statCards = element.querySelectorAll('.stat-card');
@@ -62,29 +63,31 @@ const AboutSection = () => {
     statCards.forEach((card, index) => {
       console.log(`Stat card ${index}:`, card);
     });
+
+    // Set initial state immediately
+    gsap.set(statCards, {
+      opacity: 0,
+      y: 100,
+      scale: 0.7,
+      rotationX: 60,
+      rotationY: 20
+    });
     
-    gsap.fromTo(statCards,
-      {
-        opacity: 0,
-        y: 80,
-        scale: 0.8,
-        rotationX: 45,
-        rotationY: 15
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        rotationX: 0,
-        rotationY: 0,
-        duration: 0.6,
-        stagger: 0.2,
-        ease: "back.out(1.7)",
-        onComplete: () => {
-          console.log("Stats animation completed");
-        }
+    // Then animate to final state
+    gsap.to(statCards, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      rotationX: 0,
+      rotationY: 0,
+      duration: 1.2,
+      stagger: 0.3,
+      ease: "back.out(1.7)",
+      delay: 0.2,
+      onComplete: () => {
+        console.log("Stats animation completed");
       }
-    );
+    });
   }, { start: "top 75%" });
 
   const handleCardMouseMove = (e: React.MouseEvent, index: number) => {
