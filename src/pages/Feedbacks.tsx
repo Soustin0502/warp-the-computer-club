@@ -277,20 +277,6 @@ const Feedbacks = () => {
           </div>
 
           {/* Terminal Info with Typing Animation */}
-          <div 
-            ref={terminalRef}
-            className="text-center mb-16"
-          >
-            <div className="terminal-text bg-background/50 border border-primary/30 rounded-lg p-4 max-w-md mx-auto">
-              <div className="terminal-command text-primary mb-2 font-mono"></div>
-              <div className="text-muted-foreground text-sm">
-                <div className="terminal-info">Total Feedbacks: {testimonials.length}</div>
-                <div className="terminal-info">Average Rating: 4.8/5</div>
-                <div className="terminal-info">Status: ✓ Community Approved</div>
-              </div>
-            </div>
-          </div>
-
           {loading ? (
             <div className="flex justify-center">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl w-full">
@@ -375,6 +361,19 @@ const Feedbacks = () => {
             </>
           )}
         </div>
+        <div 
+            ref={terminalRef}
+            className="text-center mb-16"
+          >
+            <div className="terminal-text bg-background/50 border border-primary/30 rounded-lg p-4 max-w-md mx-auto">
+              <div className="terminal-command text-primary mb-2 font-mono"></div>
+              <div className="text-muted-foreground text-sm">
+                <div className="terminal-info">Total Feedbacks: {testimonials.length}</div>
+                <div className="terminal-info">Average Rating: 4.8/5</div>
+                <div className="terminal-info">Status: ✓ Community Approved</div>
+              </div>
+            </div>
+          </div>
       </section>
 
       {/* Feedback Form Section */}
