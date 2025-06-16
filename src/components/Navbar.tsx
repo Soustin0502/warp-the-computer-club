@@ -218,7 +218,7 @@ const Navbar = () => {
                       <div className="border-t border-border pt-4">
                         <Link
                           to="/auth"
-                          className="block text-center py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/80 font-fira text-sm"
+                          className="block text-center py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/80 transition-colors font-fira text-sm"
 {/*                           "bg-primary hover:bg-primary/80 text-primary-foreground font-fira" */}
                           onClick={() => setIsOpen(false)}
                         >
