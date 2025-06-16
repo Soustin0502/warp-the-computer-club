@@ -360,7 +360,7 @@ const Feedbacks = () => {
               )}
             </>
           )}
-        </div>
+        </div><br/><br/>
         <div 
             ref={terminalRef}
             className="text-center mb-16"
