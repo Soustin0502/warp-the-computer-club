@@ -221,13 +221,37 @@ const Blog = () => {
                         </CardHeader>
 
                         <CardContent className="flex flex-col gap-4 text-center">
-                          <div className="text-foreground/80 font-fira text-sm leading-relaxed text-justify">
+                          <div className="text-foreground/80 font-fira text-sm leading-relaxed text-justify break-words overflow-hidden">
                             {(expandedPosts.has(post.id) ? post.content : post.excerpt)
                               .split('\n')
-                              .map((line, index, array) => (
-                                <span key={index}>
-                                  {line}
-                                  {index < array.length - 1 && <br />}
+                              .map((line, lineIndex, array) => (
+                                <span key={lineIndex}>
+                                  {line.split(' ').map((word, wordIndex, wordArray) => {
+                                    // Check if the word is a URL
+                                    const urlRegex = /(https?:\/\/[^\s]+)/g;
+                                    if (urlRegex.test(word)) {
+                                      return (
+                                        <span key={wordIndex}>
+                                          <a 
+                                            href={word} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="text-primary hover:text-primary/80 underline break-all"
+                                          >
+                                            {word}
+                                          </a>
+                                          {wordIndex < wordArray.length - 1 && ' '}
+                                        </span>
+                                      );
+                                    }
+                                    return (
+                                      <span key={wordIndex}>
+                                        {word}
+                                        {wordIndex < wordArray.length - 1 && ' '}
+                                      </span>
+                                    );
+                                  })}
+                                  {lineIndex < array.length - 1 && <br />}
                                 </span>
                               ))
                             }
