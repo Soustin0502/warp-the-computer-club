@@ -15,4 +15,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       </HashRouter>
     </QueryClientProvider>
   </React.StrictMode>,
-)
+);
