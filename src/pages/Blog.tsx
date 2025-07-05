@@ -221,9 +221,17 @@ const Blog = () => {
                         </CardHeader>
 
                         <CardContent className="flex flex-col gap-4 text-center">
-                          <p className="text-foreground/80 font-fira text-sm leading-relaxed text-justify">
-                            {expandedPosts.has(post.id) ? post.content : post.excerpt}
-                          </p>
+                          <div className="text-foreground/80 font-fira text-sm leading-relaxed text-justify">
+                            {(expandedPosts.has(post.id) ? post.content : post.excerpt)
+                              .split('\n')
+                              .map((line, index, array) => (
+                                <span key={index}>
+                                  {line}
+                                  {index < array.length - 1 && <br />}
+                                </span>
+                              ))
+                            }
+                          </div>
                           <Button
                             variant="ghost"
                             size="sm"
