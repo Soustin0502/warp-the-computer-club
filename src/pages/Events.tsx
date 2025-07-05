@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -8,10 +8,64 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import SkillsDisplay from '@/components/SkillsDisplay';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { supabase } from '@/integrations/supabase/client';
+
+interface Event {
+  id: string;
+  title: string;
+  description: string;
+  event_type: string;
+  event_date: string | null;
+  venue: string | null;
+  max_participants: number | null;
+  current_participants: number | null;
+  status: string | null;
+  featured_image_url: string | null;
+  registration_link: string | null;
+  registration_deadline: string | null;
+  created_at: string;
+}
 
 const Events = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
   const [eventsRef, eventsVisible] = useScrollAnimation();
+  const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
+  const [pastEvents, setPastEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('events')
+        .select('*')
+        .order('event_date', { ascending: false });
+
+      if (error) throw error;
+
+      const now = new Date();
+      const upcoming: Event[] = [];
+      const past: Event[] = [];
+
+      data?.forEach((event) => {
+        if (event.status === 'upcoming' || (event.event_date && new Date(event.event_date) > now)) {
+          upcoming.push(event);
+        } else {
+          past.push(event);
+        }
+      });
+
+      setUpcomingEvents(upcoming);
+      setPastEvents(past);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const scrollToNextSection = () => {
     const eventsSection = document.querySelector('#upcoming-events');
@@ -20,95 +74,30 @@ const Events = () => {
     }
   };
 
-  const upcomingEvents = [
-    {
-      id: 1,
-      title: "WarP Intra '25",
-      description: "Our flagship intra-school competition where students showcase their programming prowess, innovative thinking, and technical skills across multiple domains.",
-      date: "2025-08-02",
-      time: "07:30 AM - 01:45 PM",
-      location: "KG Hall",
-      participants: "170+",
-      tags: ["Competition", "Programming", "Prizes"],
-      image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&h=300&fit=crop",
-      registration: "Open"
-    },
-    {
-      id: 2,
-      title: "WarP Inter '25",
-      description: "The ultimate battleground where schools compete in the digital arena. A prestigious event that brings together the brightest minds from across the region.",
-      date: "T.B.D.",
-      time: "07:30 AM - 01:45 PM",
-      location: "KG Hall",
-      participants: "200+",
-      tags: ["Inter School", "Competition", "Tech Expo"],
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop",
-      registration: "Open"
+  const getEventTags = (eventType: string) => {
+    switch (eventType.toLowerCase()) {
+      case 'intra':
+        return ['Competition', 'Programming', 'Intra School'];
+      case 'inter':
+        return ['Inter School', 'Competition', 'Tech Expo'];
+      case 'workshop':
+        return ['Workshop', 'Learning', 'Skills'];
+      case 'competition':
+        return ['Competition', 'Programming', 'Prizes'];
+      default:
+        return ['Event', 'Tech'];
     }
-  ];
+  };
 
-  const pastEvents = [
-    {
-      id: 3,
-      title: "WarP Intra '24",
-      description: "Our most successful intra-school competition featuring advanced programming challenges, AI workshops, and innovative project showcases.",
-      date: "2024-08-02",
-      time: "07:30 AM - 01:45 PM",
-      location: "KG Hall",
-      participants: "150",
-      tags: ["Competition", "Programming", "AI Workshop"],
-      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=300&fit=crop",
-      status: "Completed"
-    },
-    {
-      id: 4,
-      title: "WarP Intra '23",
-      description: "A landmark event that brought together coding enthusiasts for intense programming competitions and collaborative learning sessions.",
-      date: "2023-08-02",
-      time: "07:30 AM - 01:45 PM",
-      location: "KG Hall",
-      participants: "130",
-      tags: ["Competition", "Coding", "Collaboration"],
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=300&fit=crop",
-      status: "Completed"
-    },
-    {
-      id: 5,
-      title: "WarP Inter '23",
-      description: "Inter-school championship that showcased the best talent from multiple schools in competitive programming and tech innovation.",
-      date: "2023-12-15",
-      time: "07:30 AM - 01:45 PM",
-      location: "KG Hall",
-      participants: "200",
-      tags: ["Inter School", "Championship", "Innovation"],
-      image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&h=300&fit=crop",
-      status: "Completed"
-    },
-    {
-      id: 6,
-      title: "WarP Intra '22",
-      description: "Foundation event that established our reputation for organizing high-quality programming competitions and technical workshops.",
-      date: "2022-08-02",
-      time: "07:30 AM - 01:45 PM",
-      location: "KG Hall",
-      participants: "100",
-      tags: ["Foundation", "Programming", "Workshop"],
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop",
-      status: "Completed"
-    },
-    {
-      id: 7,
-      title: "WarP Inter '22",
-      description: "Our inaugural inter-school event that brought together young programmers from across the region for friendly competition.",
-      date: "2022-12-10",
-      time: "07:30 AM - 01:45 PM",
-      location: "KG Hall",
-      participants: "80",
-      tags: ["Inaugural", "Inter School", "Programming"],
-      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=300&fit=crop",
-      status: "Completed"
-    }
-  ];
+  const getDefaultImage = (eventType: string) => {
+    const images = [
+      "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=300&fit=crop"
+    ];
+    return images[Math.floor(Math.random() * images.length)];
+  };
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -191,20 +180,38 @@ const Events = () => {
             ref={eventsRef}
             className={`grid md:grid-cols-2 gap-8 mb-20 stagger-children ${eventsVisible ? 'animate' : ''} max-w-6xl mx-auto`}
           >
-            {upcomingEvents.map((event) => (
+          {loading ? (
+            <div className="grid md:grid-cols-2 gap-8 mb-20 max-w-6xl mx-auto">
+              {[...Array(2)].map((_, i) => (
+                <Card key={i} className="bg-card/50 cyber-border animate-pulse">
+                  <div className="h-48 bg-muted rounded-t-lg"></div>
+                  <CardHeader>
+                    <div className="h-6 bg-muted rounded w-3/4"></div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <div className="h-4 bg-muted rounded"></div>
+                      <div className="h-4 bg-muted rounded w-3/4"></div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : upcomingEvents.length > 0 ? (
+            upcomingEvents.map((event) => (
               <Card 
                 key={event.id} 
                 className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 overflow-hidden"
               >
                 <div className="relative">
                   <img 
-                    src={event.image} 
+                    src={event.featured_image_url || getDefaultImage(event.event_type)} 
                     alt={event.title}
                     className="w-full h-48 object-cover"
                   />
                   <div className="absolute top-4 right-4">
                     <Badge className="bg-primary text-primary-foreground">
-                      {event.registration}
+                      {event.registration_link ? 'Open' : 'TBD'}
                     </Badge>
                   </div>
                 </div>
@@ -223,34 +230,59 @@ const Events = () => {
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Calendar size={16} />
-                      <span className="font-fira">{event.date === "T.B.D." ? event.date : new Date(event.date).toLocaleDateString()}</span>
+                      <span className="font-fira">
+                        {event.event_date ? new Date(event.event_date).toLocaleDateString() : 'TBD'}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Clock size={16} />
-                      <span className="font-fira">{event.time}</span>
+                      <span className="font-fira">
+                        {event.event_date ? new Date(event.event_date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'TBD'}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <MapPin size={16} />
-                      <span className="font-fira">{event.location}</span>
+                      <span className="font-fira">{event.venue || 'TBD'}</span>
                     </div>
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Users size={16} />
-                      <span className="font-fira">{event.participants}</span>
+                      <span className="font-fira">{event.max_participants || 'Open'}</span>
                     </div>
                   </div>
 
                   <SkillsDisplay 
-                    skills={event.tags} 
+                    skills={getEventTags(event.event_type)} 
                     maxVisible={3} 
                     primaryColor="secondary"
                   />
 
-                  <Button className="w-full bg-primary hover:bg-primary/80 text-primary-foreground font-fira">
-                    Register Now
-                  </Button>
+                  {event.registration_link ? (
+                    <Button 
+                      asChild
+                      className="w-full bg-primary hover:bg-primary/80 text-primary-foreground font-fira"
+                    >
+                      <a href={event.registration_link} target="_blank" rel="noopener noreferrer">
+                        Register Now
+                      </a>
+                    </Button>
+                  ) : (
+                    <Button 
+                      disabled
+                      className="w-full bg-primary/50 text-primary-foreground font-fira"
+                    >
+                      Registration TBD
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
-            ))}
+            ))
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-foreground/60 font-fira text-lg">
+                No upcoming events at the moment. Check back soon!
+              </p>
+            </div>
+          )}
           </div>
 
           {/* Past Events */}
@@ -263,20 +295,20 @@ const Events = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {pastEvents.map((event) => (
+            {pastEvents.length > 0 ? pastEvents.map((event) => (
               <Card 
                 key={event.id} 
                 className="bg-card/30 border-muted/30 hover:border-muted/50 transition-all duration-300 overflow-hidden opacity-80"
               >
                 <div className="relative">
                   <img 
-                    src={event.image} 
+                    src={event.featured_image_url || getDefaultImage(event.event_type)} 
                     alt={event.title}
                     className="w-full h-48 object-cover grayscale"
                   />
                   <div className="absolute top-4 right-4">
                     <Badge variant="outline" className="bg-background/80">
-                      {event.status}
+                      {event.status || 'Completed'}
                     </Badge>
                   </div>
                 </div>
@@ -295,24 +327,28 @@ const Events = () => {
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Calendar size={16} />
-                      <span className="font-fira">{new Date(event.date).toLocaleDateString()}</span>
+                      <span className="font-fira">
+                        {event.event_date ? new Date(event.event_date).toLocaleDateString() : 'TBD'}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Clock size={16} />
-                      <span className="font-fira">{event.time}</span>
+                      <span className="font-fira">
+                        {event.event_date ? new Date(event.event_date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'TBD'}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <MapPin size={16} />
-                      <span className="font-fira">{event.location}</span>
+                      <span className="font-fira">{event.venue || 'TBD'}</span>
                     </div>
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Users size={16} />
-                      <span className="font-fira">{event.participants}</span>
+                      <span className="font-fira">{event.max_participants || 'N/A'}</span>
                     </div>
                   </div>
 
                   <div className="flex flex-wrap gap-2">
-                    {event.tags.map((tag) => (
+                    {getEventTags(event.event_type).map((tag) => (
                       <Badge 
                         key={tag} 
                         variant="outline" 
@@ -324,7 +360,13 @@ const Events = () => {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+            )) : (
+              <div className="text-center py-12">
+                <p className="text-foreground/60 font-fira text-lg">
+                  No past events recorded yet.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </section>

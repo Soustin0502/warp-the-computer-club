@@ -10,12 +10,99 @@ import { useGSAPScrollTrigger } from '@/hooks/useGSAPAnimation';
 
 gsap.registerPlugin(TextPlugin);
 
+interface Event {
+  id: string;
+  title: string;
+  description: string;
+  event_type: string;
+  event_date: string | null;
+  venue: string | null;
+  max_participants: number | null;
+  current_participants: number | null;
+  status: string | null;
+  featured_image_url: string | null;
+  registration_link: string | null;
+  registration_deadline: string | null;
+  created_at: string;
+}
+
 const EventsSection = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [blogPosts, setBlogPosts] = useState<any[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
 
-  // Title animation
+  useEffect(() => {
+    fetchLatestBlogPosts();
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('events')
+        .select('*')
+        .eq('status', 'upcoming')
+        .order('event_date', { ascending: true })
+        .limit(2);
+
+      if (error) throw error;
+      setEvents(data || []);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    }
+  };
+
+  const getEventTypeColor = (eventType: string) => {
+    switch (eventType.toLowerCase()) {
+      case 'intra':
+        return 'primary';
+      case 'inter':
+        return 'secondary';
+      default:
+        return 'primary';
+    }
+  };
+
+  const getEventFeatures = (eventType: string) => {
+    switch (eventType.toLowerCase()) {
+      case 'intra':
+        return [
+          "Competitive Programming",
+          "Web Development Challenge", 
+          "AI/ML Workshop",
+          "Cybersecurity CTF"
+        ];
+      case 'inter':
+        return [
+          "Multi-School Competition",
+          "Hackathon Marathon",
+          "Tech Expo & Showcase", 
+          "Networking Sessions"
+        ];
+      case 'workshop':
+        return [
+          "Hands-on Learning",
+          "Expert Guidance",
+          "Practical Skills",
+          "Certificate Provided"
+        ];
+      case 'competition':
+        return [
+          "Competitive Environment",
+          "Skill Testing",
+          "Prizes & Recognition",
+          "Networking Opportunity"
+        ];
+      default:
+        return [
+          "Technical Learning",
+          "Skill Development",
+          "Community Building", 
+          "Knowledge Sharing"
+        ];
+    }
+  };
   const titleRef = useGSAPScrollTrigger<HTMLDivElement>((element) => {
     gsap.fromTo(element,
       {
@@ -169,10 +256,6 @@ const EventsSection = () => {
     }, "+=0.5");
   }, { start: "top 80%" });
 
-  useEffect(() => {
-    fetchLatestBlogPosts();
-  }, []);
-
   const fetchLatestBlogPosts = async () => {
     try {
       const { data, error } = await supabase
@@ -201,33 +284,6 @@ const EventsSection = () => {
   const handleCardMouseLeave = (e: React.MouseEvent) => {
     setHoveredCard(null);
   };
-
-  const events = [
-    {
-      title: "WarP Intra '25",
-      type: "Intra School Event",
-      description: "Our flagship intra-school competition where students showcase their programming prowess, innovative thinking, and technical skills across multiple domains.",
-      features: [
-        "Competitive Programming",
-        "Web Development Challenge",
-        "AI/ML Workshop",
-        "Cybersecurity CTF"
-      ],
-      color: "primary"
-    },
-    {
-      title: "WarP Inter '25",
-      type: "Inter School Event",
-      description: "The ultimate battleground where schools compete in the digital arena. A prestigious event that brings together the brightest minds from across the region.",
-      features: [
-        "Multi-School Competition",
-        "Hackathon Marathon",
-        "Tech Expo & Showcase",
-        "Networking Sessions"
-      ],
-      color: "secondary"
-    }
-  ];
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -258,9 +314,9 @@ const EventsSection = () => {
             ref={cardsRef}
             className="relative max-w-5xl mx-auto mb-16 flex justify-center items-center gap-2"
             >
-                {events.map((event, index) => (
+                {events.length > 0 ? events.map((event, index) => (
                     <Card 
-                    key={index} 
+                    key={event.id} 
                     className={`
                         event-card bg-card cyber-border transition-all duration-300 group min-h-[450px] flex flex-col w-96
                         ${hoveredCard === index ? 'z-30' : ''}
@@ -274,14 +330,14 @@ const EventsSection = () => {
                     >
                         <CardHeader className="flex-shrink-0">
                             <div className={`inline-block px-3 py-1 rounded-full text-xs font-fira uppercase tracking-wider mb-2 ${
-                            event.color === 'primary' 
+                            getEventTypeColor(event.event_type) === 'primary' 
                                 ? 'bg-primary/20 text-primary border border-primary/30' 
                                 : 'bg-secondary/20 text-secondary border border-secondary/30'
                             }`}>
-                            {event.type}
+                            {event.event_type} Event
                             </div>
                             <CardTitle className="text-2xl font-orbitron font-bold">
-                                <span className={event.color === 'primary' ? 'text-primary' : 'text-secondary'}>
+                                <span className={getEventTypeColor(event.event_type) === 'primary' ? 'text-primary' : 'text-secondary'}>
                                     {event.title}
                                 </span>
                             </CardTitle>
@@ -296,10 +352,10 @@ const EventsSection = () => {
                                     Key Features:
                                 </h4>
                                 <ul className="space-y-1">
-                                    {event.features.map((feature, idx) => (
+                                    {getEventFeatures(event.event_type).map((feature, idx) => (
                                     <li key={idx} className="font-fira text-sm text-foreground/70 flex items-center">
                                         <span className={`w-1 h-1 rounded-full mr-3 ${
-                                        event.color === 'primary' ? 'bg-primary' : 'bg-secondary'
+                                        getEventTypeColor(event.event_type) === 'primary' ? 'bg-primary' : 'bg-secondary'
                                         }`}></span>
                                         {feature}
                                     </li>
@@ -311,7 +367,7 @@ const EventsSection = () => {
                             asChild
                             variant="outline" 
                             className={`w-full font-fira mt-auto ${
-                                event.color === 'primary' 
+                                getEventTypeColor(event.event_type) === 'primary' 
                                 ? 'border-primary text-primary hover:bg-primary/10' 
                                 : 'border-secondary text-secondary hover:bg-secondary/10'
                             }`}
@@ -320,7 +376,13 @@ const EventsSection = () => {
                             </Button>
                         </CardContent>
                     </Card>
-                ))}
+                )) : (
+                  <div className="text-center py-12">
+                    <p className="text-foreground/60 font-fira text-lg">
+                      No upcoming events at the moment. Check back soon!
+                    </p>
+                  </div>
+                )}
             </div>
 
             <div 
