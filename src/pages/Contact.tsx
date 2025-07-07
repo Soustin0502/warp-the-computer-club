@@ -139,7 +139,8 @@ Sent via WarP Computer Club website`;
               <span className="text-cyber relative z-10">Contact Us</span>
             </h1>
             <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto mb-8">
-              Ready to connect with the digital revolution? Get in touch with us.
+              Ready to connect with the digital revolution? Get in touch with us for collaborations, 
+              event inquiries, membership questions, or technical discussions.
             </p>
           </motion.div>
         </div>
@@ -253,8 +254,10 @@ Sent via WarP Computer Club website`;
                     <div className="text-muted-foreground text-sm space-y-1">
                       <div>Name: WarP Computer Club</div>
                       <div>Founded: 2020</div>
-                      <div>Members: 75+</div>
-                      <div>Events: 2 Annual</div>
+                      <div>Members: 75+ Active</div>
+                      <div>Events: 2 Annual (Inter & Intra)</div>
+                      <div>Focus: Programming, Web Dev, AI</div>
+                      <div>School: Delhi Public School MRD</div>
                     </div>
                   </div>
                 </CardContent>
@@ -289,6 +292,15 @@ Sent via WarP Computer Club website`;
                     <div>
                       <div className="text-muted-foreground uppercase tracking-wider mb-1">Location</div>
                       <div className="text-foreground">Computer Lab 1/2/3, Senior School Building, Ground Floor</div>
+                    </div>
+                    <div>
+                      <div className="text-muted-foreground uppercase tracking-wider mb-1">What to Contact About</div>
+                      <div className="text-foreground text-xs space-y-1">
+                        <div>• Event registration & queries</div>
+                        <div>• Membership applications</div>
+                        <div>• Technical collaborations</div>
+                        <div>• Workshop requests</div>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
