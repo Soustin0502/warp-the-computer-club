@@ -48,12 +48,16 @@ const Contact = () => {
   };
 
   const createShortEmail = (data: typeof formData) => {
-    return `From: ${data.name} (${data.email})
+    return `From: ${data.name}
+Email: ${data.email}
+Subject: ${data.subject}
 
+Message:
 ${data.message}
 
 ---
-Sent via WarP Computer Club website`;
+Source: WarP Computer Club Website (warp.dpsmr.com)
+Timestamp: ${new Date().toLocaleString()}`;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
