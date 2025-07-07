@@ -176,7 +176,7 @@ Timestamp: ${new Date().toLocaleString()}`;
                   Send Message
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="block text-sm font-fira text-muted-foreground mb-2">Name</label>
@@ -219,7 +219,7 @@ Timestamp: ${new Date().toLocaleString()}`;
                       value={formData.message}
                       onChange={handleInputChange}
                       placeholder="Your message..." 
-                      className="bg-background/50 border-primary/30 focus:border-primary font-fira min-h-[120px]"
+                      className="bg-background/50 border-primary/30 focus:border-primary font-fira min-h-[120px] resize-y"
                       required
                     />
                   </div>
