@@ -47,38 +47,28 @@ const Contact = () => {
     }));
   };
 
-  const createCyberStyledEmail = (data: typeof formData) => {
-    return `
->> WarP COMPUTER CLUB - DIGITAL COMMUNICATION PROTOCOL <<
+  const createShortEmail = (data: typeof formData) => {
+    return `From: ${data.name} (${data.email})
 
-SENDER: ${data.name}
-EMAIL: ${data.email}
-TIMESTAMP: ${new Date().toLocaleString()}
-
-SUBJECT: ${data.subject}
-
-MESSAGE:
 ${data.message}
 
 ---
-This message was sent via the WarP Computer Club Contact System
-Architecting the digital future through innovation and technology
-          `.trim();
-    };
+Sent via WarP Computer Club website`;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const cyberMessage = createCyberStyledEmail(formData);
+      const shortMessage = createShortEmail(formData);
       
       // Check if device is mobile
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       
       if (isMobile) {
         // For mobile devices, use a more compatible approach
-        const mailtoLink = `mailto:warp.dpsmr@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(cyberMessage)}`;
+        const mailtoLink = `mailto:warp.dpsmr@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(shortMessage)}`;
         window.location.href = mailtoLink;
         
         toast({
@@ -87,7 +77,7 @@ Architecting the digital future through innovation and technology
         });
       } else {
         // For desktop, try Gmail first
-        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=warp.dpsmr@gmail.com&su=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(cyberMessage)}`;
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=warp.dpsmr@gmail.com&su=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(shortMessage)}`;
         
         const newWindow = window.open(gmailUrl, '_blank');
         
@@ -98,12 +88,12 @@ Architecting the digital future through innovation and technology
           });
         } else {
           // Fallback to mailto if popup is blocked
-          const mailtoLink = `mailto:warp.dpsmr@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(cyberMessage)}`;
+          const mailtoLink = `mailto:warp.dpsmr@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(shortMessage)}`;
           window.location.href = mailtoLink;
           
           toast({
             title: "Email client opened",
-            description: "Your default email client should open with the cyber-styled message.",
+            description: "Your default email client should open with the message.",
           });
         }
       }
