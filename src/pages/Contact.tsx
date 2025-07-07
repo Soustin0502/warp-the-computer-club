@@ -49,38 +49,20 @@ const Contact = () => {
 
   const createCyberStyledEmail = (data: typeof formData) => {
     return `
-      ╔══════════════════════════════════════════════════════════════════════════════╗
-      ║                          WarP COMPUTER CLUB                                 ║
-      ║                      DIGITAL COMMUNICATION PROTOCOL                         ║
-      ╚══════════════════════════════════════════════════════════════════════════════╝
+>> WarP COMPUTER CLUB - DIGITAL COMMUNICATION PROTOCOL <<
 
-      > SYSTEM INFILTRATION SUCCESSFUL
-      > ESTABLISHING SECURE CONNECTION...
-      > CONNECTION ESTABLISHED
+SENDER: ${data.name}
+EMAIL: ${data.email}
+TIMESTAMP: ${new Date().toLocaleString()}
 
-      ┌─ SENDER IDENTIFICATION ─────────────────────────────────────────────────────┐
-      │ Name: ${data.name}
-      │ Email: ${data.email}
-      │ Timestamp: ${new Date().toISOString()}
-      └─────────────────────────────────────────────────────────────────────────────┘
+SUBJECT: ${data.subject}
 
-      ┌─ MESSAGE HEADER ────────────────────────────────────────────────────────────┐
-      │ Subject: ${data.subject}
-      │ Priority: HIGH
-      │ Encryption: CYBER-GRADE
-      └─────────────────────────────────────────────────────────────────────────────┘
+MESSAGE:
+${data.message}
 
-      ┌─ MESSAGE PAYLOAD ───────────────────────────────────────────────────────────┐
-      ${data.message}
-      └─────────────────────────────────────────────────────────────────────────────┘
-
-      > MESSAGE TRANSMISSION COMPLETE
-      > AWAITING RESPONSE FROM WarP COMMAND CENTER...
-
-      ╔══════════════════════════════════════════════════════════════════════════════╗
-      ║ This message was sent via the WarP Computer Club Contact System             ║
-      ║ Architecting the digital future through innovation and technology           ║
-      ╚══════════════════════════════════════════════════════════════════════════════╝
+---
+This message was sent via the WarP Computer Club Contact System
+Architecting the digital future through innovation and technology
           `.trim();
     };
 
