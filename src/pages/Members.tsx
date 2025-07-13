@@ -311,13 +311,13 @@ const Members = () => {
                 >
                   <div className="relative flex-shrink-0">
                     <div className="w-full h-40 flex items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20">
-                      <Avatar className="w-24 h-24">
+                       <Avatar className={`w-24 h-24 ${member.name === "Ansh Mittal" ? "rounded-full" : ""}`}>
                         <AvatarImage 
                           src={member.image} 
                           alt={member.name} 
                           className={`object-cover ${
                             member.name === "Kunal Kachhawa" ? "object-[center_20%]" : 
-                            member.name === "Ansh Mittal" ? "object-cover scale-75" : 
+                            member.name === "Ansh Mittal" ? "object-cover scale-75 rounded-full" : 
                             "object-cover"
                           }`} 
                         />

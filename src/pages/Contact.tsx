@@ -258,10 +258,10 @@ Timestamp: ${new Date().toLocaleString()}`;
                     <div className="text-muted-foreground text-sm space-y-1">
                       <div>Name: WarP Computer Club</div>
                       <div>Founded: 2020</div>
-                      <div>Members: 75+ Active</div>
+                      <div>Members: 90+ Active</div>
                       <div>Events: 2 Annual (Inter & Intra)</div>
-                      <div>Focus: Programming, Web Dev, AI</div>
-                      <div>School: Delhi Public School MRD</div>
+                      <div>Focus: Programming, Web Dev, Startup Building, and more</div>
+                      <div>School: Delhi Public School Mathura Road</div>
                     </div>
                   </div>
                 </CardContent>
@@ -303,7 +303,6 @@ Timestamp: ${new Date().toLocaleString()}`;
                         <div>• Event registration & queries</div>
                         <div>• Membership applications</div>
                         <div>• Technical collaborations</div>
-                        <div>• Workshop requests</div>
                       </div>
                     </div>
                   </div>
