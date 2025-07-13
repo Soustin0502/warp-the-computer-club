@@ -312,7 +312,15 @@ const Members = () => {
                   <div className="relative flex-shrink-0">
                     <div className="w-full h-40 flex items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20">
                       <Avatar className="w-24 h-24">
-                        <AvatarImage src={member.image} alt={member.name} className="object-cover" />
+                        <AvatarImage 
+                          src={member.image} 
+                          alt={member.name} 
+                          className={`object-cover ${
+                            member.name === "Kunal Kachhawa" ? "object-[center_20%]" : 
+                            member.name === "Ansh Mittal" ? "object-cover scale-75" : 
+                            "object-cover"
+                          }`} 
+                        />
                         <AvatarFallback className="bg-primary/20 text-primary font-bold text-lg">
                           {getInitials(member.name)}
                         </AvatarFallback>
