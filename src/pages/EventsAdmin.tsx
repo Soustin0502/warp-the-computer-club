@@ -148,6 +148,7 @@ const EventsAdmin = () => {
   };
 
   const handleEdit = (event: Event) => {
+    console.log("Edit button clicked for event:", event.title);
     setEditingEvent(event);
     setFormData({
       title: event.title,
@@ -162,6 +163,7 @@ const EventsAdmin = () => {
       status: event.status || "upcoming"
     });
     setShowForm(true);
+    console.log("Form should now be visible and populated");
   };
 
   const handleDelete = async (eventId: string) => {
