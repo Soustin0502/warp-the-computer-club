@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Github, Linkedin, Mail, ChevronDown, Users, User } from 'lucide-react';
@@ -158,14 +159,14 @@ const Members = () => {
     },
     {
       id: 4,
-      name: "Aaayan Ahmed War",
+      name: "Aayan Ahmed War",
       role: "Vice President",
       year: "11th Grade",
       skills: ["Machine Learning", "Data Science", "Research"],
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
-      github: "aaayanawar",
-      linkedin: "aaayan-ahmed-war",
-      email: "aaayan@school.edu",
+      image: "",
+      github: "aayanawar",
+      linkedin: "aayan-ahmed-war",
+      email: "aayan@school.edu",
       bio: "Strategic director driving club initiatives and fostering tech excellence"
     },
     {
@@ -174,7 +175,7 @@ const Members = () => {
       role: "Senior Executive",
       year: "12th Grade",
       skills: ["Cybersecurity", "Ethical Hacking", "Network Security"],
-      image: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=400&h=400&fit=crop&crop=face",
+      image: "",
       github: "ayaanali",
       linkedin: "ayaan-ali-security",
       email: "ayaan@school.edu",
@@ -186,7 +187,7 @@ const Members = () => {
       role: "Senior Executive",
       year: "12th Grade",
       skills: ["DevOps", "Cloud Computing", "Automation"],
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
+      image: "",
       github: "rishituppal",
       linkedin: "rishit-uppal",
       email: "rishit@school.edu",
@@ -312,15 +313,17 @@ const Members = () => {
                   <div className="relative flex-shrink-0">
                     <div className="w-full h-40 flex items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20">
                        <Avatar className={`w-24 h-24 ${member.name === "Ansh Mittal" ? "rounded-full" : ""}`}>
-                        <AvatarImage 
-                          src={member.image} 
-                          alt={member.name} 
-                          className={`object-cover ${
-                            member.name === "Kunal Kachhawa" ? "object-[center_20%]" : 
-                            member.name === "Ansh Mittal" ? "object-cover scale-75 rounded-full" : 
-                            "object-cover"
-                          }`} 
-                        />
+                        {member.image && (
+                          <AvatarImage 
+                            src={member.image} 
+                            alt={member.name} 
+                            className={`object-cover ${
+                              member.name === "Kunal Kachhawa" ? "object-[center_20%]" : 
+                              member.name === "Ansh Mittal" ? "object-cover scale-75 rounded-full" : 
+                              "object-cover"
+                            }`} 
+                          />
+                        )}
                         <AvatarFallback className="bg-primary/20 text-primary font-bold text-lg">
                           {getInitials(member.name)}
                         </AvatarFallback>
