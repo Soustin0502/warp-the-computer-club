@@ -126,11 +126,8 @@ const Members = () => {
       name: "Soustin Roy",
       role: "President",
       year: "12th Grade",
-      skills: ["Full-Stack Development", "AI/ML", "Leadership"],
+      skills: ["Programmer", "Full-Stack Web Developer", "UI/UX Designer", "Graphics Designer", "Leader"],
       image: "./SOUSTIN.jpg",
-      github: "soustinroy",
-      linkedin: "soustin-roy",
-      email: "soustin@school.edu",
       bio: "Visionary leader spearheading technological innovation at WarP Computer Club"
     },
     {
@@ -138,11 +135,8 @@ const Members = () => {
       name: "Deeptanshu Shekhar",
       role: "President",
       year: "12th Grade",
-      skills: ["Backend Development", "System Architecture", "Leadership"],
+      skills: ["Designer", "Pitch Leader", "Video Editor", "Leader", "Project Manager"],
       image: "./DEEPTANSHU.jpeg",
-      github: "deeptanshushekhar",
-      linkedin: "deeptanshu-shekhar",
-      email: "deeptanshu@school.edu",
       bio: "Visionary leader spearheading technological innovation at WarP Computer Club"
     },
     {
@@ -150,11 +144,8 @@ const Members = () => {
       name: "Girisha Mehra",
       role: "Vice President",
       year: "11th Grade",
-      skills: ["Frontend Development", "UI/UX Design", "Project Management"],
+      skills: ["Photographer", "Photo Editor", "Database Manager"],
       image: "./GIRISHA.jpeg",
-      github: "girishamehra",
-      linkedin: "girisha-mehra",
-      email: "girisha@school.edu",
       bio: "Strategic director driving club initiatives and fostering tech excellence"
     },
     {
@@ -162,11 +153,8 @@ const Members = () => {
       name: "Aayan Ahmed War",
       role: "Vice President",
       year: "11th Grade",
-      skills: ["Machine Learning", "Data Science", "Research"],
+      skills: ["Python Programmer", "Database Manager"],
       image: "",
-      github: "aayanawar",
-      linkedin: "aayan-ahmed-war",
-      email: "aayan@school.edu",
       bio: "Strategic director driving club initiatives and fostering tech excellence"
     },
     {
@@ -174,11 +162,8 @@ const Members = () => {
       name: "Ayaan Ali",
       role: "Senior Executive",
       year: "12th Grade",
-      skills: ["Cybersecurity", "Ethical Hacking", "Network Security"],
+      skills: ["Videographer", "Video Editor", "VFX Artist", "Designer"],
       image: "",
-      github: "ayaanali",
-      linkedin: "ayaan-ali-security",
-      email: "ayaan@school.edu",
       bio: "Experienced leader managing key technical projects and club operations"
     },
     {
@@ -186,11 +171,8 @@ const Members = () => {
       name: "Rishit Uppal",
       role: "Senior Executive",
       year: "12th Grade",
-      skills: ["DevOps", "Cloud Computing", "Automation"],
+      skills: ["Python Programmer", "Casual Gamer"],
       image: "",
-      github: "rishituppal",
-      linkedin: "rishit-uppal",
-      email: "rishit@school.edu",
       bio: "Experienced leader managing key technical projects and club operations"
     },
     {
@@ -198,11 +180,8 @@ const Members = () => {
       name: "Ansh Mittal",
       role: "Executive",
       year: "11th Grade",
-      skills: ["Web Development", "Mobile Apps", "Game Development"],
+      skills: ["Data Analyst", "Scratch"],
       image: "./lovable-uploads/b24d5471-53ab-452e-aed8-2380f9f40170.png",
-      github: "anshmittal",
-      linkedin: "ansh-mittal",
-      email: "ansh@school.edu",
       bio: "Dedicated team lead implementing club initiatives and technical solutions"
     },
     {
@@ -210,11 +189,8 @@ const Members = () => {
       name: "Kunal Kachhawa",
       role: "Executive",
       year: "11th Grade",
-      skills: ["Data Analytics", "Python", "Database Management"],
+      skills: ["Game Developer", "Gamer"],
       image: "./lovable-uploads/e78ea682-30d2-42a1-aa04-1cbd5ec7efcd.png",
-      github: "kunalkachhawa",
-      linkedin: "kunal-kachhawa",
-      email: "kunal@school.edu",
       bio: "Dedicated team lead implementing club initiatives and technical solutions"
     }
   ];
@@ -349,30 +325,6 @@ const Members = () => {
                       </div>
                     </div>
                     
-                    <div className="flex gap-3 flex-shrink-0 pt-2">
-                      <a 
-                        href={`https://github.com/${member.github}`}
-                        className="text-muted-foreground hover:text-primary transition-colors"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Github size={16} />
-                      </a>
-                      <a 
-                        href={`https://linkedin.com/in/${member.linkedin}`}
-                        className="text-muted-foreground hover:text-secondary transition-colors"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Linkedin size={16} />
-                      </a>
-                      <a 
-                        href={`mailto:${member.email}`}
-                        className="text-muted-foreground hover:text-accent transition-colors"
-                      >
-                        <Mail size={16} />
-                      </a>
-                    </div>
                   </CardContent>
                 </Card>
               ))}
