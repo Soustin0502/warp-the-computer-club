@@ -154,7 +154,7 @@ const Members = () => {
       role: "Vice President",
       year: "11th Grade",
       skills: ["Python Programmer", "Database Manager"],
-      image: "./lovable-uploads/ec9f9199-9a71-4df4-be72-f900e77cf9db.png",
+      image: "./AAYAN_AHMED.png",
       bio: "Strategic director driving club initiatives and fostering tech excellence"
     },
     {
@@ -163,7 +163,7 @@ const Members = () => {
       role: "Senior Executive",
       year: "12th Grade",
       skills: ["Videographer", "Video Editor", "VFX Artist", "Designer"],
-      image: "./lovable-uploads/864afdcb-d883-473c-8dd4-900f4c95a220.png",
+      image: "./AYAAN_ALI.png",
       bio: "Experienced leader managing key technical projects and club operations"
     },
     {
